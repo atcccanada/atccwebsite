@@ -1,0 +1,47 @@
+<%- include('partials/header', { title: 'ATCC Events' }) %>
+
+<%- include('partials/navbar', { page: 'events' }) %>
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center">
+        <h1 class="display-4 text-white animated slideInDown mb-4">Events</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Events</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <!-- <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3"></div> -->
+            <h1 class="display-6 mb-5">Participate with us</h1>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item bg-white text-center h-100 p-4 p-xl-5">
+                    <img class="img-fluid mb-4" src="/img/icon-1.png" alt="">
+                    <h4 class="mb-3">Meet and Greet</h4>
+                    <p class="mb-4">We've got some seriously exciting news for you. Save the date, June 3, 2023, because we're throwing the most fun networking party ever! Get ready for an epic day of networking, chatting, fun games, and non-stop action, including networking sessions, awesome games, open mic and pure relaxation at a local park.
+                    </p>
+                    <a class="btn btn-outline-primary px-3" href="/specific-event">
+                        Read More
+                        <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                            <i class="fa fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+
+<%- include('partials/footer') %>
