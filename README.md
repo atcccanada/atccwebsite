@@ -51,17 +51,20 @@ The official website for the Association of Tamil Canadian Community (ATCC), a n
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone [repository-url]
    cd atccwebsite
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -71,6 +74,7 @@ The official website for the Association of Tamil Canadian Community (ATCC), a n
 ### Production
 
 To run in production mode:
+
 ```bash
 npm start
 ```
@@ -134,17 +138,20 @@ atccwebsite/
 This project includes comprehensive GitHub Actions workflows:
 
 ### 🔄 Continuous Integration (`ci.yml`)
+
 - **Multi-Node Testing**: Tests on Node.js 16.x, 18.x, and 20.x
 - **Security Auditing**: npm audit for vulnerability detection
 - **Automated Deployment**: Ready for production deployment
 - **Triggers**: Push to main/develop, Pull Requests
 
 ### 🔒 Security Analysis (`codeql.yml`)
+
 - **CodeQL Scanning**: Automated security vulnerability detection
 - **Weekly Schedule**: Runs every Monday
 - **JavaScript Analysis**: Comprehensive code security review
 
 ### 📦 Dependency Management (`dependency-update.yml`)
+
 - **Automated Updates**: Weekly dependency updates
 - **Pull Request Creation**: Automatic PRs for dependency updates
 - **Testing Integration**: Runs tests before creating PRs
@@ -162,6 +169,7 @@ This project includes comprehensive GitHub Actions workflows:
 ## Environment Configuration
 
 Create a `.env` file for environment variables (not tracked in git):
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -174,19 +182,10 @@ NODE_ENV=development
 - Ensure responsive design compatibility
 - Test on multiple browsers and devices
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
-
-## Author
-
-**Sylvester Francis**
-- GitHub: [@sylvesterfrancis](https://github.com/sylvesterfrancis)
-
 ## Contact
 
 - **Organization**: Association of Tamil Canadian Community (ATCC)
-- **Email**: reachatcc@gmail.com
+- **Email**: <reachatcc@gmail.com>
 - **Instagram**: [@atcc.ca](https://www.instagram.com/atcc.ca/)
 - **Facebook**: [ATCC Canada](https://www.facebook.com/atccc.ca/)
 - **LinkedIn**: [ATCC LinkedIn](https://www.linkedin.com/company/94783062)
