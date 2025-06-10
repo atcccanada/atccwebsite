@@ -166,6 +166,85 @@ This project includes comprehensive GitHub Actions workflows:
 6. **Push**: Push to your forked repository
 7. **Pull Request**: Create a PR to the main repository
 
+## Directions to Developers (Git command reference)
+
+The following steps shows how to:
+
+- Create a feature branch from `main`
+- Add and commit changes
+- Push to GitHub
+- Open a Pull Request (PR)
+- Merge it back to `main`
+
+---
+
+## ✅ 1. Checkout Latest `main`
+
+```bash
+git checkout main
+git pull origin main
+```
+
+---
+
+## ✅ 2. Create a New Feature Branch
+
+```bash
+git checkout -b feature-branch
+```
+
+Replace `feature-branch` with a descriptive name (e.g., `fix-login-error`, `add-user-api`).
+
+---
+
+## ✅ 3. Add or Modify Files
+
+Create or change your files, then:
+
+```bash
+git add .
+git commit -m "Describe what you did"
+```
+
+---
+
+## ✅ 4. Push Your Feature Branch
+
+```bash
+git push origin feature-branch
+```
+
+---
+
+## ✅ 5. Create a Pull Request (PR)
+
+Go to your GitHub repo:
+
+- Click **"Compare & pull request"**
+- Base branch: `main`
+- Compare branch: `feature-branch`
+- Add title and description
+- Click **"Create pull request"**
+
+---
+
+## ✅ 6. Merge the Pull Request
+
+Once approved:
+
+```bash
+git checkout main
+git pull origin main
+git merge feature-branch  
+git push origin main
+```
+
+---
+
+## ✅ Done
+
+You’ve successfully created a PR and merged it into `main`
+
 ## Environment Configuration
 
 Create a `.env` file for environment variables (not tracked in git):
