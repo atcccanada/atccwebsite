@@ -9,10 +9,10 @@
   - [ ] Mission & Vision section
   - [ ] Testimonials carousel (BODs, leads, volunteers)
 
-- [ ] **About Us Page**
-  - [ ] About ATCC text section
-  - [ ] Team grid (with photos, names, roles, bios)
-  - [ ] Sponsor section (logos + external links)
+- [x] **About Us Page**
+  - [x] About ATCC text section
+  - [x] Team grid (with photos, names, roles, bios)
+  - [x] Sponsor section (logos + external links)
 
 - [ ] **Contact Us Page**
   - [ ] General Contact form (redirect submissions to: <info@atcccanada.ca>)
