@@ -1,4 +1,4 @@
-<%- include('partials/header', { title: 'ATCC - Contact' }) %>
+<%- include('partials/header', { title: 'ATCC - Contact Us' }) %>
 
 <%- include('partials/navbar', { page: 'contact' }) %>
 
@@ -9,7 +9,6 @@
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
                 <li class="breadcrumb-item text-primary active" aria-current="page">Contact Us</li>
             </ol>
         </nav>
@@ -17,64 +16,327 @@
 </div>
 <!-- Page Header End -->
 
-<!-- Contact Start -->
+<!-- Contact Info Section Start -->
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Contact Us</div>
-                <h1 class="display-6 mb-5">If You Have Any Query, Please Contact Us</h1>
-                <!-- <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p> -->
-                <form>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                <label for="name">Your Name</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                <label for="email">Your Email</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                <label for="subject">Subject</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                <label for="message">Message</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary py-2 px-3 me-3">
-                                Send Message
-                                <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
-                                    <i class="fa fa-arrow-right"></i>
-                                </div>
-                            </button>
-                        </div>
+        <div class="row g-5 mb-5">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-light rounded p-4 text-center h-100">
+                    <div class="btn-lg-square bg-primary text-white rounded-circle mx-auto mb-4">
+                        <i class="fa fa-envelope fa-2x"></i>
                     </div>
-                </form>
+                    <h4 class="mb-3">Email Us</h4>
+                    <p class="mb-2">For general inquiries and information</p>
+                    <a href="mailto:info@atcccanada.ca" class="text-primary fw-bold">info@atcccanada.ca</a>
+                </div>
             </div>
-            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 450px;">
-                <div class="position-relative rounded overflow-hidden h-100">
-                    <iframe class="position-relative w-100 h-100"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                    frameborder="0" style="min-height: 450px; border:0;" allowfullscreen="" aria-hidden="false"
-                    tabindex="0"></iframe>
-                    
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-light rounded p-4 text-center h-100">
+                    <div class="btn-lg-square bg-primary text-white rounded-circle mx-auto mb-4">
+                        <i class="fa fa-users fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">Join Our Community</h4>
+                    <p class="mb-2">Connect with 5,000+ Tamil Canadians</p>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-square btn-primary mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href="#"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="bg-light rounded p-4 text-center h-100">
+                    <div class="btn-lg-square bg-primary text-white rounded-circle mx-auto mb-4">
+                        <i class="fa fa-map-marker-alt fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">Our Reach</h4>
+                    <p class="mb-2">Active across all Canadian provinces</p>
+                    <span class="text-primary fw-bold">Coast to Coast</span>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-<!-- Contact End -->
+<!-- Contact Info Section End -->
+
+<!-- Contact Forms Section Start -->
+<div class="container-xxl py-5 bg-light">
+    <div class="container">
+        <div class="row g-5">
+            <!-- General Contact Form -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-white rounded p-5 shadow-sm h-100">
+                    <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">General Inquiry</div>
+                    <h3 class="mb-4">Send us a Message</h3>
+                    <p class="mb-4">Have questions about our community, events, or services? We'd love to hear from you!</p>
+                    <form action="mailto:info@atcccanada.ca" method="post" enctype="text/plain">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name" required>
+                                    <label for="contactName">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="contactEmail" name="email" placeholder="Your Email" required>
+                                    <label for="contactEmail">Your Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="contactSubject" name="subject" placeholder="Subject" required>
+                                    <label for="contactSubject">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Your message here" id="contactMessage" name="message" style="height: 120px" required></textarea>
+                                    <label for="contactMessage">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary py-3 px-4" type="submit">
+                                    Send Message
+                                    <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Volunteer Registration Form -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-white rounded p-5 shadow-sm h-100">
+                    <div class="d-inline-block rounded-pill bg-primary text-white py-1 px-3 mb-3">Volunteer Registration</div>
+                    <h3 class="mb-4">Join Our Team</h3>
+                    <p class="mb-4">Ready to make a difference? Join our 140+ volunteers and help build a stronger Tamil community!</p>
+                    <form action="mailto:info@atcccanada.ca" method="post" enctype="text/plain">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="volunteerName" name="name" placeholder="Full Name" required>
+                                    <label for="volunteerName">Full Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="volunteerEmail" name="email" placeholder="Email Address" required>
+                                    <label for="volunteerEmail">Email Address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="volunteerPhone" name="phone" placeholder="Phone Number">
+                                    <label for="volunteerPhone">Phone Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="volunteerProvince" name="province" required>
+                                        <option value="">Select Province</option>
+                                        <option value="ON">Ontario</option>
+                                        <option value="BC">British Columbia</option>
+                                        <option value="AB">Alberta</option>
+                                        <option value="QC">Quebec</option>
+                                        <option value="MB">Manitoba</option>
+                                        <option value="SK">Saskatchewan</option>
+                                        <option value="NS">Nova Scotia</option>
+                                        <option value="NB">New Brunswick</option>
+                                        <option value="NL">Newfoundland and Labrador</option>
+                                        <option value="PE">Prince Edward Island</option>
+                                        <option value="NT">Northwest Territories</option>
+                                        <option value="NU">Nunavut</option>
+                                        <option value="YT">Yukon</option>
+                                    </select>
+                                    <label for="volunteerProvince">Province</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-select" id="volunteerInterest" name="interest" required>
+                                        <option value="">Select Area of Interest</option>
+                                        <option value="cultural-events">Cultural & Event Management</option>
+                                        <option value="community-outreach">Membership & Community Outreach</option>
+                                        <option value="legal-advocacy">Legal and Advocacy</option>
+                                        <option value="fundraising">Fundraising and Sponsorship</option>
+                                        <option value="social-media">Social Media & Marketing</option>
+                                        <option value="it-technology">IT & Technology</option>
+                                        <option value="education-career">Women, Education, & Career Development</option>
+                                        <option value="sports-recreation">Sports & Recreation</option>
+                                        <option value="crisis-response">Crisis and Emergency Response</option>
+                                        <option value="business-support">Entrepreneurship & Business Support</option>
+                                        <option value="volunteer-coordination">Volunteer Coordination & Training</option>
+                                        <option value="administration">Administration</option>
+                                        <option value="accounting">Accounting</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <label for="volunteerInterest">Area of Interest</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Tell us about your experience and motivation" id="volunteerMessage" name="message" style="height: 80px"></textarea>
+                                    <label for="volunteerMessage">Experience & Motivation (Optional)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary py-3 px-4" type="submit">
+                                    Register as Volunteer
+                                    <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Forms Section End -->
+
+<!-- FAQ Section Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">FAQ</div>
+            <h1 class="display-6 mb-4">Frequently Asked Questions</h1>
+            <p>Find answers to common questions about ATCC and our community</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="accordion wow fadeInUp" data-wow-delay="0.1s" id="faqAccordion">
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                                What is ATCC and what does it stand for?
+                            </button>
+                        </h2>
+                        <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                ATCC stands for Association of Tamil Canadian Community. We are a nonprofit, volunteer-led organization founded in May 2023, dedicated to uniting and empowering the Tamil community across Canada through cultural preservation, community support, and meaningful events.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                How can I become a volunteer with ATCC?
+                            </button>
+                        </h2>
+                        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                You can register as a volunteer by filling out the volunteer registration form on this page. We have 13 different teams covering areas like event management, social media, IT, legal advocacy, and more. Choose the area that interests you most, and we'll connect you with the relevant team lead.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                What types of events does ATCC organize?
+                            </button>
+                        </h2>
+                        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                ATCC organizes a wide variety of events including cultural celebrations, career fairs, networking meetups, sports tournaments, family BBQs, and educational workshops. We've hosted events like IPL screenings, Ramadan iftars, women's empowerment webinars, and partnered with major concerts like Yuvan Live and Bharadwaj Concert.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                Is ATCC only for people from Tamil Nadu?
+                            </button>
+                        </h2>
+                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                While ATCC was founded to serve the Tamil community from Tamil Nadu, we welcome all Tamil speakers and anyone interested in Tamil culture. Our events and programs are open to families, students, professionals, newcomers, and anyone who wants to be part of our vibrant community.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                How can I stay updated on ATCC events and activities?
+                            </button>
+                        </h2>
+                        <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Follow us on our social media platforms: Facebook, Instagram (5,000+ followers), WhatsApp groups organized by city/province, and YouTube. You can also subscribe to our newsletter and join our city-specific WhatsApp groups to get real-time updates about events in your area.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                                What support does ATCC provide to newcomers?
+                            </button>
+                        </h2>
+                        <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="faq6" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We provide comprehensive newcomer support including settlement assistance, networking opportunities, accommodation help, legal resources, career guidance, and connections to local Tamil community groups. Our volunteers help newcomers navigate the Canadian system and find their place in the community.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq7">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                                Are ATCC events free to attend?
+                            </button>
+                        </h2>
+                        <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="faq7" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Most of our community events are free or offered at minimal cost to ensure accessibility for all community members. Some larger events or workshops may have a small registration fee to cover costs. We always strive to keep our events affordable and inclusive for everyone.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq8">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                                How can businesses partner with ATCC?
+                            </button>
+                        </h2>
+                        <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="faq8" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We welcome partnerships with businesses that share our vision of empowering the Tamil community. We offer sponsorship opportunities for events, business directory listings, networking opportunities, and promotional platforms. Contact our Fundraising and Sponsorship team for partnership opportunities.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq9">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                                What is the time commitment for volunteers?
+                            </button>
+                        </h2>
+                        <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="faq9" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Volunteer commitment is flexible and depends on your availability and chosen role. Some volunteers contribute a few hours monthly, while others are more actively involved in specific projects or events. We appreciate any level of contribution and work with your schedule to make volunteering manageable and enjoyable.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faq10">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                                How can I suggest an event or initiative for ATCC?
+                            </button>
+                        </h2>
+                        <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="faq10" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We love hearing ideas from our community! You can suggest events or initiatives by using our general contact form, reaching out to our Cultural & Event Management team, or contacting us directly at info@atcccanada.ca. We review all suggestions and work to implement ideas that align with our mission and community needs.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FAQ Section End -->
 
 <%- include('partials/footer') %>
