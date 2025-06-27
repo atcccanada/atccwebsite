@@ -19,6 +19,7 @@
   - [x] Volunteers Registration Page
   - [x] FAQ section (10 questions, collapsible/accordion style)
 
+
 ### Global Components
 
 - [ ] **Header (across all pages)**

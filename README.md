@@ -280,6 +280,36 @@ NODE_ENV=development
 - **Carousel**: [Owl Carousel](https://owlcarousel2.github.io/OwlCarousel2/)
 - **Framework**: [Bootstrap](https://getbootstrap.com/)
 
+## 👥 Code Owners
+
+This repository uses a [`CODEOWNERS`](./.github/CODEOWNERS) file to enforce mandatory code reviews for specific files and directories.
+
+### 🔒 Purpose
+
+- Automatically request reviews from the appropriate owners when a pull request is opened.
+- Enforce review from specific individuals or teams before merging.
+
+### ✅ Current Code Owners
+
+| Path          | Code Owners                                                                 |
+|---------------|------------------------------------------------------------------------------|
+| `*`           | [@sylvester-francis](https://github.com/sylvester-francis),[@shiva-shankari-rajaram](https://github.com/shiva-shankari-rajaram),[@atcccanada](https://github.com/atcccanada) |
+
+### 🛠️ How It Works
+
+- The `CODEOWNERS` file is located in `.github/CODEOWNERS`.
+- Any pull request that changes a file matching a path in `CODEOWNERS` will automatically request reviews from the listed users.
+- If branch protection rules are enabled (e.g., "Require review from Code Owners"), at least one listed owner (who is not the PR author) must approve the changes.
+
+### 🚫 Important Notes
+
+- **You cannot approve your own pull request**, even if you're a listed code owner.
+- Make sure there is **at least one other code owner** with write access who can approve your PRs.
+
+### 📚 Learn More
+
+- [GitHub Docs: About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+
 ## Version History
 
 - **v1.0.0** - Initial release with Node.js/Express migration
@@ -289,5 +319,4 @@ NODE_ENV=development
   - Added comprehensive documentation
 
 ---
-
 **Note**: This project has been completely refactored from a static HTML website to a modern Node.js/Express application with EJS templating, providing better maintainability, scalability, and development experience.
