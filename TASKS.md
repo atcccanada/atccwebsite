@@ -14,10 +14,10 @@
   - [x] Team grid (with photos, names, roles, bios)
   - [x] Sponsor section (logos + external links)
 
-- [ ] **Contact Us Page**
-  - [ ] General Contact form (redirect submissions to: <info@atcccanada.ca>)
-  - [ ] Volunteers Registration Page
-  - [ ] FAQ section (10 questions, collapsible/accordion style)
+- [x] **Contact Us Page**
+  - [x] General Contact form (redirect submissions to: <info@atcccanada.ca>)
+  - [x] Volunteers Registration Page
+  - [x] FAQ section (10 questions, collapsible/accordion style)
 
 ### Global Components
 
