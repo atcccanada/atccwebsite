@@ -19,6 +19,7 @@
   - [x] Volunteers Registration Page
   - [x] FAQ section (10 questions, collapsible/accordion style)
 
+
 ### Global Components
 
 - [x] **Header (across all pages)**
@@ -31,6 +32,7 @@
   - [x] Quick Links
   - [x] Email (<info@atcccanada.ca>)
   - [x] Social media links
+
 
 ## Medium Priority Tasks
 
