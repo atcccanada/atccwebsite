@@ -1,22 +1,74 @@
-<%- include('partials/header') %>
+<%- include('partials/header', { title: 'ATCC - Home' }) %>
 
-<%- include('partials/navbar') %>
+<%- include('partials/navbar', { page: 'home' }) %>
 
-    <!-- Carousel Start -->
+    <!-- Banner Slider Start -->
     <div class="container-fluid p-0 mb-5">
-        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="/img/pexels-ron-lach-9543414.jpg" alt="Image">
-                    <div class="carousel-caption">
+                    <img class="w-100" src="/img/DSC_6688-banner.jpeg" alt="ATCC Community">
+                    <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div class="col-lg-7 pt-5">
-                                    <h1 class="display-4 text-white mb-3 animated slideInDown">Association of Tamil Canadian Community</h1>
-                                    <p class="fs-5 text-white-50 mb-5 animated slideInDown">Welcome to the Association of Tamil Community in Canada ATCC, your home for all things related to Tamil culture and community. We are a non-profit organization dedicated to promoting the interests of Tamil people living in Canada and fostering a sense of unity and belonging within the community.</p>
-                                    <a class="btn btn-primary py-2 px-3 animated slideInDown" href="">
-                                        VOLUNTEER WITH US
-                                    </a>
+                                <div class="col-lg-8 text-center">
+                                    <h1 class="display-3 text-white mb-4 animated slideInDown">Building Unity Across Canada</h1>
+                                    <p class="fs-4 text-white-50 mb-5 animated slideInDown">Join 140+ volunteers across 13 teams empowering the Tamil Canadian community through culture, opportunities, and meaningful connections.</p>
+                                    <div class="animated slideInUp">
+                                        <a class="btn btn-primary btn-lg py-3 px-5 me-3" href="/contact">
+                                            <i class="fa fa-heart me-2"></i>Volunteer Registration
+                                        </a>
+                                        <a class="btn btn-outline-light btn-lg py-3 px-5" href="/about">
+                                            <i class="fa fa-info-circle me-2"></i>Learn More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="/img/event1.jpeg" alt="ATCC Events">
+                    <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8 text-center">
+                                    <h1 class="display-3 text-white mb-4 animated slideInDown">Celebrating Tamil Heritage</h1>
+                                    <p class="fs-4 text-white-50 mb-5 animated slideInDown">From cultural festivals to career fairs - discover events that bring our community together and celebrate our rich Tamil traditions.</p>
+                                    <div class="animated slideInUp">
+                                        <a class="btn btn-primary btn-lg py-3 px-5 me-3" href="/contact">
+                                            <i class="fa fa-heart me-2"></i>Volunteer Registration
+                                        </a>
+                                        <a class="btn btn-outline-light btn-lg py-3 px-5" href="/events">
+                                            <i class="fa fa-calendar me-2"></i>View Events
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="/img/Trudeau-with-Tamil-Canadians.jpeg" alt="Tamil Canadian Community">
+                    <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8 text-center">
+                                    <h1 class="display-3 text-white mb-4 animated slideInDown">Growing Together Since 2023</h1>
+                                    <p class="fs-4 text-white-50 mb-5 animated slideInDown">From 10 volunteers to 5,000+ community members - experience the power of Tamil unity across all Canadian provinces.</p>
+                                    <div class="animated slideInUp">
+                                        <a class="btn btn-primary btn-lg py-3 px-5 me-3" href="/contact">
+                                            <i class="fa fa-heart me-2"></i>Volunteer Registration
+                                        </a>
+                                        <a class="btn btn-outline-light btn-lg py-3 px-5" href="/membership">
+                                            <i class="fa fa-users me-2"></i>Join Community
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -33,36 +85,57 @@
             </button>
         </div>
     </div>
-    <!-- Carousel End -->
+    <!-- Banner Slider End -->
 
-    <!-- About Start -->
+    <!-- Mission & Vision Section Start -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="row g-5">
+            <div class="row g-5 align-items-center">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="position-relative overflow-hidden h-100" style="min-height: 400px;">
-                        <img class="position-absolute w-100 h-100 pt-5 pe-5" src="/img/pexels-rdne-stock-project-6646907.jpg" alt="" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100 rounded" src="/img/istockphoto-1226340114-170667a.jpeg" alt="Tamil Community" style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="h-100">
                         <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Our Mission</div>
-                        <h1 class="display-6 mb-5">We Support Tamil People in Canada</h1>
+                        <h1 class="display-6 mb-4">Building a Connected Tamil Community</h1>
                         <div class="bg-light border-bottom border-5 border-primary rounded p-4 mb-4">
-                            <p class="text-dark mb-2">Our goal is to create a welcoming and supportive community for Tamils living in Canada, and to provide resources and opportunities for personal and professional growth. We believe that by working together, we can build a stronger community and create a better future for ourselves and our families.</p>
-                            <span class="text-primary">Director</span>
+                            <h5 class="text-primary mb-3">Mission Statement</h5>
+                            <p class="text-dark mb-0">To build a connected, empowered Tamil community in Canada by promoting culture, creating opportunities, and supporting one another through meaningful events, partnerships, and volunteerism.</p>
                         </div>
-                        <p class="mb-5">At the Association of Tamil Nadu Community in Canada, we are dedicated to community development, networking, and promoting opportunities for personal and professional growth. We are a non-profit organization run by a team of passionate volunteers who are committed to making a positive impact on the lives of Tamils in Canada.</p>
-                        <a class="btn btn-primary py-2 px-3 me-3" href="/about">
-                            Learn More about us
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3">Our Vision</h5>
+                            <p class="mb-0">A Canada where Tamil voices are heard, Tamil youth thrive, and Tamil traditions are celebrated and carried forward across all provinces - creating a lasting legacy of unity and progress.</p>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="btn-sm-square bg-primary text-white rounded-circle me-3">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <span>140+ Active Volunteers</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="btn-sm-square bg-primary text-white rounded-circle me-3">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                    <span>5,000+ Community Members</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary py-3 px-4 me-3" href="/about">
+                            Learn About ATCC
                             <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
                                 <i class="fa fa-arrow-right"></i>
                             </div>
                         </a>
-                        <a class="btn btn-outline-primary py-2 px-3" href="/contact">
-                            Contact Us
+                        <a class="btn btn-outline-primary py-3 px-4" href="/contact">
+                            Get Involved
                             <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
-                                <i class="fa fa-arrow-right"></i>
+                                <i class="fa fa-heart"></i>
                             </div>
                         </a>
                     </div>
@@ -70,7 +143,7 @@
             </div>
         </div>
     </div>
-    <!-- About End -->
+    <!-- Mission & Vision Section End -->
 
     <!-- Causes Start -->
     <div class="container-xxl bg-light my-5 py-5">
@@ -194,41 +267,66 @@
     </div>
     <!-- Service End -->
 
-    <!-- Volunteers -->
-    <div class="container-xxl py-5">
+    <!-- Testimonials Carousel Start -->
+    <div class="container-xxl py-5 bg-light">
         <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Get Involved</div>
-                <h1 class="display-6 mb-5">Volunteers</h1>
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Community Voices</div>
+                <h1 class="display-6 mb-4">Hear From Our Leaders & Volunteers</h1>
+                <p>Listen to the inspiring stories from our Board of Directors, team leads, and dedicated volunteers who make ATCC's mission possible.</p>
             </div>
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
                 <div class="testimonial-item text-center">
-                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/testimonial-1.jpg" style="width: 100px; height: 100px;">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/team-1.jpg" style="width: 120px; height: 120px;">
                     <div class="testimonial-text rounded text-center p-4">
-                        <p>I'm very glad to be a part of the team.</p>
-                        <h5 class="mb-1">Volunteer</h5>
-                        <span class="fst-italic">Rizwana</span>
+                        <p class="mb-4">"ATCC has grown from a simple idea to a movement that unites Tamils across Canada. Seeing our community come together to support newcomers, celebrate culture, and create opportunities fills my heart with pride. Together, we're building something truly special."</p>
+                        <h5 class="mb-1 text-primary">Rizwana</h5>
+                        <span class="fst-italic">President & Co-Founder</span>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/testimonial-2.jpg" style="width: 100px; height: 100px;">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/team-2.jpg" style="width: 120px; height: 120px;">
                     <div class="testimonial-text rounded text-center p-4">
-                        <p>I'm very glad to be a part of the team.</p>
-                        <h5 class="mb-1">Volunteer</h5>
-                        <span class="fst-italic">Paveen</span>
+                        <p class="mb-4">"From day one, our vision was to create sustainable programs that would benefit the Tamil community for generations. With 140+ volunteers working across 13 teams, we're not just organizing events - we're building a legacy of unity and empowerment."</p>
+                        <h5 class="mb-1 text-primary">Paveen Raj</h5>
+                        <span class="fst-italic">Vice President & Co-Founder</span>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/testimonial-3.jpg" style="width: 100px; height: 100px;">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/team-3.jpg" style="width: 120px; height: 120px;">
                     <div class="testimonial-text rounded text-center p-4">
-                        <p>I'm very glad to be a part of the team.</p>
-                        <h5 class="mb-1">Volunteer</h5>
-                        <span class="fst-italic">Vicky</span>
+                        <p class="mb-4">"Being part of ATCC's founding team has been incredibly rewarding. We've watched our community grow from 10 volunteers to over 5,000 connected members. The impact we're making in supporting newcomers and preserving Tamil culture is beyond what we imagined."</p>
+                        <h5 class="mb-1 text-primary">Vignesh Raghuraman</h5>
+                        <span class="fst-italic">Board of Directors</span>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/team-4.jpg" style="width: 120px; height: 120px;">
+                    <div class="testimonial-text rounded text-center p-4">
+                        <p class="mb-4">"Volunteering with ATCC has connected me with like-minded individuals who share the same passion for community building. Through our events and programs, I've seen firsthand how we're making a real difference in people's lives across Canada."</p>
+                        <h5 class="mb-1 text-primary">Monica Hariraj Swamy</h5>
+                        <span class="fst-italic">Board of Directors</span>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/testimonial-1.jpg" style="width: 120px; height: 120px;">
+                    <div class="testimonial-text rounded text-center p-4">
+                        <p class="mb-4">"As a team lead, I've had the privilege of coordinating with amazing volunteers who dedicate their time and energy to our community. The collaborative spirit and dedication I see every day reminds me why ATCC's mission is so important."</p>
+                        <h5 class="mb-1 text-primary">Team Lead</h5>
+                        <span class="fst-italic">Volunteer Coordinator</span>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="/img/testimonial-2.jpg" style="width: 120px; height: 120px;">
+                    <div class="testimonial-text rounded text-center p-4">
+                        <p class="mb-4">"Joining ATCC as a newcomer was one of the best decisions I made in Canada. The support, networking opportunities, and sense of belonging I found here helped me settle into my new life. Now I volunteer to help others have the same experience."</p>
+                        <h5 class="mb-1 text-primary">Community Volunteer</h5>
+                        <span class="fst-italic">Newcomer Support Team</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Testimonial End -->
+    <!-- Testimonials Carousel End -->
 
 <%- include('partials/footer') %>

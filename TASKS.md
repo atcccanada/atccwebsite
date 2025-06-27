@@ -4,10 +4,10 @@
 
 ### Core Page Development
 
-- [ ] **Home Page**
-  - [ ] Banner image slider with CTA buttons (Volunteers Registration)
-  - [ ] Mission & Vision section
-  - [ ] Testimonials carousel (BODs, leads, volunteers)
+- [x] **Home Page**
+  - [x] Banner image slider with CTA buttons (Volunteers Registration)
+  - [x] Mission & Vision section
+  - [x] Testimonials carousel (BODs, leads, volunteers)
 
 - [x] **About Us Page**
   - [x] About ATCC text section
@@ -22,16 +22,17 @@
 
 ### Global Components
 
-- [ ] **Header (across all pages)**
-  - [ ] Menu: Home | About | Events | Blog | Directory | Contact | Membership
-  - [ ] Login/Signup option
-  - [ ] Volunteers Registration
-  - [ ] Social media icons (FB, IG, WhatsApp, YouTube)
+- [x] **Header (across all pages)**
+  - [x] Menu: Home | About | Events | Blog | Directory | Contact | Membership
+  - [x] Login/Signup option
+  - [x] Volunteers Registration
+  - [x] Social media icons (FB, IG, WhatsApp, YouTube)
 
-- [ ] **Footer (across all pages)**
-  - [ ] Quick Links
-  - [ ] Email (<info@atcccanada.ca>)
-  - [ ] Social media links
+- [x] **Footer (across all pages)**
+  - [x] Quick Links
+  - [x] Email (<info@atcccanada.ca>)
+  - [x] Social media links
+
 
 ## Medium Priority Tasks
 
