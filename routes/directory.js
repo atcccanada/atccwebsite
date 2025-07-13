@@ -1,6 +1,7 @@
 const express = require('express');
 const Business = require('../models/Business');
 const { requireAuth, requireRole } = require('../middleware/auth');
+const { validateObjectId, createSafeRegex } = require('../middleware/validation');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -16,7 +17,10 @@ router.get('/', async (req, res) => {
         }
         
         if (req.query.city && req.query.city !== '') {
-            query['location.city'] = new RegExp(req.query.city, 'i');
+            const safeRegex = createSafeRegex(req.query.city);
+            if (safeRegex) {
+                query['location.city'] = safeRegex;
+            }
         }
         
         if (req.query.province && req.query.province !== '') {
@@ -71,7 +75,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', validateObjectId('id'), async (req, res) => {
     try {
         const business = await Business.findOne({ _id: req.params.id, isActive: true });
 
@@ -263,35 +267,54 @@ router.get('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res)
 
 router.post('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res) => {
     try {
-        const businessData = {
-            ...req.body,
-            ownerName: {
-                firstName: req.body.ownerFirstName,
-                lastName: req.body.ownerLastName
-            },
-            contactInfo: {
-                phone: req.body.phone,
-                email: req.body.email,
-                website: req.body.website
-            },
-            location: {
-                address: req.body.address,
-                city: req.body.city,
-                province: req.body.province,
-                postalCode: req.body.postalCode
-            },
-            services: req.body.services ? req.body.services.split(',').map(s => s.trim()) : [],
-            socialMedia: {
-                facebook: req.body.facebook,
-                instagram: req.body.instagram,
-                twitter: req.body.twitter,
-                linkedin: req.body.linkedin
-            }
-        };
-
+        // Explicitly extract and validate fields to prevent injection
+        const businessName = req.body.businessName;
+        const description = req.body.description;
+        const category = req.body.category;
+        const ownerFirstName = req.body.ownerFirstName;
+        const ownerLastName = req.body.ownerLastName;
+        const phone = req.body.phone;
+        const email = req.body.email;
+        const website = req.body.website;
+        const address = req.body.address;
+        const city = req.body.city;
+        const province = req.body.province;
+        const postalCode = req.body.postalCode;
+        const services = req.body.services;
+        const facebook = req.body.facebook;
+        const instagram = req.body.instagram;
+        const twitter = req.body.twitter;
+        const linkedin = req.body.linkedin;
+        
+        // Type validation
+        if (typeof businessName !== 'string' || typeof description !== 'string') {
+            return res.status(400).redirect('/directory/admin/manage');
+        }
+        
+        // Use $set operator with explicit field updates for security
         const business = await Business.findByIdAndUpdate(
             req.params.id,
-            businessData,
+            {
+                $set: {
+                    businessName: businessName,
+                    description: description,
+                    category: category,
+                    'ownerName.firstName': ownerFirstName,
+                    'ownerName.lastName': ownerLastName,
+                    'contactInfo.phone': phone,
+                    'contactInfo.email': email,
+                    'contactInfo.website': website,
+                    'location.address': address,
+                    'location.city': city,
+                    'location.province': province,
+                    'location.postalCode': postalCode,
+                    services: services ? services.split(',').map(s => s.trim()) : [],
+                    'socialMedia.facebook': facebook,
+                    'socialMedia.instagram': instagram,
+                    'socialMedia.twitter': twitter,
+                    'socialMedia.linkedin': linkedin
+                }
+            },
             { new: true }
         );
 

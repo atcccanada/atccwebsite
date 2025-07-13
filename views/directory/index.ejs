@@ -100,7 +100,6 @@
                                             <th scope="col">Phone</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Location</th>
-                                            <th scope="col">Category</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -146,11 +145,6 @@
                                                     <small>
                                                         <%= business.location.city %>, <%= business.location.province %>
                                                     </small>
-                                                </td>
-                                                <td>
-                                                    <span class="badge bg-secondary">
-                                                        <%= business.category.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %>
-                                                    </span>
                                                 </td>
                                                 <td>
                                                     <div class="btn-group btn-group-sm">

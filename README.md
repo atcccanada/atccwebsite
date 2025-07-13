@@ -40,8 +40,10 @@ The official website for the **Association of Tamilnadu Canadian Community (ATCC
 - **EJS** - Templating engine
 - **bcryptjs** - Password hashing
 - **express-session** - Session management
+- **express-rate-limit** - Rate limiting and DoS protection
+- **csrf** - CSRF token protection
 - **nodemailer** - Email integration
-- **express-validator** - Input validation
+- **express-validator** - Input validation and sanitization
 
 ### **Frontend**
 - **Bootstrap 5** - CSS framework
@@ -99,6 +101,17 @@ The official website for the **Association of Tamilnadu Canadian Community (ATCC
 
 7. **Open browser:** `http://localhost:3000`
 
+### Railway.app Quick Deploy
+
+For one-click deployment to Railway:
+
+1. **Fork this repository**
+2. **Connect to Railway**: Visit [railway.app](https://railway.app) and connect your GitHub
+3. **Deploy**: Select the forked repository
+4. **Environment Variables**: Add required variables in Railway dashboard
+5. **Initial Setup**: Visit `/setup` with `ENABLE_SETUP=true` to configure admin and sample data
+6. **Secure**: Remove `ENABLE_SETUP` after setup is complete
+
 ## 📁 Project Structure
 
 ```
@@ -107,7 +120,10 @@ atccwebsite/
 │   ├── database.js          # MongoDB connection
 │   └── email.js             # Email configuration
 ├── middleware/
-│   └── auth.js              # Authentication middleware
+│   ├── auth.js              # Authentication middleware
+│   ├── validation.js        # Input validation & sanitization
+│   ├── rateLimiting.js      # Rate limiting configurations
+│   └── csrf.js              # CSRF token protection
 ├── models/
 │   ├── User.js              # User model with roles
 │   ├── Blog.js              # Blog posts
@@ -201,26 +217,68 @@ SMTP_FROM="ATCC Website" <noreply@atcccanada.ca>
 
 ## 🚀 Deployment
 
-### Production Setup
+### Railway.app Deployment (Recommended)
+1. **Connect Repository**: Link your GitHub repo to Railway
+2. **Environment Variables**: Set required environment variables in Railway dashboard
+3. **Initial Setup**: Visit `/setup` route with `ENABLE_SETUP=true` for first-time configuration
+4. **Security**: Remove `ENABLE_SETUP` variable after initial setup
+5. **Custom Domain**: Optional - configure custom domain in Railway settings
+
+### Manual Deployment
 1. Set environment to production
-2. Configure MongoDB Atlas
-3. Set up email service
-4. Deploy to hosting platform (Heroku, DigitalOcean, etc.)
+2. Configure MongoDB Atlas with proper IP whitelisting
+3. Set up email service (Gmail with app passwords recommended)
+4. Deploy to hosting platform (Railway, Heroku, DigitalOcean, etc.)
 
 ### CI/CD Pipeline
-- Automated testing on multiple Node.js versions
-- Security scanning with CodeQL
-- Automated dependency updates
-- Production deployment ready
+- **Security Scanning**: CodeQL v3 with security-extended queries
+- **Automated Testing**: Multiple Node.js versions
+- **Dependency Updates**: Automated security updates
+- **Static Analysis**: Comprehensive security vulnerability detection
 
 ## 🔒 Security Features
 
-- **Authentication**: bcryptjs password hashing
-- **Authorization**: Role-based access control
-- **Input Validation**: express-validator sanitization
-- **Session Management**: Secure session handling
-- **CSRF Protection**: Built-in protection
-- **SQL Injection Prevention**: MongoDB ODM protection
+### **Authentication & Authorization**
+- **Password Security**: bcryptjs hashing with salt rounds
+- **Role-Based Access**: Admin, Editor, Author, User roles
+- **Session Management**: Secure sessions with MongoDB storage
+- **Session Security**: HTTPOnly, Secure, SameSite cookie settings
+
+### **Input Validation & Sanitization**
+- **XSS Protection**: Escaped template rendering for user content
+- **NoSQL Injection Prevention**: ObjectId validation and operator filtering
+- **Input Sanitization**: Comprehensive request sanitization middleware
+- **MongoDB Protection**: Mongoose ODM with query validation
+
+### **Infrastructure Security**
+- **Environment Validation**: Required secrets in production
+- **CSRF Protection**: SameSite cookie policy
+- **Access Control**: Protected administrative routes
+- **Health Monitoring**: Dedicated health check endpoints
+
+### **Rate Limiting & DoS Protection**
+- **Authentication Rate Limiting**: 5 login attempts per 15 minutes
+- **Admin Operations**: 100 requests per 5 minutes for administrative functions
+- **Content Creation**: 10 requests per hour for blog/event/business creation
+- **Contact Forms**: 3 submissions per hour to prevent spam
+- **General Traffic**: 1000 requests per 15 minutes for normal browsing
+- **Brute Force Prevention**: Progressive delays and IP-based tracking
+
+### **Advanced Input Protection**
+- **Regex Injection Prevention**: Safe regex creation with character escaping
+- **Database Query Security**: Enhanced validation for user-controlled queries
+- **Input Length Limits**: Maximum input sizes to prevent buffer attacks
+- **Express Validator Integration**: Comprehensive server-side validation
+- **Error Handling**: Graceful validation error responses
+
+### **CodeQL Compliance & Security**
+- **CSRF Token Protection**: Comprehensive Cross-Site Request Forgery prevention
+- **Session Regeneration**: Secure session handling preventing fixation attacks
+- **Individual Field Validation**: Eliminated dangerous spread operators and destructuring
+- **Type Checking**: Runtime validation ensuring data type integrity
+- **HTML Entity Escaping**: Proper output encoding preventing script injection
+- **Database Query Hardening**: No user-controlled data flows directly to database
+- **Secure Coding Patterns**: Eliminated all vulnerable patterns identified by static analysis
 
 ## 📈 Performance Optimizations
 
@@ -276,7 +334,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## 🔖 Version
 
-**Current Version**: v2.0.0 - Complete CMS Implementation
+**Current Version**: v2.1.1 - CodeQL Security Compliance & CSRF Protection
 
 ---
 

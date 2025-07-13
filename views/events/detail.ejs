@@ -79,7 +79,7 @@
 
                         <div class="event-description">
                             <h5>About This Event</h5>
-                            <%- event.description.replace(/\n/g, '<br>') %>
+                            <%= event.description.replace(/\n/g, '<br>') %>
                         </div>
 
                         <% if (event.tags && event.tags.length > 0) { %>

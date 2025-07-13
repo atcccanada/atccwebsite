@@ -1,6 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { sendEmail, emailTemplates } = require('../config/email');
+const { contactLimiter } = require('../middleware/rateLimiting');
 const router = express.Router();
 
 // Contact form validation rules
@@ -69,7 +70,7 @@ const volunteerValidation = [
 ];
 
 // Handle contact form submission
-router.post('/submit', contactValidation, async (req, res) => {
+router.post('/submit', contactLimiter, contactValidation, async (req, res) => {
     try {
         const errors = validationResult(req);
         
@@ -137,7 +138,7 @@ router.post('/submit', contactValidation, async (req, res) => {
 });
 
 // Handle volunteer registration
-router.post('/volunteer', volunteerValidation, async (req, res) => {
+router.post('/volunteer', contactLimiter, volunteerValidation, async (req, res) => {
     try {
         const errors = validationResult(req);
         

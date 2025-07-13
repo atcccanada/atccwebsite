@@ -1,4 +1,5 @@
 const express = require('express');
+const { body, validationResult } = require('express-validator');
 const Event = require('../models/Event');
 const { requireAuth, requireRole } = require('../middleware/auth');
 const router = express.Router();
@@ -24,24 +25,27 @@ router.get('/', async (req, res) => {
         .limit(6);
 
         if (req.query.category) {
-            const categoryFilter = { category: req.query.category };
-            upcomingEvents = await Event.find({
-                ...categoryFilter,
-                startDate: { $gte: currentDate },
-                status: { $in: ['upcoming', 'ongoing'] }
-            })
-            .populate('organizer', 'firstName lastName')
-            .sort({ startDate: 1 })
-            .limit(6);
+            const category = req.query.category;
+            // Type validation for category
+            if (typeof category === 'string') {
+                upcomingEvents = await Event.find({
+                    category: category,
+                    startDate: { $gte: currentDate },
+                    status: { $in: ['upcoming', 'ongoing'] }
+                })
+                .populate('organizer', 'firstName lastName')
+                .sort({ startDate: 1 })
+                .limit(6);
 
-            pastEvents = await Event.find({
-                ...categoryFilter,
-                endDate: { $lt: currentDate },
-                status: 'completed'
-            })
-            .populate('organizer', 'firstName lastName')
-            .sort({ startDate: -1 })
-            .limit(6);
+                pastEvents = await Event.find({
+                    category: category,
+                    endDate: { $lt: currentDate },
+                    status: 'completed'
+                })
+                .populate('organizer', 'firstName lastName')
+                .sort({ startDate: -1 })
+                .limit(6);
+            }
         }
 
         const categories = await Event.distinct('category');
@@ -158,18 +162,61 @@ router.get('/admin/new', requireRole(['admin', 'editor']), (req, res) => {
     });
 });
 
-router.post('/admin/new', requireRole(['admin', 'editor']), async (req, res) => {
+router.post('/admin/new', requireRole(['admin', 'editor']), eventValidation, async (req, res) => {
     try {
+        // Check validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('events/form', {
+                title: 'ATCC - New Event',
+                page: 'admin',
+                event: null,
+                user: req.user,
+                error: 'Please correct the validation errors.'
+            });
+        }
+        
+        // Explicitly extract and validate fields to prevent injection
+        const title = req.body.title;
+        const description = req.body.description;
+        const startDate = req.body.startDate;
+        const endDate = req.body.endDate;
+        const eventType = req.body.eventType;
+        const capacity = req.body.capacity;
+        const price = req.body.price;
+        const address = req.body.address;
+        const city = req.body.city;
+        const province = req.body.province;
+        const postalCode = req.body.postalCode;
+        const tags = req.body.tags;
+        
+        // Type validation
+        if (typeof title !== 'string' || typeof description !== 'string') {
+            return res.status(400).render('events/form', {
+                title: 'ATCC - New Event',
+                page: 'admin',
+                event: null,
+                user: req.user,
+                error: 'Invalid input data.'
+            });
+        }
+        
         const eventData = {
-            ...req.body,
+            title: title,
+            description: description,
+            startDate: startDate,
+            endDate: endDate,
+            eventType: eventType,
+            capacity: capacity ? parseInt(capacity) : undefined,
+            price: price ? parseFloat(price) : undefined,
             organizer: req.user._id,
             location: {
-                address: req.body.address,
-                city: req.body.city,
-                province: req.body.province,
-                postalCode: req.body.postalCode
+                address: address,
+                city: city,
+                province: province,
+                postalCode: postalCode
             },
-            tags: req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : []
+            tags: tags ? tags.split(',').map(tag => tag.trim()) : []
         };
 
         const event = new Event(eventData);
@@ -217,22 +264,63 @@ router.get('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res)
     }
 });
 
-router.post('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res) => {
-    try {
-        const eventData = {
-            ...req.body,
-            location: {
-                address: req.body.address,
-                city: req.body.city,
-                province: req.body.province,
-                postalCode: req.body.postalCode
-            },
-            tags: req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : []
-        };
+// Event validation
+const eventValidation = [
+    body('title').notEmpty().trim().isLength({ min: 1, max: 200 }).escape(),
+    body('description').notEmpty().trim().isLength({ min: 10, max: 5000 }),
+    body('startDate').isISO8601().toDate(),
+    body('endDate').isISO8601().toDate(),
+    body('eventType').optional().isIn(['workshop', 'networking', 'cultural', 'educational', 'social']),
+    body('capacity').optional().isInt({ min: 1, max: 10000 }),
+    body('price').optional().isFloat({ min: 0 })
+];
 
+router.post('/admin/:id/edit', requireRole(['admin', 'editor']), eventValidation, async (req, res) => {
+    try {
+        // Check validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).redirect('/events/admin/manage');
+        }
+        
+        // Explicitly extract and validate fields to prevent injection
+        const title = req.body.title;
+        const description = req.body.description;
+        const startDate = req.body.startDate;
+        const endDate = req.body.endDate;
+        const eventType = req.body.eventType;
+        const capacity = req.body.capacity;
+        const price = req.body.price;
+        const address = req.body.address;
+        const city = req.body.city;
+        const province = req.body.province;
+        const postalCode = req.body.postalCode;
+        const tags = req.body.tags;
+        
+        // Type validation
+        if (typeof title !== 'string' || typeof description !== 'string') {
+            return res.status(400).redirect('/events/admin/manage');
+        }
+        
+        // Use $set operator with explicit field updates for security
         const event = await Event.findByIdAndUpdate(
             req.params.id,
-            eventData,
+            {
+                $set: {
+                    title: title,
+                    description: description,
+                    startDate: startDate,
+                    endDate: endDate,
+                    eventType: eventType,
+                    capacity: capacity ? parseInt(capacity) : undefined,
+                    price: price ? parseFloat(price) : undefined,
+                    'location.address': address,
+                    'location.city': city,
+                    'location.province': province,
+                    'location.postalCode': postalCode,
+                    tags: tags ? tags.split(',').map(tag => tag.trim()) : []
+                }
+            },
             { new: true }
         );
 
