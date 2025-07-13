@@ -15,12 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Session Security**: Enhanced session configuration with secure cookies and CSRF protection
 - **Input Validation**: Comprehensive input sanitization to prevent MongoDB operator injection
 - **Access Control**: Secured setup routes with environment-based access controls
+- **Rate Limiting**: Implemented comprehensive rate limiting to prevent abuse and DoS attacks
+- **Regex Injection Prevention**: Fixed regular expression injection vulnerabilities with safe regex utilities
+- **Database Query Security**: Enhanced validation for user-controlled database queries
 
 #### **Security Infrastructure**
 - **Validation Middleware**: New `/middleware/validation.js` with ObjectId validation and input sanitization
+- **Rate Limiting Middleware**: New `/middleware/rateLimiting.js` with specialized limiters for different route types
 - **CodeQL Integration**: Updated GitHub Actions workflow with CodeQL v3 and security-extended queries
 - **Environment Security**: Required environment variables in production with proper fallbacks
 - **Route Protection**: Added security checks to administrative and setup endpoints
+- **Input Validation**: Enhanced express-validator integration for all user inputs
 
 ### 🚀 Deployment & Infrastructure
 
@@ -49,6 +54,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Static Analysis**: Enhanced CodeQL configuration for comprehensive security scanning
 - **Input Validation**: Reusable validation utilities for consistent security practices
 - **Environment Management**: Clear separation of development and production configurations
+
+### 🛡️ Rate Limiting & Protection
+
+#### **Comprehensive Rate Limiting**
+- **Authentication Protection**: 5 login attempts per 15 minutes to prevent brute force attacks
+- **Admin Operations**: 100 operations per 5 minutes for administrative functions
+- **Content Creation**: 10 content creation requests per hour to prevent spam
+- **Contact Forms**: 3 form submissions per hour to prevent abuse
+- **General Traffic**: 1000 requests per 15 minutes for normal browsing
+
+#### **Advanced Security Measures**
+- **Regex Safety**: Safe regex creation with proper escaping and input length limits
+- **Database Security**: Enhanced query validation with express-validator integration
+- **Input Sanitization**: Comprehensive filtering of MongoDB operators and malicious inputs
+- **Error Handling**: Graceful handling of validation errors with user feedback
 
 ## [2.0.0] - 2025-01-13 - Complete CMS Implementation
 

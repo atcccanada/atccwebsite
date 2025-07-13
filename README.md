@@ -40,8 +40,9 @@ The official website for the **Association of Tamilnadu Canadian Community (ATCC
 - **EJS** - Templating engine
 - **bcryptjs** - Password hashing
 - **express-session** - Session management
+- **express-rate-limit** - Rate limiting and DoS protection
 - **nodemailer** - Email integration
-- **express-validator** - Input validation
+- **express-validator** - Input validation and sanitization
 
 ### **Frontend**
 - **Bootstrap 5** - CSS framework
@@ -118,7 +119,9 @@ atccwebsite/
 │   ├── database.js          # MongoDB connection
 │   └── email.js             # Email configuration
 ├── middleware/
-│   └── auth.js              # Authentication middleware
+│   ├── auth.js              # Authentication middleware
+│   ├── validation.js        # Input validation & sanitization
+│   └── rateLimiting.js      # Rate limiting configurations
 ├── models/
 │   ├── User.js              # User model with roles
 │   ├── Blog.js              # Blog posts
@@ -250,6 +253,21 @@ SMTP_FROM="ATCC Website" <noreply@atcccanada.ca>
 - **CSRF Protection**: SameSite cookie policy
 - **Access Control**: Protected administrative routes
 - **Health Monitoring**: Dedicated health check endpoints
+
+### **Rate Limiting & DoS Protection**
+- **Authentication Rate Limiting**: 5 login attempts per 15 minutes
+- **Admin Operations**: 100 requests per 5 minutes for administrative functions
+- **Content Creation**: 10 requests per hour for blog/event/business creation
+- **Contact Forms**: 3 submissions per hour to prevent spam
+- **General Traffic**: 1000 requests per 15 minutes for normal browsing
+- **Brute Force Prevention**: Progressive delays and IP-based tracking
+
+### **Advanced Input Protection**
+- **Regex Injection Prevention**: Safe regex creation with character escaping
+- **Database Query Security**: Enhanced validation for user-controlled queries
+- **Input Length Limits**: Maximum input sizes to prevent buffer attacks
+- **Express Validator Integration**: Comprehensive server-side validation
+- **Error Handling**: Graceful validation error responses
 
 ## 📈 Performance Optimizations
 
