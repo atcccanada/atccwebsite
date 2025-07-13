@@ -267,29 +267,34 @@ router.get('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res)
 
 router.post('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res) => {
     try {
+        // Explicitly extract and validate fields to prevent injection
+        const { businessName, description, category, ownerFirstName, ownerLastName, phone, email, website, address, city, province, postalCode, services, facebook, instagram, twitter, linkedin } = req.body;
+        
         const businessData = {
-            ...req.body,
+            businessName,
+            description,
+            category,
             ownerName: {
-                firstName: req.body.ownerFirstName,
-                lastName: req.body.ownerLastName
+                firstName: ownerFirstName,
+                lastName: ownerLastName
             },
             contactInfo: {
-                phone: req.body.phone,
-                email: req.body.email,
-                website: req.body.website
+                phone,
+                email,
+                website
             },
             location: {
-                address: req.body.address,
-                city: req.body.city,
-                province: req.body.province,
-                postalCode: req.body.postalCode
+                address,
+                city,
+                province,
+                postalCode
             },
-            services: req.body.services ? req.body.services.split(',').map(s => s.trim()) : [],
+            services: services ? services.split(',').map(s => s.trim()) : [],
             socialMedia: {
-                facebook: req.body.facebook,
-                instagram: req.body.instagram,
-                twitter: req.body.twitter,
-                linkedin: req.body.linkedin
+                facebook,
+                instagram,
+                twitter,
+                linkedin
             }
         };
 

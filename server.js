@@ -53,15 +53,20 @@ app.use(session({
     }
 }));
 
-// Import validation and rate limiting middleware
+// Import validation, rate limiting, and CSRF middleware
 const { sanitizeRequest } = require('./middleware/validation');
 const { generalLimiter } = require('./middleware/rateLimiting');
+const { conditionalCSRF, skipCSRF } = require('./middleware/csrf');
 
 // Apply rate limiting to all requests
 app.use(generalLimiter);
 
 // Apply input sanitization to all requests
 app.use(sanitizeRequest);
+
+// Apply CSRF protection
+app.use(conditionalCSRF);
+
 app.use(checkAuth);
 
 const authRoutes = require('./routes/auth');
@@ -380,7 +385,12 @@ app.get('/setup/promote/:email', async (req, res) => {
         
         const user = await User.findOne({ email: email });
         if (!user) {
-            return res.send(`<h1>User Not Found</h1><p>No user found with email: ${email}</p>`);
+            // Properly escape email to prevent XSS
+            const safeEmail = email.replace(/[<>&"']/g, (match) => {
+                const escapes = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#x27;' };
+                return escapes[match];
+            });
+            return res.send(`<h1>User Not Found</h1><p>No user found with email: ${safeEmail}</p>`);
         }
         
         user.role = 'admin';

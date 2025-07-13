@@ -219,15 +219,24 @@ router.get('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res)
 
 router.post('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res) => {
     try {
+        // Explicitly extract and validate fields to prevent injection
+        const { title, description, startDate, endDate, eventType, capacity, price, address, city, province, postalCode, tags } = req.body;
+        
         const eventData = {
-            ...req.body,
+            title,
+            description,
+            startDate,
+            endDate,
+            eventType,
+            capacity: capacity ? parseInt(capacity) : undefined,
+            price: price ? parseFloat(price) : undefined,
             location: {
-                address: req.body.address,
-                city: req.body.city,
-                province: req.body.province,
-                postalCode: req.body.postalCode
+                address,
+                city,
+                province,
+                postalCode
             },
-            tags: req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : []
+            tags: tags ? tags.split(',').map(tag => tag.trim()) : []
         };
 
         const event = await Event.findByIdAndUpdate(
