@@ -4,6 +4,17 @@ const Event = require('../models/Event');
 const { requireAuth, requireRole } = require('../middleware/auth');
 const router = express.Router();
 
+// Event validation middleware
+const eventValidation = [
+    body('title').notEmpty().trim().isLength({ min: 1, max: 200 }).escape(),
+    body('description').notEmpty().trim().isLength({ min: 10, max: 5000 }),
+    body('startDate').isISO8601().toDate(),
+    body('endDate').isISO8601().toDate(),
+    body('eventType').optional().isIn(['workshop', 'networking', 'cultural', 'educational', 'social']),
+    body('capacity').optional().isInt({ min: 1, max: 10000 }),
+    body('price').optional().isFloat({ min: 0 })
+];
+
 router.get('/', async (req, res) => {
     try {
         const currentDate = new Date();
@@ -263,17 +274,6 @@ router.get('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res)
         });
     }
 });
-
-// Event validation
-const eventValidation = [
-    body('title').notEmpty().trim().isLength({ min: 1, max: 200 }).escape(),
-    body('description').notEmpty().trim().isLength({ min: 10, max: 5000 }),
-    body('startDate').isISO8601().toDate(),
-    body('endDate').isISO8601().toDate(),
-    body('eventType').optional().isIn(['workshop', 'networking', 'cultural', 'educational', 'social']),
-    body('capacity').optional().isInt({ min: 1, max: 10000 }),
-    body('price').optional().isFloat({ min: 0 })
-];
 
 router.post('/admin/:id/edit', requireRole(['admin', 'editor']), eventValidation, async (req, res) => {
     try {
