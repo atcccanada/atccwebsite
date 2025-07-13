@@ -8,7 +8,17 @@ const { checkAuth } = require('./middleware/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-connectDB();
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+    console.error('Unhandled Rejection:', error);
+});
+
+// Connect to database
+connectDB().catch(console.error);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -16,6 +26,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Health check route for Railway
+app.get('/health', (_req, res) => {
+    res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
 
 app.use(session({
     secret: process.env.SESSION_SECRET || 'atcc-website-secret-key-change-in-production',
@@ -151,7 +166,7 @@ app.get('/404', (req, res) => {
 });
 
 // Setup routes for initial deployment (remove after setup)
-app.get('/setup', async (req, res) => {
+app.get('/setup', async (_req, res) => {
     try {
         const User = require('./models/User');
         const Business = require('./models/Business');
@@ -360,8 +375,6 @@ app.use((req, res) => {
     });
 });
 
-const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
-
-app.listen(PORT, HOST, () => {
-    console.log(`Server is running on http://${HOST}:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on port ${PORT}`);
 });
