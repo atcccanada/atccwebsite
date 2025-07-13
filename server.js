@@ -23,6 +23,11 @@ connectDB().catch(console.error);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Trust proxy for accurate rate limiting in cloud deployments
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1); // Trust first proxy (Railway, Heroku, etc.)
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -56,7 +61,7 @@ app.use(session({
 // Import validation, rate limiting, and CSRF middleware
 const { sanitizeRequest } = require('./middleware/validation');
 const { generalLimiter } = require('./middleware/rateLimiting');
-const { conditionalCSRF, skipCSRF } = require('./middleware/csrf');
+const { conditionalCSRF } = require('./middleware/csrf');
 
 // Apply rate limiting to all requests
 app.use(generalLimiter);
