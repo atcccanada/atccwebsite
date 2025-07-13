@@ -33,6 +33,7 @@
                     <a href="/contact" class="nav-item nav-link <%= page === 'contact' ? 'active' : '' %>">Contact</a>
                     <a href="/membership" class="nav-item nav-link <%= page === 'membership' ? 'active' : '' %>">Membership</a>
                 </div>
+                <!-- Desktop buttons -->
                 <div class="d-none d-lg-flex ms-2">
                     <% if (typeof user !== 'undefined' && user) { %>
                         <div class="dropdown">
@@ -58,6 +59,36 @@
                     <a class="btn btn-primary py-2 px-3" href="/contact">
                         <i class="fa fa-heart me-1"></i>Volunteer
                     </a>
+                </div>
+                
+                <!-- Mobile buttons -->
+                <div class="d-lg-none mt-3 pt-3 border-top border-secondary">
+                    <div class="d-flex flex-column gap-2">
+                        <% if (typeof user !== 'undefined' && user) { %>
+                            <div class="dropdown">
+                                <a class="btn btn-outline-light w-100 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    <i class="fa fa-user me-2"></i><%= user.firstName %>
+                                </a>
+                                <ul class="dropdown-menu w-100">
+                                    <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="/admin/blog/new">New Post</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form action="/auth/logout" method="POST">
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        <% } else { %>
+                            <a class="btn btn-outline-light w-100" href="/auth/login">
+                                <i class="fa fa-user me-2"></i>Login
+                            </a>
+                        <% } %>
+                        <a class="btn btn-primary w-100" href="/contact">
+                            <i class="fa fa-heart me-2"></i>Volunteer
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>

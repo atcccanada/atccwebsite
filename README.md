@@ -25,11 +25,12 @@ The official website for the **Association of Tamilnadu Canadian Community (ATCC
 - **Email Integration**: Automated notifications via Nodemailer
 
 ### 🎨 **Technical Excellence**
-- **Responsive Design**: Mobile-first approach with Bootstrap 5
+- **Enhanced Responsive Design**: Comprehensive cross-device optimization (320px to 1920px+)
+- **Mobile-First Architecture**: Progressive enhancement with touch-optimized interfaces
 - **SEO Optimized**: Meta tags, structured data, sitemap
-- **Performance**: Image lazy loading, CSS optimization
-- **Accessibility**: WCAG compliance, screen reader support
-- **Security**: Input validation, role-based access control
+- **Performance**: Image lazy loading, CSS optimization, smooth scrolling
+- **Accessibility**: WCAG compliance, screen reader support, enhanced focus states
+- **Security**: Input validation, role-based access control, CSRF protection
 
 ## 🛠 Technologies Used
 
@@ -288,13 +289,38 @@ SMTP_FROM="ATCC Website" <noreply@atcccanada.ca>
 - **Caching**: Static asset caching
 - **SEO**: Meta tags, structured data, sitemap
 
+## 📱 Responsive Design Features
+
+### **Cross-Device Compatibility**
+- **Mobile Phones (320px-575px)**: Optimized for small screens with touch-friendly interfaces
+- **Tablets Portrait (576px-767px)**: Enhanced readability and navigation for portrait orientation
+- **Tablets Landscape (768px-991px)**: Optimized layout for landscape tablet viewing
+- **Laptops & Desktops (992px-1199px)**: Standard desktop experience with full feature access
+- **Large Screens (1200px+)**: Enhanced spacing and content management for wide displays
+- **Ultra-wide Displays (1400px+)**: Optimized layout for ultra-wide monitor setups
+
+### **Mobile-First Architecture**
+- **Progressive Enhancement**: Base mobile styles enhanced for larger screens
+- **Touch Optimization**: 44px minimum touch targets following accessibility guidelines
+- **iOS/Android Support**: Dedicated mobile web app meta tags and optimizations
+- **Gesture Support**: Swipe-friendly carousels and navigation elements
+- **Viewport Optimization**: Proper scaling and zoom control across all devices
+
+### **Advanced Responsive Features**
+- **Dynamic Typography**: Font sizes scale appropriately across all screen sizes
+- **Adaptive Navigation**: Collapsible navbar with mobile-optimized menu layout
+- **Responsive Tables**: Transform to card-based layout on mobile for better usability
+- **Flexible Grid System**: Bootstrap-enhanced grid with custom mobile optimizations
+- **Image Responsiveness**: Lazy loading and optimal sizing across all devices
+
 ## ♿ Accessibility
 
 - **WCAG 2.1 AA Compliance**: Screen reader support
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Color Contrast**: High contrast ratios
-- **Alt Text**: All images properly labeled
-- **Semantic HTML**: Proper heading structure
+- **Keyboard Navigation**: Full keyboard accessibility with enhanced focus states
+- **Color Contrast**: High contrast ratios for better readability
+- **Alt Text**: All images properly labeled for screen readers
+- **Semantic HTML**: Proper heading structure and landmark elements
+- **Touch Accessibility**: Large touch targets and gesture-friendly interfaces
 
 ## 🤝 Contributing
 
@@ -334,7 +360,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## 🔖 Version
 
-**Current Version**: v2.1.1 - CodeQL Security Compliance & CSRF Protection
+**Current Version**: v2.1.2 - Enhanced Responsive Design & Cross-Device Optimization
 
 ---
 
