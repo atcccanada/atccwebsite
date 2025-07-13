@@ -1,322 +1,285 @@
-# Association of Tamil Canadian Community (ATCC) Website
+# Association of Tamilnadu Canadian Community (ATCC) Website
 
-## Overview
+[![Node.js CI](https://github.com/atcccanada/atccwebsite/workflows/CI/badge.svg)](https://github.com/atcccanada/atccwebsite/actions)
+[![Security](https://github.com/atcccanada/atccwebsite/workflows/CodeQL/badge.svg)](https://github.com/atcccanada/atccwebsite/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The official website for the Association of Tamil Canadian Community (ATCC), a non-profit organization dedicated to serving the Tamil community in Canada. This modern web application serves as a digital hub for community members to stay informed about events, initiatives, and resources.
+## 🌟 Overview
 
-## Features
+The official website for the **Association of Tamilnadu Canadian Community (ATCC)**, a nonprofit organization founded in May 2023, dedicated to uniting and empowering the Tamil community across Canada. This comprehensive web application serves as the digital hub for 140+ volunteers, 5,000+ community members, and 13 specialized teams.
 
-- **Responsive Design**: Fully responsive layout that works on all devices
-- **Modern Architecture**: Built with Node.js, Express, and EJS templating
-- **Dynamic Content**: Server-side rendering with EJS templates
-- **Modern UI/UX**: Clean and intuitive user interface with smooth animations
-- **Multiple Pages**:
-  - Home: Overview and highlights
-  - About: Information about ATCC and its mission
-  - Events: Upcoming community events and activities
-  - Causes: Community initiatives and programs
-  - Team: Meet the team behind ATCC
-  - Testimonials: Community member testimonials
-  - Donate: Support our community initiatives
-  - Contact: Get in touch with us
+## ✨ Key Features
 
-## Technologies Used
+### 🏠 **Core Pages & Functionality**
+- **Home Page**: Dynamic banner slider with community highlights
+- **About Us**: Complete team structure, mission, and partnership information  
+- **Events System**: Full event management with upcoming/past events
+- **Blog Platform**: Complete CMS with search, categories, and admin panel
+- **Business Directory**: Comprehensive table format with filtering capabilities
+- **Contact & Volunteer Registration**: Integrated forms with email notifications
+- **Membership**: Detailed pricing tiers and benefits
 
-- **Backend**:
-  - Node.js
-  - Express.js
-  - EJS (Embedded JavaScript Templates)
+### 🔐 **Admin & Content Management**
+- **Role-based Authentication**: Admin, Editor, Author, User roles
+- **Admin Dashboard**: Complete CRUD operations for all content
+- **User Management**: Role assignment and account administration
+- **Content Management**: Blogs, events, business directory management
+- **Email Integration**: Automated notifications via Nodemailer
 
-- **Frontend**:
-  - HTML5, CSS3, JavaScript
-  - Bootstrap 5
-  - Font Awesome Icons
-  - jQuery
-  - Owl Carousel
-  - Animate.css
-  - WOW.js (animations)
+### 🎨 **Technical Excellence**
+- **Responsive Design**: Mobile-first approach with Bootstrap 5
+- **SEO Optimized**: Meta tags, structured data, sitemap
+- **Performance**: Image lazy loading, CSS optimization
+- **Accessibility**: WCAG compliance, screen reader support
+- **Security**: Input validation, role-based access control
 
-- **Development Tools**:
-  - Nodemon (development server)
-  - npm (package management)
+## 🛠 Technologies Used
 
-## Getting Started
+### **Backend**
+- **Node.js** - Server runtime
+- **Express.js** - Web framework
+- **MongoDB** - Database with Mongoose ODM
+- **EJS** - Templating engine
+- **bcryptjs** - Password hashing
+- **express-session** - Session management
+- **nodemailer** - Email integration
+- **express-validator** - Input validation
+
+### **Frontend**
+- **Bootstrap 5** - CSS framework
+- **Font Awesome** - Icons
+- **jQuery** - JavaScript library
+- **Owl Carousel** - Image carousels
+- **Animate.css** - Animations
+- **WOW.js** - Scroll animations
+
+### **Development Tools**
+- **Nodemon** - Development server
+- **MongoDB Atlas** - Cloud database
+- **GitHub Actions** - CI/CD pipeline
+
+## 🚀 Quick Start
 
 ### Prerequisites
-
-- Node.js (version 16.x or higher)
-- npm (comes with Node.js)
-- Git
+- Node.js (v16.x or higher)
+- MongoDB (local or Atlas)
+- npm or yarn
 
 ### Installation
 
-1. Clone the repository:
-
+1. **Clone the repository:**
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/atcccanada/atccwebsite.git
    cd atccwebsite
    ```
 
-2. Install dependencies:
-
+2. **Install dependencies:**
    ```bash
    npm install
    ```
 
-3. Start the development server:
+3. **Environment setup:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
+4. **Start development server:**
    ```bash
    npm run dev
    ```
 
-4. Open your browser and visit `http://localhost:3000`
+5. **Create admin user:**
+   ```bash
+   node scripts/create-admin.js
+   ```
 
-### Production
+6. **Add sample data:**
+   ```bash
+   node scripts/add-sample-businesses.js
+   ```
 
-To run in production mode:
+7. **Open browser:** `http://localhost:3000`
 
-```bash
-npm start
-```
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 atccwebsite/
-├── .github/
-│   └── workflows/        # GitHub Actions CI/CD workflows
-├── public/               # Static assets
-│   ├── css/             # Compiled CSS files
-│   ├── img/             # Image assets
-│   ├── js/              # JavaScript files
-│   ├── lib/             # Third-party libraries
-│   └── scss/            # SASS source files
-├── views/               # EJS templates
-│   ├── partials/        # Reusable template parts
-│   │   ├── header.ejs   # HTML head section
-│   │   ├── navbar.ejs   # Navigation bar
-│   │   └── footer.ejs   # Footer and scripts
-│   ├── index.ejs        # Home page
-│   ├── about.ejs        # About page
-│   ├── contact.ejs      # Contact page
-│   ├── events.ejs       # Events page
-│   ├── causes.ejs       # Causes page
-│   ├── donate.ejs       # Donation page
-│   ├── team.ejs         # Team page
-│   ├── testimonial.ejs  # Testimonials page
-│   ├── specific-event.ejs # Event details page
-│   └── 404.ejs          # Error page
-├── server.js            # Express server configuration
-├── package.json         # Node.js dependencies and scripts
-├── .gitignore          # Git ignore rules
-└── README.md           # Project documentation
+├── config/
+│   ├── database.js          # MongoDB connection
+│   └── email.js             # Email configuration
+├── middleware/
+│   └── auth.js              # Authentication middleware
+├── models/
+│   ├── User.js              # User model with roles
+│   ├── Blog.js              # Blog posts
+│   ├── Event.js             # Events management
+│   └── Business.js          # Business directory
+├── routes/
+│   ├── auth.js              # Authentication routes
+│   ├── admin.js             # Admin dashboard
+│   ├── blog.js              # Blog management
+│   ├── events.js            # Events management
+│   ├── directory.js         # Business directory
+│   ├── contact.js           # Contact & volunteer forms
+│   └── users.js             # User management
+├── views/
+│   ├── partials/            # Reusable components
+│   ├── admin/               # Admin panel views
+│   ├── auth/                # Login/register
+│   ├── blog/                # Blog views
+│   ├── events/              # Event views
+│   └── directory/           # Business directory views
+├── public/
+│   ├── css/                 # Stylesheets
+│   ├── js/                  # Client-side scripts
+│   ├── img/                 # Images
+│   └── lib/                 # Third-party libraries
+├── scripts/                 # Utility scripts
+└── server.js                # Main application file
 ```
 
-## Available Scripts
+## 🎯 Available Scripts
 
-- `npm start` - Start the production server
-- `npm run dev` - Start the development server with auto-reload
-- `npm test` - Run tests (placeholder for future implementation)
-- `npm run lint` - Run linting (placeholder for future implementation)
-- `npm run build` - Build the application (placeholder for future implementation)
+- `npm start` - Production server
+- `npm run dev` - Development server with auto-reload
+- `npm test` - Run tests
+- `npm run lint` - Code linting
+- `npm run build` - Build application
 
-## Routes
+## 🌐 Routes & Features
 
+### **Public Routes**
 - `GET /` - Home page
 - `GET /about` - About ATCC
-- `GET /contact` - Contact information and form
 - `GET /events` - Events listing
-- `GET /causes` - Community causes and initiatives
-- `GET /donate` - Support and donation page
-- `GET /team` - Team members
-- `GET /testimonial` - Community testimonials
-- `GET /specific-event` - Individual event details
-- `GET /404` - Error page
+- `GET /blog` - Blog posts
+- `GET /directory` - Business directory
+- `GET /contact` - Contact & volunteer registration
+- `GET /membership` - Membership information
 
-## CI/CD Pipeline
+### **Authentication**
+- `GET /auth/login` - User login
+- `GET /auth/register` - User registration
+- `POST /auth/logout` - User logout
 
-This project includes comprehensive GitHub Actions workflows:
+### **Admin Panel** (Role-based access)
+- `GET /admin/dashboard` - Admin dashboard
+- `GET /admin/blogs` - Blog management
+- `GET /admin/users` - User management
+- `GET /events/admin/manage` - Event management
+- `GET /directory/admin/manage` - Business directory management
 
-### 🔄 Continuous Integration (`ci.yml`)
+## 👥 User Roles & Permissions
 
-- **Multi-Node Testing**: Tests on Node.js 16.x, 18.x, and 20.x
-- **Security Auditing**: npm audit for vulnerability detection
-- **Automated Deployment**: Ready for production deployment
-- **Triggers**: Push to main/develop, Pull Requests
+| Role | Permissions |
+|------|-------------|
+| **Admin** | Full system access, user management, all content |
+| **Editor** | Content management (blogs, events, directory) |
+| **Author** | Create/edit own blog posts |
+| **User** | View content, basic access |
 
-### 🔒 Security Analysis (`codeql.yml`)
+## 🔧 Configuration
 
-- **CodeQL Scanning**: Automated security vulnerability detection
-- **Weekly Schedule**: Runs every Monday
-- **JavaScript Analysis**: Comprehensive code security review
-
-### 📦 Dependency Management (`dependency-update.yml`)
-
-- **Automated Updates**: Weekly dependency updates
-- **Pull Request Creation**: Automatic PRs for dependency updates
-- **Testing Integration**: Runs tests before creating PRs
-
-## Development Workflow
-
-1. **Fork and Clone**: Fork the repository and clone to your local machine
-2. **Branch**: Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Develop**: Make your changes and test locally with `npm run dev`
-4. **Test**: Ensure all functionality works correctly
-5. **Commit**: Commit your changes with descriptive messages
-6. **Push**: Push to your forked repository
-7. **Pull Request**: Create a PR to the main repository
-
-## Directions to Developers (Git command reference)
-
-The following steps shows how to:
-
-- Create a feature branch from `main`
-- Add and commit changes
-- Push to GitHub
-- Open a Pull Request (PR)
-- Merge it back to `main`
-
----
-
-## ✅ 1. Checkout Latest `main`
-
-```bash
-git checkout main
-git pull origin main
-```
-
----
-
-## ✅ 2. Create a New Feature Branch
-
-```bash
-git checkout -b feature-branch
-```
-
-Replace `feature-branch` with a descriptive name (e.g., `fix-login-error`, `add-user-api`).
-
----
-
-## ✅ 3. Add or Modify Files
-
-Create or change your files, then:
-
-```bash
-git add .
-git commit -m "Describe what you did"
-```
-
----
-
-## ✅ 4. Push Your Feature Branch
-
-```bash
-git push origin feature-branch
-```
-
----
-
-## ✅ 5. Create a Pull Request (PR)
-
-Go to your GitHub repo:
-
-- Click **"Compare & pull request"**
-- Base branch: `main`
-- Compare branch: `feature-branch`
-- Add title and description
-- Click **"Create pull request"**
-
----
-
-## ✅ 6. Merge the Pull Request
-
-Once approved:
-
-```bash
-git checkout main
-git pull origin main
-git merge feature-branch  
-git push origin main
-```
-
----
-
-## ✅ Done
-
-You’ve successfully created a PR and merged it into `main`
-
-## Environment Configuration
-
-Create a `.env` file for environment variables (not tracked in git):
-
+### Environment Variables (.env)
 ```env
+# Server Configuration
 PORT=3000
 NODE_ENV=development
+
+# Database
+MONGODB_URI=mongodb://localhost:27017/atcc-website
+
+# Session
+SESSION_SECRET=your-secret-key
+
+# Email Configuration
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
+SMTP_FROM="ATCC Website" <noreply@atcccanada.ca>
 ```
 
-### Code Style Guidelines
+## 🚀 Deployment
 
-- Use consistent indentation (2 spaces)
-- Follow EJS templating best practices
-- Ensure responsive design compatibility
-- Test on multiple browsers and devices
+### Production Setup
+1. Set environment to production
+2. Configure MongoDB Atlas
+3. Set up email service
+4. Deploy to hosting platform (Heroku, DigitalOcean, etc.)
 
-## Contact
+### CI/CD Pipeline
+- Automated testing on multiple Node.js versions
+- Security scanning with CodeQL
+- Automated dependency updates
+- Production deployment ready
 
-- **Organization**: Association of Tamil Canadian Community (ATCC)
-- **Email**: <reachatcc@gmail.com>
+## 🔒 Security Features
+
+- **Authentication**: bcryptjs password hashing
+- **Authorization**: Role-based access control
+- **Input Validation**: express-validator sanitization
+- **Session Management**: Secure session handling
+- **CSRF Protection**: Built-in protection
+- **SQL Injection Prevention**: MongoDB ODM protection
+
+## 📈 Performance Optimizations
+
+- **Image Optimization**: Lazy loading, WebP format
+- **CSS/JS Minification**: Optimized assets
+- **Database Indexing**: Optimized queries
+- **Caching**: Static asset caching
+- **SEO**: Meta tags, structured data, sitemap
+
+## ♿ Accessibility
+
+- **WCAG 2.1 AA Compliance**: Screen reader support
+- **Keyboard Navigation**: Full keyboard accessibility
+- **Color Contrast**: High contrast ratios
+- **Alt Text**: All images properly labeled
+- **Semantic HTML**: Proper heading structure
+
+## 🤝 Contributing
+
+1. **Fork** the repository
+2. **Create** feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to branch (`git push origin feature/amazing-feature`)
+5. **Open** Pull Request
+
+### Development Workflow
+1. Check latest main: `git checkout main && git pull origin main`
+2. Create feature branch: `git checkout -b feature-name`
+3. Make changes and test: `npm run dev`
+4. Commit: `git add . && git commit -m "Description"`
+5. Push: `git push origin feature-name`
+6. Create Pull Request on GitHub
+
+## 📞 Contact & Support
+
+- **Email**: info@atcccanada.ca
 - **Instagram**: [@atcc.ca](https://www.instagram.com/atcc.ca/)
 - **Facebook**: [ATCC Canada](https://www.facebook.com/atccc.ca/)
-- **LinkedIn**: [ATCC LinkedIn](https://www.linkedin.com/company/94783062)
-- **Twitter**: [@atcc_ca](https://twitter.com/atcc_ca)
-- **YouTube**: [ATCC YouTube](https://www.youtube.com/channel/UCaZ2zNvfGFVKMgAcF9bFpPw)
+- **LinkedIn**: [ATCC Company Page](https://www.linkedin.com/company/94783062)
+- **YouTube**: [ATCC Channel](https://www.youtube.com/channel/UCaZ2zNvfGFVKMgAcF9bFpPw)
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
-- **Template Base**: ChariTeam - Free Nonprofit Website Template
-- **Template Source**: [HTML Codex](https://htmlcodex.com/)
+- **Template Base**: ChariTeam - Free Nonprofit Website Template by [HTML Codex](https://htmlcodex.com/)
 - **Icons**: [Font Awesome](https://fontawesome.com/)
-- **Animations**: [Animate.css](https://animate.style/)
-- **Carousel**: [Owl Carousel](https://owlcarousel2.github.io/OwlCarousel2/)
-- **Framework**: [Bootstrap](https://getbootstrap.com/)
+- **UI Framework**: [Bootstrap](https://getbootstrap.com/)
+- **Database**: [MongoDB](https://www.mongodb.com/)
+- **Hosting**: [Your Hosting Provider]
 
-## 👥 Code Owners
+## 📄 License
 
-This repository uses a [`CODEOWNERS`](./.github/CODEOWNERS) file to enforce mandatory code reviews for specific files and directories.
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
-### 🔒 Purpose
+## 🔖 Version
 
-- Automatically request reviews from the appropriate owners when a pull request is opened.
-- Enforce review from specific individuals or teams before merging.
-
-### ✅ Current Code Owners
-
-| Path          | Code Owners                                                                 |
-|---------------|------------------------------------------------------------------------------|
-| `*`           | [@sylvester-francis](https://github.com/sylvester-francis),[@shiva-shankari-rajaram](https://github.com/shiva-shankari-rajaram),[@atcccanada](https://github.com/atcccanada) |
-
-### 🛠️ How It Works
-
-- The `CODEOWNERS` file is located in `.github/CODEOWNERS`.
-- Any pull request that changes a file matching a path in `CODEOWNERS` will automatically request reviews from the listed users.
-- If branch protection rules are enabled (e.g., "Require review from Code Owners"), at least one listed owner (who is not the PR author) must approve the changes.
-
-### 🚫 Important Notes
-
-- **You cannot approve your own pull request**, even if you're a listed code owner.
-- Make sure there is **at least one other code owner** with write access who can approve your PRs.
-
-### 📚 Learn More
-
-- [GitHub Docs: About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
-
-## Version History
-
-- **v1.0.0** - Initial release with Node.js/Express migration
-  - Converted from static HTML to dynamic EJS templates
-  - Added CI/CD pipeline with GitHub Actions
-  - Implemented modern development workflow
-  - Added comprehensive documentation
+**Current Version**: v2.0.0 - Complete CMS Implementation
 
 ---
-**Note**: This project has been completely refactored from a static HTML website to a modern Node.js/Express application with EJS templating, providing better maintainability, scalability, and development experience.
+
+**Built with ❤️ by the ATCC development team for the Tamil Canadian community**

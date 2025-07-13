@@ -3,22 +3,22 @@
 
 <head>
     <meta charset="utf-8">
-    <title><%= title || 'ATCC - Association of Tamil Community in Canada' %></title>
+    <title><%= title || 'ATCC - Association of Tamilnadu Canadian Community' %></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="<%= description || 'Join the Association of Tamil Community in Canada (ATCC) - Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
-    <meta name="keywords" content="<%= keywords || 'Tamil Canadian community, ATCC, Tamil culture Canada, Tamil events, Tamil networking, Canadian Tamil association, Tamil volunteers, Tamil heritage Canada, Tamil community Toronto, Tamil newcomers Canada' %>">
-    <meta name="author" content="Association of Tamil Community in Canada (ATCC)">
+    <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Join the Association of Tamilnadu Canadian Community (ATCC) - Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
+    <meta name="keywords" content="<%= typeof keywords !== 'undefined' ? keywords : 'Tamil Canadian community, ATCC, Tamil culture Canada, Tamil events, Tamil networking, Canadian Tamil association, Tamil volunteers, Tamil heritage Canada, Tamil community Toronto, Tamil newcomers Canada' %>">
+    <meta name="author" content="Association of Tamilnadu Canadian Community (ATCC)">
     <meta name="robots" content="index, follow">
     <meta name="language" content="en-CA">
     
     <!-- Open Graph Meta Tags for Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<%= title || 'ATCC - Association of Tamil Community in Canada' %>">
-    <meta property="og:description" content="<%= description || 'Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
+    <meta property="og:title" content="<%= title || 'ATCC - Association of Tamilnadu Canadian Community' %>">
+    <meta property="og:description" content="<%= typeof description !== 'undefined' ? description : 'Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
     <meta property="og:url" content="<%= typeof url !== 'undefined' ? url : 'https://atcccanada.org' %>">
-    <meta property="og:site_name" content="ATCC - Association of Tamil Community in Canada">
+    <meta property="og:site_name" content="ATCC - Association of Tamilnadu Canadian Community">
     <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/img/DSC_6688-banner.jpeg' %>">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -26,8 +26,8 @@
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<%= title || 'ATCC - Association of Tamil Community in Canada' %>">
-    <meta name="twitter:description" content="<%= description || 'Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
+    <meta name="twitter:title" content="<%= title || 'ATCC - Association of Tamilnadu Canadian Community' %>">
+    <meta name="twitter:description" content="<%= typeof description !== 'undefined' ? description : 'Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
     <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/img/DSC_6688-banner.jpeg' %>">
     <meta name="twitter:site" content="@ATCCCanada">
     
@@ -45,7 +45,7 @@
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Association of Tamil Community in Canada",
+        "name": "Association of Tamilnadu Canadian Community",
         "alternateName": "ATCC",
         "url": "https://atcccanada.org",
         "logo": "https://atcccanada.org/img/logo.png",

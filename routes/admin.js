@@ -23,6 +23,10 @@ router.get('/dashboard', requireAuth, async (req, res) => {
 
         res.render('admin/dashboard', {
             title: 'ATCC - Admin Dashboard',
+            description: 'ATCC admin dashboard for managing community content and events',
+            keywords: 'ATCC admin, dashboard, content management',
+            url: 'https://atcccanada.org/admin/dashboard',
+            ogImage: 'https://atcccanada.org/img/admin-panel.jpg',
             page: 'admin',
             user,
             stats: {

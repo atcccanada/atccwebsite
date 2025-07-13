@@ -7,7 +7,11 @@ router.get('/login', (req, res) => {
         return res.redirect('/admin/dashboard');
     }
     res.render('auth/login', { 
-        title: 'ATCC - Login',
+        title: 'ATCC Login - Admin Access | Association of Tamilnadu Canadian Community',
+        description: 'Login to access the ATCC admin dashboard for managing events, blogs, and community content.',
+        keywords: 'ATCC login, admin access, Tamil community admin',
+        url: 'https://atcccanada.org/auth/login',
+        ogImage: 'https://atcccanada.org/img/login-banner.jpg',
         page: 'login',
         error: null,
         user: req.user || null
@@ -21,7 +25,11 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ email });
         if (!user || !await user.comparePassword(password)) {
             return res.render('auth/login', { 
-                title: 'ATCC - Login',
+                title: 'ATCC Login - Admin Access | Association of Tamilnadu Canadian Community',
+                description: 'Login to access the ATCC admin dashboard for managing events, blogs, and community content.',
+                keywords: 'ATCC login, admin access, Tamil community admin',
+                url: 'https://atcccanada.org/auth/login',
+                ogImage: 'https://atcccanada.org/img/login-banner.jpg',
                 page: 'login',
                 error: 'Invalid email or password',
                 user: null
@@ -30,7 +38,11 @@ router.post('/login', async (req, res) => {
 
         if (!user.isActive) {
             return res.render('auth/login', { 
-                title: 'ATCC - Login',
+                title: 'ATCC Login - Admin Access | Association of Tamilnadu Canadian Community',
+                description: 'Login to access the ATCC admin dashboard for managing events, blogs, and community content.',
+                keywords: 'ATCC login, admin access, Tamil community admin',
+                url: 'https://atcccanada.org/auth/login',
+                ogImage: 'https://atcccanada.org/img/login-banner.jpg',
                 page: 'login',
                 error: 'Account is deactivated. Please contact admin.',
                 user: null
@@ -42,7 +54,11 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         console.error('Login error:', error);
         res.render('auth/login', { 
-            title: 'ATCC - Login',
+            title: 'ATCC Login - Admin Access | Association of Tamilnadu Canadian Community',
+            description: 'Login to access the ATCC admin dashboard for managing events, blogs, and community content.',
+            keywords: 'ATCC login, admin access, Tamil community admin',
+            url: 'https://atcccanada.org/auth/login',
+            ogImage: 'https://atcccanada.org/img/login-banner.jpg',
             page: 'login',
             error: 'An error occurred. Please try again.',
             user: null
@@ -55,7 +71,11 @@ router.get('/register', (req, res) => {
         return res.redirect('/admin/dashboard');
     }
     res.render('auth/register', { 
-        title: 'ATCC - Register',
+        title: 'ATCC Registration - Create Admin Account | Association of Tamilnadu Canadian Community',
+        description: 'Register for an ATCC admin account to contribute content, manage events, and help build the Tamil Canadian community.',
+        keywords: 'ATCC registration, admin account, Tamil community contributor',
+        url: 'https://atcccanada.org/auth/register',
+        ogImage: 'https://atcccanada.org/img/register-banner.jpg',
         page: 'register',
         error: null,
         user: req.user || null
@@ -72,7 +92,11 @@ router.post('/register', async (req, res) => {
         
         if (existingUser) {
             return res.render('auth/register', { 
-                title: 'ATCC - Register',
+                title: 'ATCC Registration - Create Admin Account | Association of Tamilnadu Canadian Community',
+                description: 'Register for an ATCC admin account to contribute content, manage events, and help build the Tamil Canadian community.',
+                keywords: 'ATCC registration, admin account, Tamil community contributor',
+                url: 'https://atcccanada.org/auth/register',
+                ogImage: 'https://atcccanada.org/img/register-banner.jpg',
                 page: 'register',
                 error: 'Email or username already exists',
                 user: null
@@ -94,7 +118,11 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         console.error('Registration error:', error);
         res.render('auth/register', { 
-            title: 'ATCC - Register',
+            title: 'ATCC Registration - Create Admin Account | Association of Tamilnadu Canadian Community',
+            description: 'Register for an ATCC admin account to contribute content, manage events, and help build the Tamil Canadian community.',
+            keywords: 'ATCC registration, admin account, Tamil community contributor',
+            url: 'https://atcccanada.org/auth/register',
+            ogImage: 'https://atcccanada.org/img/register-banner.jpg',
             page: 'register',
             error: 'An error occurred. Please try again.',
             user: null

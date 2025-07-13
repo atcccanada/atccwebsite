@@ -40,7 +40,11 @@ router.get('/', async (req, res) => {
         const provinces = await Business.distinct('location.province', { isActive: true });
 
         res.render('directory/index', {
-            title: 'ATCC - Business Directory',
+            title: 'ATCC Business Directory - Tamil Canadian Businesses | Association of Tamilnadu Canadian Community',
+            description: 'Discover Tamil Canadian businesses across Canada. Find restaurants, services, professionals, and entrepreneurs in our comprehensive business directory with contact information and locations.',
+            keywords: 'ATCC business directory, Tamil Canadian businesses, Tamil businesses Canada, Tamil entrepreneurs, Tamil services Canada, Tamil business network',
+            url: 'https://atcccanada.org/directory',
+            ogImage: 'https://atcccanada.org/img/business-directory.jpg',
             page: 'directory',
             businesses,
             currentPage: page,
@@ -88,7 +92,11 @@ router.get('/:id', async (req, res) => {
         .limit(4);
 
         res.render('directory/detail', {
-            title: `ATCC - ${business.businessName}`,
+            title: `${business.businessName} - ATCC Business Directory | Tamil Canadian Businesses`,
+            description: `${business.businessName} - ${business.description || 'Tamil Canadian business listed in ATCC directory'} Located in ${business.location.city}, ${business.location.province}.`,
+            keywords: `${business.businessName}, Tamil business ${business.location.city}, ${business.category.replace('_', ' ')}, ATCC directory`,
+            url: `https://atcccanada.org/directory/${business._id}`,
+            ogImage: business.logo || 'https://atcccanada.org/img/business-default.jpg',
             page: 'directory',
             business,
             relatedBusinesses,
@@ -132,6 +140,10 @@ router.get('/admin/manage', requireRole(['admin', 'editor']), async (req, res) =
 
         res.render('directory/admin', {
             title: 'ATCC - Manage Business Directory',
+            description: 'Admin panel for managing ATCC business directory listings',
+            keywords: 'ATCC admin, business directory management',
+            url: 'https://atcccanada.org/directory/admin/manage',
+            ogImage: 'https://atcccanada.org/img/admin-panel.jpg',
             page: 'admin',
             businesses,
             currentPage: page,
@@ -156,6 +168,10 @@ router.get('/admin/manage', requireRole(['admin', 'editor']), async (req, res) =
 router.get('/admin/new', requireRole(['admin', 'editor']), (req, res) => {
     res.render('directory/form', {
         title: 'ATCC - Add Business',
+        description: 'Add a new business to the ATCC directory',
+        keywords: 'ATCC add business, business directory',
+        url: 'https://atcccanada.org/directory/admin/new',
+        ogImage: 'https://atcccanada.org/img/admin-panel.jpg',
         page: 'admin',
         business: null,
         user: req.user,
@@ -200,6 +216,10 @@ router.post('/admin/new', requireRole(['admin', 'editor']), async (req, res) => 
         console.error('Business creation error:', error);
         res.render('directory/form', {
             title: 'ATCC - Add Business',
+            description: 'Add a new business to the ATCC directory',
+            keywords: 'ATCC add business, business directory',
+            url: 'https://atcccanada.org/directory/admin/new',
+            ogImage: 'https://atcccanada.org/img/admin-panel.jpg',
             page: 'admin',
             business: null,
             user: req.user,
@@ -222,6 +242,10 @@ router.get('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res)
 
         res.render('directory/form', {
             title: 'ATCC - Edit Business',
+            description: 'Edit business information in the ATCC directory',
+            keywords: 'ATCC edit business, business directory',
+            url: `https://atcccanada.org/directory/admin/${business._id}/edit`,
+            ogImage: 'https://atcccanada.org/img/admin-panel.jpg',
             page: 'admin',
             business,
             user: req.user,
@@ -285,6 +309,10 @@ router.post('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res
         const business = await Business.findById(req.params.id);
         res.render('directory/form', {
             title: 'ATCC - Edit Business',
+            description: 'Edit business information in the ATCC directory',
+            keywords: 'ATCC edit business, business directory',
+            url: `https://atcccanada.org/directory/admin/${business._id}/edit`,
+            ogImage: 'https://atcccanada.org/img/admin-panel.jpg',
             page: 'admin',
             business,
             user: req.user,

@@ -49,8 +49,8 @@ app.use('/contact', contactRoutes);
 
 app.get('/', (req, res) => {
     res.render('index', { 
-        title: 'ATCC - Building Unity Across Canada | Association of Tamil Community in Canada',
-        description: 'Join the Association of Tamil Community in Canada (ATCC) - Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.',
+        title: 'ATCC - Building Unity Across Canada | Association of Tamilnadu Canadian Community',
+        description: 'Join the Association of Tamilnadu Canadian Community (ATCC) - Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.',
         keywords: 'Tamil Canadian community, ATCC, Tamil culture Canada, Tamil events, Tamil networking, Canadian Tamil association, Tamil volunteers, Tamil heritage Canada',
         url: 'https://atcccanada.org/',
         ogImage: 'https://atcccanada.org/img/DSC_6688-banner.jpeg',
