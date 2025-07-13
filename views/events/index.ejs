@@ -1,0 +1,212 @@
+<%- include('../partials/header') %>
+
+<main id="main-content">
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">Our Events</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Events</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="GET" class="row g-3" role="search" aria-label="Filter events">
+                            <div class="col-md-6">
+                                <label for="event-category" class="sr-only">Filter events by category</label>
+                                <select id="event-category" class="form-select" name="category" aria-label="Filter events by category">
+                                    <option value="">All Categories</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category %>" <%= selectedCategory === category ? 'selected' : '' %>>
+                                            <%= category.charAt(0).toUpperCase() + category.slice(1) %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary me-2">Filter</button>
+                                <a href="/events" class="btn btn-outline-secondary">Clear</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-end">
+                <% if (user && (user.role === 'admin' || user.role === 'editor')) { %>
+                    <a href="/events/admin/manage" class="btn btn-outline-primary">Manage Events</a>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Upcoming Events Section -->
+        <section class="row mb-5" aria-labelledby="upcoming-events-heading">
+            <div class="col-12">
+                <h2 id="upcoming-events-heading" class="mb-4">
+                    <i class="fas fa-calendar-alt text-primary me-2"></i>
+                    Upcoming Events
+                </h2>
+                <% if (upcomingEvents.length > 0) { %>
+                    <div class="row g-4">
+                        <% upcomingEvents.forEach(event => { %>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 shadow-sm event-card card-hover">
+                                    <% if (event.featuredImage) { %>
+                                        <img src="<%= event.featuredImage %>" class="card-img-top critical-image" alt="<%= event.title %>" loading="lazy" style="height: 200px; object-fit: cover;">
+                                    <% } else { %>
+                                        <div class="card-img-top bg-primary d-flex align-items-center justify-content-center text-white" style="height: 200px;">
+                                            <i class="fas fa-calendar-alt fa-3x"></i>
+                                        </div>
+                                    <% } %>
+                                    <div class="card-body d-flex flex-column">
+                                        <div class="mb-2">
+                                            <span class="badge bg-primary me-2">
+                                                <%= event.category.charAt(0).toUpperCase() + event.category.slice(1) %>
+                                            </span>
+                                            <span class="badge bg-success">
+                                                <%= event.status.charAt(0).toUpperCase() + event.status.slice(1) %>
+                                            </span>
+                                        </div>
+                                        <h5 class="card-title">
+                                            <a href="/events/<%= event._id %>" class="text-decoration-none">
+                                                <%= event.title %>
+                                            </a>
+                                        </h5>
+                                        <p class="card-text text-muted flex-grow-1">
+                                            <%= event.description.substring(0, 100) %>...
+                                        </p>
+                                        <div class="mt-auto">
+                                            <div class="mb-2">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-calendar"></i> 
+                                                    <%= new Date(event.startDate).toLocaleDateString('en-US', { 
+                                                        weekday: 'short',
+                                                        year: 'numeric', 
+                                                        month: 'short', 
+                                                        day: 'numeric' 
+                                                    }) %>
+                                                </small>
+                                            </div>
+                                            <div class="mb-2">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-map-marker-alt"></i> 
+                                                    <%= event.location.city %>, <%= event.location.province %>
+                                                </small>
+                                            </div>
+                                            <% if (event.ticketPrice > 0) { %>
+                                                <div class="mb-2">
+                                                    <span class="badge bg-warning text-dark">
+                                                        $<%= event.ticketPrice %>
+                                                    </span>
+                                                </div>
+                                            <% } else { %>
+                                                <div class="mb-2">
+                                                    <span class="badge bg-success">Free</span>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="text-center py-5">
+                        <i class="fas fa-calendar-times fa-5x text-muted mb-3"></i>
+                        <h4>No upcoming events</h4>
+                        <p class="text-muted">Check back later for new events from our community.</p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+
+        <!-- Past Events Section -->
+        <section class="row" aria-labelledby="past-events-heading">
+            <div class="col-12">
+                <h2 id="past-events-heading" class="mb-4">
+                    <i class="fas fa-history text-secondary me-2"></i>
+                    Past Events
+                </h2>
+                <% if (pastEvents.length > 0) { %>
+                    <div class="row g-4">
+                        <% pastEvents.forEach(event => { %>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 shadow-sm">
+                                    <% if (event.featuredImage) { %>
+                                        <img src="<%= event.featuredImage %>" class="card-img-top critical-image" alt="<%= event.title %>" loading="lazy" style="height: 200px; object-fit: cover;">
+                                    <% } else { %>
+                                        <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center text-white" style="height: 200px;">
+                                            <i class="fas fa-calendar-check fa-3x"></i>
+                                        </div>
+                                    <% } %>
+                                    <div class="card-body d-flex flex-column">
+                                        <div class="mb-2">
+                                            <span class="badge bg-secondary me-2">
+                                                <%= event.category.charAt(0).toUpperCase() + event.category.slice(1) %>
+                                            </span>
+                                            <span class="badge bg-light text-dark">Completed</span>
+                                        </div>
+                                        <h5 class="card-title">
+                                            <a href="/events/<%= event._id %>" class="text-decoration-none">
+                                                <%= event.title %>
+                                            </a>
+                                        </h5>
+                                        <p class="card-text text-muted flex-grow-1">
+                                            <%= event.description.substring(0, 100) %>...
+                                        </p>
+                                        <div class="mt-auto">
+                                            <div class="mb-2">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-calendar"></i> 
+                                                    <%= new Date(event.startDate).toLocaleDateString('en-US', { 
+                                                        year: 'numeric', 
+                                                        month: 'short', 
+                                                        day: 'numeric' 
+                                                    }) %>
+                                                </small>
+                                            </div>
+                                            <div class="mb-2">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-map-marker-alt"></i> 
+                                                    <%= event.location.city %>, <%= event.location.province %>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="text-center py-5">
+                        <i class="fas fa-calendar-alt fa-5x text-muted mb-3"></i>
+                        <h4>No past events to show</h4>
+                        <p class="text-muted">Our event history will appear here as we host more events.</p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+    </div>
+</div>
+</main>
+
+<style>
+.event-card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+</style>
+
+<%- include('../partials/footer') %>

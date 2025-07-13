@@ -1,0 +1,176 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">Manage Directory</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Manage Directory</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h2>Business Directory Management</h2>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="/directory/admin/new" class="btn btn-primary">Add New Business</a>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="GET" class="row g-3">
+                            <div class="col-md-3">
+                                <select class="form-select" name="status">
+                                    <option value="">All Status</option>
+                                    <option value="active" <%= filters.status === 'active' ? 'selected' : '' %>>Active</option>
+                                    <option value="inactive" <%= filters.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" name="category">
+                                    <option value="">All Categories</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category %>" <%= filters.category === category ? 'selected' : '' %>>
+                                            <%= category.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-outline-primary">Filter</button>
+                                <a href="/directory/admin/manage" class="btn btn-outline-secondary">Clear</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <% if (businesses.length > 0) { %>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Business</th>
+                                            <th>Owner</th>
+                                            <th>Contact</th>
+                                            <th>Location</th>
+                                            <th>Category</th>
+                                            <th>Status</th>
+                                            <th>Added By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% businesses.forEach(business => { %>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <% if (business.logo) { %>
+                                                            <img src="<%= business.logo %>" alt="<%= business.businessName %>" 
+                                                                 class="me-3 rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                                        <% } else { %>
+                                                            <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center me-3" 
+                                                                 style="width: 40px; height: 40px; font-size: 1.2rem;">
+                                                                <%= business.businessName.charAt(0) %>
+                                                            </div>
+                                                        <% } %>
+                                                        <div>
+                                                            <strong><%= business.businessName %></strong>
+                                                            <% if (business.isFeatured) { %>
+                                                                <span class="badge bg-warning text-dark ms-2">Featured</span>
+                                                            <% } %>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><%= business.fullOwnerName %></td>
+                                                <td>
+                                                    <small>
+                                                        <%= business.contactInfo.phone %><br>
+                                                        <%= business.contactInfo.email %>
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small>
+                                                        <%= business.location.city %>, <%= business.location.province %>
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-secondary">
+                                                        <%= business.category.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-<%= business.isActive ? 'success' : 'danger' %>">
+                                                        <%= business.isActive ? 'Active' : 'Inactive' %>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <% if (business.addedBy) { %>
+                                                        <small><%= business.addedBy.firstName %> <%= business.addedBy.lastName %></small>
+                                                    <% } else { %>
+                                                        <small class="text-muted">System</small>
+                                                    <% } %>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a href="/directory/<%= business._id %>" class="btn btn-outline-info" target="_blank">View</a>
+                                                        <a href="/directory/admin/<%= business._id %>/edit" class="btn btn-outline-primary">Edit</a>
+                                                        <form action="/directory/admin/<%= business._id %>/toggle-status" method="POST" style="display: inline;">
+                                                            <button type="submit" class="btn btn-outline-<%= business.isActive ? 'warning' : 'success' %>">
+                                                                <%= business.isActive ? 'Deactivate' : 'Activate' %>
+                                                            </button>
+                                                        </form>
+                                                        <form action="/directory/admin/<%= business._id %>/delete" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this business?')">
+                                                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <% if (totalPages > 1) { %>
+                                <nav aria-label="Directory pagination">
+                                    <ul class="pagination justify-content-center">
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                <a class="page-link" href="?page=<%= i %><%= filters.status ? '&status=' + filters.status : '' %><%= filters.category ? '&category=' + filters.category : '' %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </nav>
+                            <% } %>
+                        <% } else { %>
+                            <div class="text-center py-4">
+                                <h5>No businesses found</h5>
+                                <p class="text-muted">Start by adding your first business to the directory.</p>
+                                <a href="/directory/admin/new" class="btn btn-primary">Add New Business</a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

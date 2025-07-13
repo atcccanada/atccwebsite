@@ -34,9 +34,27 @@
                     <a href="/membership" class="nav-item nav-link <%= page === 'membership' ? 'active' : '' %>">Membership</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn btn-outline-light py-2 px-3 me-2" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        <i class="fa fa-user me-1"></i>Login
-                    </a>
+                    <% if (typeof user !== 'undefined' && user) { %>
+                        <div class="dropdown">
+                            <a class="btn btn-outline-light py-2 px-3 me-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fa fa-user me-1"></i><%= user.firstName %>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="/admin/blog/new">New Post</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="/auth/logout" method="POST" style="display: inline;">
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    <% } else { %>
+                        <a class="btn btn-outline-light py-2 px-3 me-2" href="/auth/login">
+                            <i class="fa fa-user me-1"></i>Login
+                        </a>
+                    <% } %>
                     <a class="btn btn-primary py-2 px-3" href="/contact">
                         <i class="fa fa-heart me-1"></i>Volunteer
                     </a>

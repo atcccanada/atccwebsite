@@ -1,0 +1,235 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">
+                <%= business ? 'Edit' : 'Add' %> Business
+            </h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/directory/admin/manage">Manage Directory</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">
+                        <%= business ? 'Edit' : 'Add' %> Business
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <% if (error) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= error %>
+                            </div>
+                        <% } %>
+
+                        <form action="<%= business ? `/directory/admin/${business._id}/edit` : '/directory/admin/new' %>" method="POST">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <h5 class="mb-3">Business Information</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="businessName" class="form-label">Business Name *</label>
+                                        <input type="text" class="form-control" id="businessName" name="businessName" 
+                                               value="<%= business ? business.businessName : '' %>" required>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="ownerFirstName" class="form-label">Owner First Name *</label>
+                                                <input type="text" class="form-control" id="ownerFirstName" name="ownerFirstName" 
+                                                       value="<%= business ? business.ownerName.firstName : '' %>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="ownerLastName" class="form-label">Owner Last Name *</label>
+                                                <input type="text" class="form-control" id="ownerLastName" name="ownerLastName" 
+                                                       value="<%= business ? business.ownerName.lastName : '' %>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="category" class="form-label">Business Category *</label>
+                                        <select class="form-select" id="category" name="category" required>
+                                            <option value="">Select Category</option>
+                                            <option value="restaurant" <%= business && business.category === 'restaurant' ? 'selected' : '' %>>Restaurant</option>
+                                            <option value="retail" <%= business && business.category === 'retail' ? 'selected' : '' %>>Retail</option>
+                                            <option value="professional_services" <%= business && business.category === 'professional_services' ? 'selected' : '' %>>Professional Services</option>
+                                            <option value="healthcare" <%= business && business.category === 'healthcare' ? 'selected' : '' %>>Healthcare</option>
+                                            <option value="beauty_wellness" <%= business && business.category === 'beauty_wellness' ? 'selected' : '' %>>Beauty & Wellness</option>
+                                            <option value="automotive" <%= business && business.category === 'automotive' ? 'selected' : '' %>>Automotive</option>
+                                            <option value="real_estate" <%= business && business.category === 'real_estate' ? 'selected' : '' %>>Real Estate</option>
+                                            <option value="education" <%= business && business.category === 'education' ? 'selected' : '' %>>Education</option>
+                                            <option value="technology" <%= business && business.category === 'technology' ? 'selected' : '' %>>Technology</option>
+                                            <option value="construction" <%= business && business.category === 'construction' ? 'selected' : '' %>>Construction</option>
+                                            <option value="entertainment" <%= business && business.category === 'entertainment' ? 'selected' : '' %>>Entertainment</option>
+                                            <option value="finance" <%= business && business.category === 'finance' ? 'selected' : '' %>>Finance</option>
+                                            <option value="grocery" <%= business && business.category === 'grocery' ? 'selected' : '' %>>Grocery</option>
+                                            <option value="other" <%= business && business.category === 'other' ? 'selected' : '' %>>Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="4" 
+                                                  maxlength="500"><%= business ? business.description || '' : '' %></textarea>
+                                        <div class="form-text">Brief description of the business (max 500 characters)</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="services" class="form-label">Services Offered</label>
+                                        <input type="text" class="form-control" id="services" name="services" 
+                                               value="<%= business && business.services ? business.services.join(', ') : '' %>" 
+                                               placeholder="service1, service2, service3">
+                                        <div class="form-text">Separate services with commas</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="yearEstablished" class="form-label">Year Established</label>
+                                        <input type="number" class="form-control" id="yearEstablished" name="yearEstablished" 
+                                               value="<%= business ? business.yearEstablished || '' : '' %>" 
+                                               min="1900" max="2025">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5 class="mb-3">Contact Information</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number *</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" 
+                                               value="<%= business ? business.contactInfo.phone : '' %>" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" id="email" name="email" 
+                                               value="<%= business ? business.contactInfo.email : '' %>" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="website" class="form-label">Website URL</label>
+                                        <input type="url" class="form-control" id="website" name="website" 
+                                               value="<%= business ? business.contactInfo.website || '' : '' %>"
+                                               placeholder="https://...">
+                                    </div>
+
+                                    <h5 class="mb-3 mt-4">Location</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="address" class="form-label">Street Address *</label>
+                                        <input type="text" class="form-control" id="address" name="address" 
+                                               value="<%= business ? business.location.address : '' %>" required>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="city" class="form-label">City *</label>
+                                                <input type="text" class="form-control" id="city" name="city" 
+                                                       value="<%= business ? business.location.city : '' %>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="province" class="form-label">Province *</label>
+                                                <select class="form-select" id="province" name="province" required>
+                                                    <option value="">Select Province</option>
+                                                    <option value="AB" <%= business && business.location.province === 'AB' ? 'selected' : '' %>>Alberta</option>
+                                                    <option value="BC" <%= business && business.location.province === 'BC' ? 'selected' : '' %>>British Columbia</option>
+                                                    <option value="MB" <%= business && business.location.province === 'MB' ? 'selected' : '' %>>Manitoba</option>
+                                                    <option value="NB" <%= business && business.location.province === 'NB' ? 'selected' : '' %>>New Brunswick</option>
+                                                    <option value="NL" <%= business && business.location.province === 'NL' ? 'selected' : '' %>>Newfoundland and Labrador</option>
+                                                    <option value="NS" <%= business && business.location.province === 'NS' ? 'selected' : '' %>>Nova Scotia</option>
+                                                    <option value="ON" <%= business && business.location.province === 'ON' ? 'selected' : '' %>>Ontario</option>
+                                                    <option value="PE" <%= business && business.location.province === 'PE' ? 'selected' : '' %>>Prince Edward Island</option>
+                                                    <option value="QC" <%= business && business.location.province === 'QC' ? 'selected' : '' %>>Quebec</option>
+                                                    <option value="SK" <%= business && business.location.province === 'SK' ? 'selected' : '' %>>Saskatchewan</option>
+                                                    <option value="NT" <%= business && business.location.province === 'NT' ? 'selected' : '' %>>Northwest Territories</option>
+                                                    <option value="NU" <%= business && business.location.province === 'NU' ? 'selected' : '' %>>Nunavut</option>
+                                                    <option value="YT" <%= business && business.location.province === 'YT' ? 'selected' : '' %>>Yukon</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="postalCode" class="form-label">Postal Code *</label>
+                                        <input type="text" class="form-control" id="postalCode" name="postalCode" 
+                                               value="<%= business ? business.location.postalCode : '' %>" required>
+                                    </div>
+
+                                    <h5 class="mb-3 mt-4">Social Media (Optional)</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="facebook" class="form-label">Facebook URL</label>
+                                        <input type="url" class="form-control" id="facebook" name="facebook" 
+                                               value="<%= business && business.socialMedia ? business.socialMedia.facebook || '' : '' %>"
+                                               placeholder="https://facebook.com/...">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="instagram" class="form-label">Instagram URL</label>
+                                        <input type="url" class="form-control" id="instagram" name="instagram" 
+                                               value="<%= business && business.socialMedia ? business.socialMedia.instagram || '' : '' %>"
+                                               placeholder="https://instagram.com/...">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="twitter" class="form-label">Twitter URL</label>
+                                        <input type="url" class="form-control" id="twitter" name="twitter" 
+                                               value="<%= business && business.socialMedia ? business.socialMedia.twitter || '' : '' %>"
+                                               placeholder="https://twitter.com/...">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="linkedin" class="form-label">LinkedIn URL</label>
+                                        <input type="url" class="form-control" id="linkedin" name="linkedin" 
+                                               value="<%= business && business.socialMedia ? business.socialMedia.linkedin || '' : '' %>"
+                                               placeholder="https://linkedin.com/...">
+                                    </div>
+
+                                    <% if (user.role === 'admin') { %>
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="isFeatured" name="isFeatured" 
+                                                       <%= business && business.isFeatured ? 'checked' : '' %>>
+                                                <label class="form-check-label" for="isFeatured">
+                                                    Featured Business
+                                                </label>
+                                            </div>
+                                        </div>
+                                    <% } %>
+
+                                    <div class="d-grid gap-2 mt-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            <%= business ? 'Update' : 'Add' %> Business
+                                        </button>
+                                        <a href="/directory/admin/manage" class="btn btn-outline-secondary">Cancel</a>
+                                        <% if (business) { %>
+                                            <a href="/directory/<%= business._id %>" class="btn btn-outline-info" target="_blank">View Business</a>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

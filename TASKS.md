@@ -38,18 +38,18 @@
 
 ### Additional Pages
 
-- [ ] **Events Page**
-  - [ ] Grid layout
-  - [ ] Upcoming Events → each redirects to dedicated event page
-  - [ ] Past Events → each redirects to archived event page with media
+- [x] **Events Page**
+  - [x] Grid layout
+  - [x] Upcoming Events → each redirects to dedicated event page
+  - [x] Past Events → each redirects to archived event page with media
 
-- [ ] **Business Directory Page**
-  - [ ] Table format: Business | Name | Phone | Email | Location
-  - [ ] Filter by Business Category and Location
+- [x] **Business Directory Page**
+  - [x] Table format: Business | Name | Phone | Email | Location
+  - [x] Filter by Business Category and Location
 
-- [ ] **Blogs Page**
-  - [ ] Grid layout for blog cards
-  - [ ] Each card links to full blog post page
+- [x] **Blogs Page**
+  - [x] Grid layout for blog cards
+  - [x] Each card links to full blog post page
 
 ### Technical Implementation
 
@@ -114,10 +114,10 @@
 
 ## Future Enhancements
 
-- [ ] User authentication system
+- [x] User authentication system
 - [ ] Member portal
-- [ ] Event registration system
+- [x] Event registration system
 - [ ] Payment integration for memberships
-- [ ] Admin panel for content management
+- [x] Admin panel for content management
 - [ ] Newsletter subscription
 - [ ] Volunteer management system

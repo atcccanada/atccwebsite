@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">Server Error</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">500</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <i class="fas fa-exclamation-triangle fa-5x text-warning mb-4"></i>
+                <h1 class="display-1 fw-bold text-primary mb-4">500</h1>
+                <h2 class="mb-4">Internal Server Error</h2>
+                <p class="mb-4">Something went wrong on our end. We're working to fix this issue.</p>
+                <div class="d-grid gap-2 d-md-block">
+                    <a href="/" class="btn btn-primary">Go Back Home</a>
+                    <a href="/contact" class="btn btn-outline-primary">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

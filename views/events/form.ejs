@@ -1,0 +1,212 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">
+                <%= event ? 'Edit' : 'Create' %> Event
+            </h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/events/admin/manage">Manage Events</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">
+                        <%= event ? 'Edit' : 'Create' %> Event
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <% if (error) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= error %>
+                            </div>
+                        <% } %>
+
+                        <form action="<%= event ? `/events/admin/${event._id}/edit` : '/events/admin/new' %>" method="POST">
+                            <div class="row g-4">
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Event Title *</label>
+                                        <input type="text" class="form-control" id="title" name="title" 
+                                               value="<%= event ? event.title : '' %>" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description *</label>
+                                        <textarea class="form-control" id="description" name="description" rows="6" 
+                                                  required><%= event ? event.description : '' %></textarea>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="startDate" class="form-label">Start Date & Time *</label>
+                                                <input type="datetime-local" class="form-control" id="startDate" name="startDate" 
+                                                       value="<%= event ? new Date(event.startDate).toISOString().slice(0, 16) : '' %>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="endDate" class="form-label">End Date & Time *</label>
+                                                <input type="datetime-local" class="form-control" id="endDate" name="endDate" 
+                                                       value="<%= event ? new Date(event.endDate).toISOString().slice(0, 16) : '' %>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="mb-3">Location Details</h5>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label for="address" class="form-label">Address *</label>
+                                                <input type="text" class="form-control" id="address" name="address" 
+                                                       value="<%= event ? event.location.address : '' %>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="city" class="form-label">City *</label>
+                                                <input type="text" class="form-control" id="city" name="city" 
+                                                       value="<%= event ? event.location.city : '' %>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="province" class="form-label">Province *</label>
+                                                <select class="form-select" id="province" name="province" required>
+                                                    <option value="">Select Province</option>
+                                                    <option value="AB" <%= event && event.location.province === 'AB' ? 'selected' : '' %>>Alberta</option>
+                                                    <option value="BC" <%= event && event.location.province === 'BC' ? 'selected' : '' %>>British Columbia</option>
+                                                    <option value="MB" <%= event && event.location.province === 'MB' ? 'selected' : '' %>>Manitoba</option>
+                                                    <option value="NB" <%= event && event.location.province === 'NB' ? 'selected' : '' %>>New Brunswick</option>
+                                                    <option value="NL" <%= event && event.location.province === 'NL' ? 'selected' : '' %>>Newfoundland and Labrador</option>
+                                                    <option value="NS" <%= event && event.location.province === 'NS' ? 'selected' : '' %>>Nova Scotia</option>
+                                                    <option value="ON" <%= event && event.location.province === 'ON' ? 'selected' : '' %>>Ontario</option>
+                                                    <option value="PE" <%= event && event.location.province === 'PE' ? 'selected' : '' %>>Prince Edward Island</option>
+                                                    <option value="QC" <%= event && event.location.province === 'QC' ? 'selected' : '' %>>Quebec</option>
+                                                    <option value="SK" <%= event && event.location.province === 'SK' ? 'selected' : '' %>>Saskatchewan</option>
+                                                    <option value="NT" <%= event && event.location.province === 'NT' ? 'selected' : '' %>>Northwest Territories</option>
+                                                    <option value="NU" <%= event && event.location.province === 'NU' ? 'selected' : '' %>>Nunavut</option>
+                                                    <option value="YT" <%= event && event.location.province === 'YT' ? 'selected' : '' %>>Yukon</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="postalCode" class="form-label">Postal Code</label>
+                                                <input type="text" class="form-control" id="postalCode" name="postalCode" 
+                                                       value="<%= event ? event.location.postalCode || '' : '' %>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="category" class="form-label">Category</label>
+                                        <select class="form-select" id="category" name="category">
+                                            <option value="cultural" <%= event && event.category === 'cultural' ? 'selected' : '' %>>Cultural</option>
+                                            <option value="community" <%= event && event.category === 'community' ? 'selected' : '' %>>Community</option>
+                                            <option value="fundraising" <%= event && event.category === 'fundraising' ? 'selected' : '' %>>Fundraising</option>
+                                            <option value="educational" <%= event && event.category === 'educational' ? 'selected' : '' %>>Educational</option>
+                                            <option value="networking" <%= event && event.category === 'networking' ? 'selected' : '' %>>Networking</option>
+                                            <option value="entertainment" <%= event && event.category === 'entertainment' ? 'selected' : '' %>>Entertainment</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="ticketPrice" class="form-label">Ticket Price ($)</label>
+                                        <input type="number" class="form-control" id="ticketPrice" name="ticketPrice" 
+                                               value="<%= event ? event.ticketPrice || 0 : 0 %>" min="0" step="0.01">
+                                        <div class="form-text">Set to 0 for free events</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="maxAttendees" class="form-label">Max Attendees</label>
+                                        <input type="number" class="form-control" id="maxAttendees" name="maxAttendees" 
+                                               value="<%= event ? event.maxAttendees || '' : '' %>" min="1">
+                                        <div class="form-text">Leave empty for unlimited</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="registrationRequired" name="registrationRequired" 
+                                                   <%= event && event.registrationRequired ? 'checked' : '' %>>
+                                            <label class="form-check-label" for="registrationRequired">
+                                                Registration Required
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="tags" class="form-label">Tags</label>
+                                        <input type="text" class="form-control" id="tags" name="tags" 
+                                               value="<%= event && event.tags ? event.tags.join(', ') : '' %>" 
+                                               placeholder="tag1, tag2, tag3">
+                                        <div class="form-text">Separate tags with commas</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="contactEmail" class="form-label">Contact Email</label>
+                                        <input type="email" class="form-control" id="contactEmail" name="contactEmail" 
+                                               value="<%= event ? event.contactEmail || '' : '' %>">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="contactPhone" class="form-label">Contact Phone</label>
+                                        <input type="tel" class="form-control" id="contactPhone" name="contactPhone" 
+                                               value="<%= event ? event.contactPhone || '' : '' %>">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="externalLink" class="form-label">External Link</label>
+                                        <input type="url" class="form-control" id="externalLink" name="externalLink" 
+                                               value="<%= event ? event.externalLink || '' : '' %>"
+                                               placeholder="https://...">
+                                    </div>
+
+                                    <% if (event) { %>
+                                        <div class="mb-3">
+                                            <label class="form-label">Event Info</label>
+                                            <div class="card bg-light">
+                                                <div class="card-body p-3">
+                                                    <small class="text-muted">
+                                                        <div>Created: <%= new Date(event.createdAt).toLocaleDateString() %></div>
+                                                        <div>Updated: <%= new Date(event.updatedAt).toLocaleDateString() %></div>
+                                                        <div>Status: <%= event.status %></div>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <%= event ? 'Update' : 'Create' %> Event
+                                        </button>
+                                        <a href="/events/admin/manage" class="btn btn-outline-secondary">Cancel</a>
+                                        <% if (event) { %>
+                                            <a href="/events/<%= event._id %>" class="btn btn-outline-info" target="_blank">View Event</a>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

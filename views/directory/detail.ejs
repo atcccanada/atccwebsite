@@ -1,0 +1,221 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-4 text-white animated slideInDown"><%= business.businessName %></h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/directory">Directory</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Business Details</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <% if (business.logo) { %>
+                        <div class="text-center p-4 bg-light">
+                            <img src="<%= business.logo %>" alt="<%= business.businessName %>" class="img-fluid" style="max-height: 200px;">
+                        </div>
+                    <% } %>
+                    <div class="card-body p-4">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-user text-primary me-2"></i>Owner</h6>
+                                <p><%= business.fullOwnerName %></p>
+                                
+                                <h6><i class="fas fa-tag text-primary me-2"></i>Category</h6>
+                                <span class="badge bg-primary">
+                                    <%= business.category.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %>
+                                </span>
+                                
+                                <% if (business.yearEstablished) { %>
+                                    <h6 class="mt-3"><i class="fas fa-calendar text-primary me-2"></i>Established</h6>
+                                    <p><%= business.yearEstablished %></p>
+                                <% } %>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-phone text-primary me-2"></i>Contact</h6>
+                                <p>
+                                    <a href="tel:<%= business.contactInfo.phone %>" class="text-decoration-none">
+                                        <%= business.contactInfo.phone %>
+                                    </a>
+                                </p>
+                                
+                                <h6><i class="fas fa-envelope text-primary me-2"></i>Email</h6>
+                                <p>
+                                    <a href="mailto:<%= business.contactInfo.email %>" class="text-decoration-none">
+                                        <%= business.contactInfo.email %>
+                                    </a>
+                                </p>
+                                
+                                <% if (business.contactInfo.website) { %>
+                                    <h6><i class="fas fa-globe text-primary me-2"></i>Website</h6>
+                                    <p>
+                                        <a href="<%= business.contactInfo.website %>" target="_blank" class="text-decoration-none">
+                                            Visit Website <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </p>
+                                <% } %>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6><i class="fas fa-map-marker-alt text-primary me-2"></i>Address</h6>
+                            <p><%= business.fullAddress %></p>
+                            <a href="https://maps.google.com/?q=<%= encodeURIComponent(business.fullAddress) %>" 
+                               target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-map"></i> View on Map
+                            </a>
+                        </div>
+
+                        <% if (business.description) { %>
+                            <div class="mb-4">
+                                <h5>About <%= business.businessName %></h5>
+                                <p><%= business.description %></p>
+                            </div>
+                        <% } %>
+
+                        <% if (business.services && business.services.length > 0) { %>
+                            <div class="mb-4">
+                                <h6>Services Offered:</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <% business.services.forEach(service => { %>
+                                        <span class="badge bg-secondary"><%= service %></span>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        <% } %>
+
+                        <% if (business.businessHours) { %>
+                            <div class="mb-4">
+                                <h6>Business Hours:</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <% 
+                                        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                                        const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                                        %>
+                                        <% days.forEach((day, index) => { %>
+                                            <% if (business.businessHours[day]) { %>
+                                                <tr>
+                                                    <td><strong><%= dayNames[index] %></strong></td>
+                                                    <td>
+                                                        <% if (business.businessHours[day].closed) { %>
+                                                            Closed
+                                                        <% } else if (business.businessHours[day].open && business.businessHours[day].close) { %>
+                                                            <%= business.businessHours[day].open %> - <%= business.businessHours[day].close %>
+                                                        <% } else { %>
+                                                            Hours not specified
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
+                                            <% } %>
+                                        <% }) %>
+                                    </table>
+                                </div>
+                            </div>
+                        <% } %>
+
+                        <% if (business.socialMedia && (business.socialMedia.facebook || business.socialMedia.instagram || business.socialMedia.twitter || business.socialMedia.linkedin)) { %>
+                            <div class="mb-4">
+                                <h6>Follow Us:</h6>
+                                <div class="d-flex gap-2">
+                                    <% if (business.socialMedia.facebook) { %>
+                                        <a href="<%= business.socialMedia.facebook %>" target="_blank" class="btn btn-outline-primary btn-sm">
+                                            <i class="fab fa-facebook"></i> Facebook
+                                        </a>
+                                    <% } %>
+                                    <% if (business.socialMedia.instagram) { %>
+                                        <a href="<%= business.socialMedia.instagram %>" target="_blank" class="btn btn-outline-primary btn-sm">
+                                            <i class="fab fa-instagram"></i> Instagram
+                                        </a>
+                                    <% } %>
+                                    <% if (business.socialMedia.twitter) { %>
+                                        <a href="<%= business.socialMedia.twitter %>" target="_blank" class="btn btn-outline-primary btn-sm">
+                                            <i class="fab fa-twitter"></i> Twitter
+                                        </a>
+                                    <% } %>
+                                    <% if (business.socialMedia.linkedin) { %>
+                                        <a href="<%= business.socialMedia.linkedin %>" target="_blank" class="btn btn-outline-primary btn-sm">
+                                            <i class="fab fa-linkedin"></i> LinkedIn
+                                        </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="tel:<%= business.contactInfo.phone %>" class="btn btn-primary">
+                                <i class="fas fa-phone me-2"></i>Call Now
+                            </a>
+                            <a href="mailto:<%= business.contactInfo.email %>" class="btn btn-outline-primary">
+                                <i class="fas fa-envelope me-2"></i>Send Email
+                            </a>
+                            <% if (business.contactInfo.website) { %>
+                                <a href="<%= business.contactInfo.website %>" target="_blank" class="btn btn-outline-success">
+                                    <i class="fas fa-globe me-2"></i>Visit Website
+                                </a>
+                            <% } %>
+                            <a href="https://maps.google.com/?q=<%= encodeURIComponent(business.fullAddress) %>" 
+                               target="_blank" class="btn btn-outline-info">
+                                <i class="fas fa-map-marker-alt me-2"></i>Get Directions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <% if (relatedBusinesses.length > 0) { %>
+                    <div class="card shadow-sm mt-4">
+                        <div class="card-header">
+                            <h5>Similar Businesses</h5>
+                        </div>
+                        <div class="card-body">
+                            <% relatedBusinesses.forEach(relatedBusiness => { %>
+                                <div class="mb-3 pb-3 border-bottom">
+                                    <h6>
+                                        <a href="/directory/<%= relatedBusiness._id %>" class="text-decoration-none">
+                                            <%= relatedBusiness.businessName %>
+                                        </a>
+                                    </h6>
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt"></i> 
+                                        <%= relatedBusiness.location.city %>, <%= relatedBusiness.location.province %>
+                                    </small>
+                                    <br>
+                                    <small class="text-muted">
+                                        <i class="fas fa-phone"></i> 
+                                        <%= relatedBusiness.contactInfo.phone %>
+                                    </small>
+                                </div>
+                            <% }) %>
+                            <div class="text-center">
+                                <a href="/directory?category=<%= business.category %>" class="btn btn-outline-primary btn-sm">
+                                    View All in Category
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
