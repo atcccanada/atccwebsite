@@ -249,25 +249,27 @@ router.post('/blog/:id/edit', adminLimiter, requireAuth, validateObjectId('id'),
         
         const user = await User.findById(req.session.userId);
         
-        // Build update data
-        const updateData = {
-            title: title,
-            content: content,
-            excerpt: excerpt,
-            tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-            category: category,
-            status: status
+        // Create update operation with $set for security
+        const updateOperation = {
+            $set: {
+                title: title,
+                content: content,
+                excerpt: excerpt,
+                tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+                category: category,
+                status: status
+            }
         };
         
         let blog;
         if (user.role === 'admin') {
             // Admin can update any blog
-            blog = await Blog.findByIdAndUpdate(req.params.id, updateData, { new: true });
+            blog = await Blog.findByIdAndUpdate(req.params.id, updateOperation, { new: true });
         } else {
             // Non-admin can only update their own blogs
             blog = await Blog.findOneAndUpdate(
                 { _id: req.params.id, author: user._id },
-                updateData,
+                updateOperation,
                 { new: true }
             );
         }
