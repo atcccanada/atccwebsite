@@ -1,7 +1,7 @@
 const express = require('express');
 const Business = require('../models/Business');
 const { requireAuth, requireRole } = require('../middleware/auth');
-const { validateObjectId } = require('../middleware/validation');
+const { validateObjectId, createSafeRegex } = require('../middleware/validation');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -17,7 +17,10 @@ router.get('/', async (req, res) => {
         }
         
         if (req.query.city && req.query.city !== '') {
-            query['location.city'] = new RegExp(req.query.city, 'i');
+            const safeRegex = createSafeRegex(req.query.city);
+            if (safeRegex) {
+                query['location.city'] = safeRegex;
+            }
         }
         
         if (req.query.province && req.query.province !== '') {

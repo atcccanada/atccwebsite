@@ -53,8 +53,12 @@ app.use(session({
     }
 }));
 
-// Import validation middleware
+// Import validation and rate limiting middleware
 const { sanitizeRequest } = require('./middleware/validation');
+const { generalLimiter } = require('./middleware/rateLimiting');
+
+// Apply rate limiting to all requests
+app.use(generalLimiter);
 
 // Apply input sanitization to all requests
 app.use(sanitizeRequest);

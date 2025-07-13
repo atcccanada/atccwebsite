@@ -50,6 +50,34 @@ function sanitizeInput(input) {
 }
 
 /**
+ * Escapes special regex characters to prevent ReDoS attacks
+ * @param {string} string - The string to escape
+ * @returns {string} - Escaped string safe for regex
+ */
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Creates a safe case-insensitive regex for search queries
+ * @param {string} searchTerm - The search term
+ * @returns {RegExp|null} - Safe regex or null if invalid
+ */
+function createSafeRegex(searchTerm) {
+    if (!searchTerm || typeof searchTerm !== 'string' || searchTerm.length > 100) {
+        return null;
+    }
+    
+    // Escape special regex characters and create case-insensitive regex
+    const escapedTerm = escapeRegExp(searchTerm.trim());
+    if (escapedTerm.length === 0) {
+        return null;
+    }
+    
+    return new RegExp(escapedTerm, 'i');
+}
+
+/**
  * Middleware to sanitize request body, query, and params
  */
 function sanitizeRequest(req, res, next) {
@@ -69,5 +97,7 @@ module.exports = {
     isValidObjectId,
     validateObjectId,
     sanitizeInput,
-    sanitizeRequest
+    sanitizeRequest,
+    escapeRegExp,
+    createSafeRegex
 };

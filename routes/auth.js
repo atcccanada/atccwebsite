@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const { authLimiter } = require('../middleware/rateLimiting');
 const router = express.Router();
 
 router.get('/login', (req, res) => {
@@ -18,7 +19,7 @@ router.get('/login', (req, res) => {
     });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', authLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
         

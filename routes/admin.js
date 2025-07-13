@@ -1,11 +1,13 @@
 const express = require('express');
+const { body, validationResult } = require('express-validator');
 const Blog = require('../models/Blog');
 const User = require('../models/User');
 const { requireAuth, requireRole } = require('../middleware/auth');
 const { validateObjectId } = require('../middleware/validation');
+const { adminLimiter, createContentLimiter } = require('../middleware/rateLimiting');
 const router = express.Router();
 
-router.get('/dashboard', requireAuth, async (req, res) => {
+router.get('/dashboard', adminLimiter, requireAuth, async (req, res) => {
     try {
         const user = await User.findById(req.session.userId);
         const totalBlogs = await Blog.countDocuments({ author: user._id });
@@ -102,8 +104,31 @@ router.get('/blog/new', requireAuth, (req, res) => {
     });
 });
 
-router.post('/blog/new', requireAuth, async (req, res) => {
+// Blog validation middleware
+const blogValidation = [
+    body('title').notEmpty().trim().isLength({ min: 1, max: 200 }).escape(),
+    body('content').notEmpty().trim().isLength({ min: 10, max: 50000 }),
+    body('excerpt').optional().trim().isLength({ max: 500 }).escape(),
+    body('category').optional().isIn(['technology', 'community', 'events', 'culture', 'business', 'education']),
+    body('status').optional().isIn(['draft', 'published', 'archived']),
+    body('tags').optional().trim()
+];
+
+router.post('/blog/new', createContentLimiter, requireAuth, blogValidation, async (req, res) => {
     try {
+        // Check validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('admin/blog-form', {
+                title: 'Create New Blog Post - ATCC Admin',
+                page: 'admin',
+                user: req.user,
+                blog: null,
+                errors: errors.array(),
+                formData: req.body
+            });
+        }
+
         const { title, content, excerpt, tags, category, status } = req.body;
         const user = await User.findById(req.session.userId);
         
@@ -167,8 +192,22 @@ router.get('/blog/:id/edit', requireAuth, validateObjectId('id'), async (req, re
     }
 });
 
-router.post('/blog/:id/edit', requireAuth, validateObjectId('id'), async (req, res) => {
+router.post('/blog/:id/edit', adminLimiter, requireAuth, validateObjectId('id'), blogValidation, async (req, res) => {
     try {
+        // Check validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const blog = await Blog.findById(req.params.id);
+            return res.status(400).render('admin/blog-form', {
+                title: 'Edit Blog Post - ATCC Admin',
+                page: 'admin',
+                user: req.user,
+                blog: blog,
+                errors: errors.array(),
+                formData: req.body
+            });
+        }
+
         const { title, content, excerpt, tags, category, status } = req.body;
         const user = await User.findById(req.session.userId);
         
@@ -208,7 +247,7 @@ router.post('/blog/:id/edit', requireAuth, validateObjectId('id'), async (req, r
     }
 });
 
-router.post('/blog/:id/delete', requireRole(['admin', 'editor']), validateObjectId('id'), async (req, res) => {
+router.post('/blog/:id/delete', adminLimiter, requireRole(['admin', 'editor']), validateObjectId('id'), async (req, res) => {
     try {
         const user = await User.findById(req.session.userId);
         let query = { _id: req.params.id };
