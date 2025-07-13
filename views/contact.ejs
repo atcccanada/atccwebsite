@@ -70,29 +70,61 @@
                     <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">General Inquiry</div>
                     <h3 class="mb-4">Send us a Message</h3>
                     <p class="mb-4">Have questions about our community, events, or services? We'd love to hear from you!</p>
-                    <form action="mailto:info@atcccanada.ca" method="post" enctype="text/plain">
+                    
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <%= typeof message !== 'undefined' ? message : 'Thank you for your message! We will get back to you soon.' %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <% } %>
+                    
+                    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <ul class="mb-0">
+                                <% errors.forEach(error => { %>
+                                    <li><%= error.msg %></li>
+                                <% }) %>
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <% } %>
+                    
+                    <form action="/contact/submit" method="POST">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name" required>
+                                    <input type="text" class="form-control" id="contactName" name="name" 
+                                           placeholder="Your Name" value="<%= typeof formData !== 'undefined' ? formData.name || '' : '' %>" required>
                                     <label for="contactName">Your Name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="contactEmail" name="email" placeholder="Your Email" required>
+                                    <input type="email" class="form-control" id="contactEmail" name="email" 
+                                           placeholder="Your Email" value="<%= typeof formData !== 'undefined' ? formData.email || '' : '' %>" required>
                                     <label for="contactEmail">Your Email</label>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="contactSubject" name="subject" placeholder="Subject" required>
-                                    <label for="contactSubject">Subject</label>
+                                    <input type="tel" class="form-control" id="contactPhone" name="phone" 
+                                           placeholder="Phone Number" value="<%= typeof formData !== 'undefined' ? formData.phone || '' : '' %>">
+                                    <label for="contactPhone">Phone Number (Optional)</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Your message here" id="contactMessage" name="message" style="height: 120px" required></textarea>
+                                    <input type="text" class="form-control" id="contactSubject" name="subject" 
+                                           placeholder="Subject" value="<%= typeof formData !== 'undefined' ? formData.subject || '' : '' %>">
+                                    <label for="contactSubject">Subject (Optional)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Your message here" id="contactMessage" 
+                                              name="message" style="height: 120px" required><%= typeof formData !== 'undefined' ? formData.message || '' : '' %></textarea>
                                     <label for="contactMessage">Message</label>
                                 </div>
                             </div>
@@ -115,73 +147,83 @@
                     <div class="d-inline-block rounded-pill bg-primary text-white py-1 px-3 mb-3">Volunteer Registration</div>
                     <h3 class="mb-4">Join Our Team</h3>
                     <p class="mb-4">Ready to make a difference? Join our 140+ volunteers and help build a stronger Tamil community!</p>
-                    <form action="mailto:info@atcccanada.ca" method="post" enctype="text/plain">
+                    
+                    <% if (typeof volunteerSuccess !== 'undefined' && volunteerSuccess) { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <%= typeof volunteerMessage !== 'undefined' ? volunteerMessage : 'Thank you for your interest in volunteering! We will contact you soon.' %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <% } %>
+                    
+                    <% if (typeof volunteerErrors !== 'undefined' && volunteerErrors.length > 0) { %>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <ul class="mb-0">
+                                <% volunteerErrors.forEach(error => { %>
+                                    <li><%= error.msg %></li>
+                                <% }) %>
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <% } %>
+                    
+                    <form action="/contact/volunteer" method="POST">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="volunteerName" name="name" placeholder="Full Name" required>
-                                    <label for="volunteerName">Full Name</label>
+                                    <input type="text" class="form-control" id="volunteerFirstName" name="firstName" 
+                                           placeholder="First Name" value="<%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.firstName || '' : '' %>" required>
+                                    <label for="volunteerFirstName">First Name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="volunteerEmail" name="email" placeholder="Email Address" required>
+                                    <input type="text" class="form-control" id="volunteerLastName" name="lastName" 
+                                           placeholder="Last Name" value="<%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.lastName || '' : '' %>" required>
+                                    <label for="volunteerLastName">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="volunteerEmail" name="email" 
+                                           placeholder="Email Address" value="<%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.email || '' : '' %>" required>
                                     <label for="volunteerEmail">Email Address</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="tel" class="form-control" id="volunteerPhone" name="phone" placeholder="Phone Number">
-                                    <label for="volunteerPhone">Phone Number</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <select class="form-select" id="volunteerProvince" name="province" required>
-                                        <option value="">Select Province</option>
-                                        <option value="ON">Ontario</option>
-                                        <option value="BC">British Columbia</option>
-                                        <option value="AB">Alberta</option>
-                                        <option value="QC">Quebec</option>
-                                        <option value="MB">Manitoba</option>
-                                        <option value="SK">Saskatchewan</option>
-                                        <option value="NS">Nova Scotia</option>
-                                        <option value="NB">New Brunswick</option>
-                                        <option value="NL">Newfoundland and Labrador</option>
-                                        <option value="PE">Prince Edward Island</option>
-                                        <option value="NT">Northwest Territories</option>
-                                        <option value="NU">Nunavut</option>
-                                        <option value="YT">Yukon</option>
-                                    </select>
-                                    <label for="volunteerProvince">Province</label>
+                                    <input type="tel" class="form-control" id="volunteerPhone" name="phone" 
+                                           placeholder="Phone Number" value="<%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.phone || '' : '' %>">
+                                    <label for="volunteerPhone">Phone Number (Optional)</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <select class="form-select" id="volunteerInterest" name="interest" required>
-                                        <option value="">Select Area of Interest</option>
-                                        <option value="cultural-events">Cultural & Event Management</option>
-                                        <option value="community-outreach">Membership & Community Outreach</option>
-                                        <option value="legal-advocacy">Legal and Advocacy</option>
-                                        <option value="fundraising">Fundraising and Sponsorship</option>
-                                        <option value="social-media">Social Media & Marketing</option>
-                                        <option value="it-technology">IT & Technology</option>
-                                        <option value="education-career">Women, Education, & Career Development</option>
-                                        <option value="sports-recreation">Sports & Recreation</option>
-                                        <option value="crisis-response">Crisis and Emergency Response</option>
-                                        <option value="business-support">Entrepreneurship & Business Support</option>
-                                        <option value="volunteer-coordination">Volunteer Coordination & Training</option>
-                                        <option value="administration">Administration</option>
-                                        <option value="accounting">Accounting</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                    <label for="volunteerInterest">Area of Interest</label>
+                                    <textarea class="form-control" id="volunteerSkills" name="skills" 
+                                              placeholder="Skills and Experience" style="height: 80px"><%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.skills || '' : '' %></textarea>
+                                    <label for="volunteerSkills">Skills and Experience (Optional)</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Tell us about your experience and motivation" id="volunteerMessage" name="message" style="height: 80px"></textarea>
-                                    <label for="volunteerMessage">Experience & Motivation (Optional)</label>
+                                    <textarea class="form-control" id="volunteerAvailability" name="availability" 
+                                              placeholder="Availability" style="height: 60px"><%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.availability || '' : '' %></textarea>
+                                    <label for="volunteerAvailability">Availability (Optional)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="volunteerExperience" name="experience" 
+                                              placeholder="Previous volunteer experience" style="height: 80px"><%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.experience || '' : '' %></textarea>
+                                    <label for="volunteerExperience">Previous Volunteer Experience (Optional)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="volunteerAdditionalInfo" name="additionalInfo" 
+                                              placeholder="Additional information" style="height: 80px"><%= typeof volunteerFormData !== 'undefined' ? volunteerFormData.additionalInfo || '' : '' %></textarea>
+                                    <label for="volunteerAdditionalInfo">Additional Information (Optional)</label>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -220,7 +262,7 @@
                         </h2>
                         <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                ATCC stands for Association of Tamil Canadian Community. We are a nonprofit, volunteer-led organization founded in May 2023, dedicated to uniting and empowering the Tamil community across Canada through cultural preservation, community support, and meaningful events.
+                                ATCC stands for Association of Tamilnadu Canadian Community. We are a nonprofit, volunteer-led organization founded in May 2023, dedicated to uniting and empowering the Tamil community across Canada through cultural preservation, community support, and meaningful events.
                             </div>
                         </div>
                     </div>

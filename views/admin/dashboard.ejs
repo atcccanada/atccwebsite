@@ -1,0 +1,118 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">Admin Dashboard</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2>Welcome back, <%= user.firstName %> <%= user.lastName %>!</h2>
+                <p class="text-muted">Role: <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %></p>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card text-center bg-primary text-white">
+                    <div class="card-body">
+                        <h3><%= stats.totalBlogs %></h3>
+                        <p>Total Blog Posts</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center bg-success text-white">
+                    <div class="card-body">
+                        <h3><%= stats.publishedBlogs %></h3>
+                        <p>Published Posts</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center bg-warning text-white">
+                    <div class="card-body">
+                        <h3><%= stats.draftBlogs %></h3>
+                        <p>Draft Posts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5>Recent Blog Posts</h5>
+                        <a href="/admin/blog/new" class="btn btn-primary btn-sm">New Post</a>
+                    </div>
+                    <div class="card-body">
+                        <% if (recentBlogs.length > 0) { %>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Status</th>
+                                            <th>Updated</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% recentBlogs.forEach(blog => { %>
+                                            <tr>
+                                                <td><%= blog.title %></td>
+                                                <td>
+                                                    <span class="badge bg-<%= blog.status === 'published' ? 'success' : 'warning' %>">
+                                                        <%= blog.status.charAt(0).toUpperCase() + blog.status.slice(1) %>
+                                                    </span>
+                                                </td>
+                                                <td><%= new Date(blog.updatedAt).toLocaleDateString() %></td>
+                                                <td>
+                                                    <a href="/admin/blog/<%= blog._id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% } else { %>
+                            <p class="text-muted">No blog posts yet. <a href="/admin/blog/new">Create your first post</a></p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="/admin/blog/new" class="btn btn-primary">Create New Post</a>
+                            <a href="/admin/blogs" class="btn btn-outline-primary">Manage All Posts</a>
+                            <a href="/blog" class="btn btn-outline-secondary">View Public Blog</a>
+                            <form action="/auth/logout" method="POST" style="display: inline;">
+                                <button type="submit" class="btn btn-outline-danger w-100">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

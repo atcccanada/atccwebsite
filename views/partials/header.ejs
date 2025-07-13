@@ -3,13 +3,91 @@
 
 <head>
     <meta charset="utf-8">
-    <title><%= title %></title>
+    <title><%= title || 'ATCC - Association of Tamilnadu Canadian Community' %></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Join the Association of Tamilnadu Canadian Community (ATCC) - Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
+    <meta name="keywords" content="<%= typeof keywords !== 'undefined' ? keywords : 'Tamil Canadian community, ATCC, Tamil culture Canada, Tamil events, Tamil networking, Canadian Tamil association, Tamil volunteers, Tamil heritage Canada, Tamil community Toronto, Tamil newcomers Canada' %>">
+    <meta name="author" content="Association of Tamilnadu Canadian Community (ATCC)">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="en-CA">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= title || 'ATCC - Association of Tamilnadu Canadian Community' %>">
+    <meta property="og:description" content="<%= typeof description !== 'undefined' ? description : 'Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
+    <meta property="og:url" content="<%= typeof url !== 'undefined' ? url : 'https://atcccanada.org' %>">
+    <meta property="og:site_name" content="ATCC - Association of Tamilnadu Canadian Community">
+    <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/img/DSC_6688-banner.jpeg' %>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_CA">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= title || 'ATCC - Association of Tamilnadu Canadian Community' %>">
+    <meta name="twitter:description" content="<%= typeof description !== 'undefined' ? description : 'Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.' %>">
+    <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/img/DSC_6688-banner.jpeg' %>">
+    <meta name="twitter:site" content="@ATCCCanada">
+    
+    <!-- Additional SEO Tags -->
+    <link rel="canonical" href="<%= typeof url !== 'undefined' ? url : 'https://atcccanada.org' %>">
+    <meta name="geo.region" content="CA">
+    <meta name="geo.placename" content="Canada">
+    <meta name="ICBM" content="43.6532, -79.3832">
 
     <!-- Favicon -->
     <link href="/img/favicon.ico" rel="icon">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Association of Tamilnadu Canadian Community",
+        "alternateName": "ATCC",
+        "url": "https://atcccanada.org",
+        "logo": "https://atcccanada.org/img/logo.png",
+        "description": "Building unity across Canada with 140+ volunteers, cultural events, networking opportunities, and community support for Tamil Canadians.",
+        "foundingDate": "2023",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Canada",
+            "addressRegion": "Multiple Provinces"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "General Inquiries",
+            "email": "info@atcccanada.org"
+        },
+        "sameAs": [
+            "https://www.facebook.com/ATCCCanada",
+            "https://www.instagram.com/atcccanada",
+            "https://www.youtube.com/@ATCCCanada",
+            "https://www.linkedin.com/company/atcccanada"
+        ],
+        "memberOf": {
+            "@type": "Organization",
+            "name": "Tamil Canadian Community"
+        },
+        "areaServed": [
+            "Canada",
+            "Toronto",
+            "Ontario",
+            "British Columbia",
+            "Alberta",
+            "Quebec",
+            "Manitoba",
+            "Saskatchewan",
+            "Nova Scotia",
+            "New Brunswick",
+            "Prince Edward Island",
+            "Newfoundland and Labrador"
+        ],
+        "keywords": "Tamil Canadian community, cultural events, networking, volunteers, newcomer support, Tamil heritage"
+    }
+    </script>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +110,11 @@
 </head>
 
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status" aria-label="Loading"></div>
     </div>
     <!-- Spinner End -->

@@ -1,0 +1,150 @@
+<%- include('../partials/header') %>
+
+<main id="main-content">
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">Our Blog</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Blog</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="GET" class="row g-3" role="search" aria-label="Search and filter blog posts">
+                            <div class="col-md-4">
+                                <label for="blog-search" class="sr-only">Search blog posts</label>
+                                <input type="text" id="blog-search" class="form-control" name="search" 
+                                       placeholder="Search blog posts..." value="<%= searchQuery %>" aria-label="Search blog posts">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="blog-category" class="sr-only">Filter by category</label>
+                                <select id="blog-category" class="form-select" name="category" aria-label="Filter by category">
+                                    <option value="">All Categories</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category %>" <%= selectedCategory === category ? 'selected' : '' %>>
+                                            <%= category.charAt(0).toUpperCase() + category.slice(1) %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary me-2">Search</button>
+                                <a href="/blog" class="btn btn-outline-secondary">Clear</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-end">
+                <% if (user) { %>
+                    <a href="/admin/dashboard" class="btn btn-outline-primary">Admin Dashboard</a>
+                <% } else { %>
+                    <a href="/auth/login" class="btn btn-outline-primary">Login to Post</a>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="row g-4" role="main" aria-label="Blog posts">
+            <% if (blogs.length > 0) { %>
+                <% blogs.forEach(blog => { %>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm card-hover">
+                            <% if (blog.featuredImage) { %>
+                                <img src="<%= blog.featuredImage %>" class="card-img-top critical-image" 
+                                     alt="<%= blog.title %>" loading="lazy" style="height: 200px; object-fit: cover;">
+                            <% } else { %>
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="fas fa-newspaper fa-3x text-muted"></i>
+                                </div>
+                            <% } %>
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2">
+                                    <span class="badge bg-primary me-2">
+                                        <%= blog.category.charAt(0).toUpperCase() + blog.category.slice(1) %>
+                                    </span>
+                                    <small class="text-muted">
+                                        <%= new Date(blog.publishedAt).toLocaleDateString() %>
+                                    </small>
+                                </div>
+                                <h5 class="card-title">
+                                    <a href="/blog/<%= blog.slug %>" class="text-decoration-none">
+                                        <%= blog.title %>
+                                    </a>
+                                </h5>
+                                <p class="card-text text-muted flex-grow-1">
+                                    <%= blog.excerpt %>
+                                </p>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            By <%= blog.author.firstName %> <%= blog.author.lastName %>
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-eye"></i> <%= blog.views || 0 %>
+                                        </small>
+                                    </div>
+                                    <% if (blog.tags && blog.tags.length > 0) { %>
+                                        <div class="mt-2">
+                                            <% blog.tags.slice(0, 3).forEach(tag => { %>
+                                                <span class="badge bg-light text-dark me-1">#<%= tag %></span>
+                                            <% }) %>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-newspaper fa-5x text-muted mb-3"></i>
+                        <h3>No blog posts found</h3>
+                        <p class="text-muted">
+                            <% if (searchQuery || selectedCategory) { %>
+                                Try adjusting your search criteria or <a href="/blog">view all posts</a>.
+                            <% } else { %>
+                                Check back later for new content from our community.
+                            <% } %>
+                        </p>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+
+        <% if (totalPages > 1) { %>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <nav aria-label="Blog pagination">
+                        <ul class="pagination justify-content-center">
+                            <% for (let i = 1; i <= totalPages; i++) { %>
+                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                    <a class="page-link" href="?page=<%= i %><%= selectedCategory ? '&category=' + selectedCategory : '' %><%= searchQuery ? '&search=' + searchQuery : '' %>">
+                                        <%= i %>
+                                    </a>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+    </div>
+</div>
+</main>
+
+<%- include('../partials/footer') %>

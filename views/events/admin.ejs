@@ -1,0 +1,142 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">Manage Events</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Manage Events</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h2>Events Management</h2>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="/events/admin/new" class="btn btn-primary">Create New Event</a>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="GET" class="row g-3">
+                            <div class="col-md-4">
+                                <select class="form-select" name="status">
+                                    <option value="">All Status</option>
+                                    <option value="upcoming" <%= selectedStatus === 'upcoming' ? 'selected' : '' %>>Upcoming</option>
+                                    <option value="ongoing" <%= selectedStatus === 'ongoing' ? 'selected' : '' %>>Ongoing</option>
+                                    <option value="completed" <%= selectedStatus === 'completed' ? 'selected' : '' %>>Completed</option>
+                                    <option value="cancelled" <%= selectedStatus === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-outline-primary">Filter</button>
+                                <a href="/events/admin/manage" class="btn btn-outline-secondary">Clear</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <% if (events.length > 0) { %>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Event</th>
+                                            <th>Date</th>
+                                            <th>Location</th>
+                                            <th>Status</th>
+                                            <th>Organizer</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% events.forEach(event => { %>
+                                            <tr>
+                                                <td>
+                                                    <strong><%= event.title %></strong>
+                                                    <br><small class="text-muted"><%= event.description.substring(0, 80) %>...</small>
+                                                </td>
+                                                <td>
+                                                    <small>
+                                                        <%= new Date(event.startDate).toLocaleDateString() %>
+                                                        <% if (event.endDate && event.endDate.getTime() !== event.startDate.getTime()) { %>
+                                                            <br>to <%= new Date(event.endDate).toLocaleDateString() %>
+                                                        <% } %>
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small>
+                                                        <%= event.location.city %>, <%= event.location.province %>
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-<%= event.status === 'upcoming' ? 'success' : event.status === 'ongoing' ? 'warning' : event.status === 'completed' ? 'secondary' : 'danger' %>">
+                                                        <%= event.status.charAt(0).toUpperCase() + event.status.slice(1) %>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <% if (event.organizer) { %>
+                                                        <small><%= event.organizer.firstName %> <%= event.organizer.lastName %></small>
+                                                    <% } else { %>
+                                                        <small class="text-muted">No organizer</small>
+                                                    <% } %>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a href="/events/<%= event._id %>" class="btn btn-outline-info" target="_blank">View</a>
+                                                        <a href="/events/admin/<%= event._id %>/edit" class="btn btn-outline-primary">Edit</a>
+                                                        <form action="/events/admin/<%= event._id %>/delete" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this event?')">
+                                                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <% if (totalPages > 1) { %>
+                                <nav aria-label="Events pagination">
+                                    <ul class="pagination justify-content-center">
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                <a class="page-link" href="?page=<%= i %><%= selectedStatus ? '&status=' + selectedStatus : '' %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </nav>
+                            <% } %>
+                        <% } else { %>
+                            <div class="text-center py-4">
+                                <h5>No events found</h5>
+                                <p class="text-muted">Start by creating your first event.</p>
+                                <a href="/events/admin/new" class="btn btn-primary">Create New Event</a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,185 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-4 text-white animated slideInDown"><%= blog.title %></h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/blog">Blog</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Post</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <article class="card shadow-sm">
+                    <% if (blog.featuredImage) { %>
+                        <img src="<%= blog.featuredImage %>" class="card-img-top" alt="<%= blog.title %>" style="height: 400px; object-fit: cover;">
+                    <% } %>
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <span class="badge bg-primary me-2">
+                                <%= blog.category.charAt(0).toUpperCase() + blog.category.slice(1) %>
+                            </span>
+                            <span class="text-muted me-3">
+                                <i class="fas fa-calendar"></i> 
+                                <%= new Date(blog.publishedAt).toLocaleDateString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric' 
+                                }) %>
+                            </span>
+                            <span class="text-muted me-3">
+                                <i class="fas fa-user"></i> 
+                                <%= blog.author.firstName %> <%= blog.author.lastName %>
+                            </span>
+                            <span class="text-muted">
+                                <i class="fas fa-eye"></i> 
+                                <%= blog.views %> views
+                            </span>
+                        </div>
+
+                        <% if (blog.excerpt) { %>
+                            <div class="alert alert-light border-start border-primary border-4 mb-4">
+                                <strong>Summary:</strong> <%= blog.excerpt %>
+                            </div>
+                        <% } %>
+
+                        <div class="blog-content">
+                            <%- blog.content.replace(/\n/g, '<br>') %>
+                        </div>
+
+                        <% if (blog.tags && blog.tags.length > 0) { %>
+                            <div class="mt-4 pt-3 border-top">
+                                <h6>Tags:</h6>
+                                <% blog.tags.forEach(tag => { %>
+                                    <a href="/blog?search=<%= tag %>" class="badge bg-light text-dark text-decoration-none me-2">
+                                        #<%= tag %>
+                                    </a>
+                                <% }) %>
+                            </div>
+                        <% } %>
+
+                        <div class="mt-4 pt-3 border-top">
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        Published on <%= new Date(blog.publishedAt).toLocaleDateString() %>
+                                    </small>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <% if (user && (user._id.toString() === blog.author._id.toString() || user.role === 'admin')) { %>
+                                        <a href="/admin/blog/<%= blog._id %>/edit" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i> Edit Post
+                                        </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>About the Author</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                     style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                    <%= blog.author.firstName.charAt(0) %><%= blog.author.lastName.charAt(0) %>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1"><%= blog.author.firstName %> <%= blog.author.lastName %></h6>
+                                    <p class="text-muted mb-0">@<%= blog.author.username %></p>
+                                    <small class="text-muted">
+                                        <%= blog.author.role ? blog.author.role.charAt(0).toUpperCase() + blog.author.role.slice(1) + ' at ATCC' : 'Member at ATCC' %>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5>Related Posts</h5>
+                    </div>
+                    <div class="card-body">
+                        <% if (relatedBlogs.length > 0) { %>
+                            <% relatedBlogs.forEach(relatedBlog => { %>
+                                <div class="mb-3 pb-3 border-bottom">
+                                    <h6>
+                                        <a href="/blog/<%= relatedBlog.slug %>" class="text-decoration-none">
+                                            <%= relatedBlog.title %>
+                                        </a>
+                                    </h6>
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar"></i> 
+                                        <%= new Date(relatedBlog.publishedAt).toLocaleDateString() %>
+                                    </small>
+                                    <br>
+                                    <small class="text-muted">
+                                        By <%= relatedBlog.author.firstName %> <%= relatedBlog.author.lastName %>
+                                    </small>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="text-muted">No related posts found.</p>
+                        <% } %>
+                        <div class="text-center">
+                            <a href="/blog" class="btn btn-outline-primary btn-sm">View All Posts</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header">
+                        <h5>Categories</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="/blog?category=community" class="btn btn-outline-secondary btn-sm">Community</a>
+                            <a href="/blog?category=events" class="btn btn-outline-secondary btn-sm">Events</a>
+                            <a href="/blog?category=culture" class="btn btn-outline-secondary btn-sm">Culture</a>
+                            <a href="/blog?category=news" class="btn btn-outline-secondary btn-sm">News</a>
+                            <a href="/blog?category=announcements" class="btn btn-outline-secondary btn-sm">Announcements</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.blog-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5, .blog-content h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.blog-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+</style>
+
+<%- include('../partials/footer') %>

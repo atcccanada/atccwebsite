@@ -1,0 +1,141 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated slideInDown">
+                <%= blog ? 'Edit' : 'Create' %> Blog Post
+            </h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/admin/blogs">Manage Blogs</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">
+                        <%= blog ? 'Edit' : 'Create' %> Post
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <% if (error) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= error %>
+                            </div>
+                        <% } %>
+
+                        <form action="<%= blog ? `/admin/blog/${blog._id}/edit` : '/admin/blog/new' %>" method="POST">
+                            <div class="row g-4">
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Title *</label>
+                                        <input type="text" class="form-control" id="title" name="title" 
+                                               value="<%= blog ? blog.title : '' %>" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="excerpt" class="form-label">Excerpt</label>
+                                        <textarea class="form-control" id="excerpt" name="excerpt" rows="3" 
+                                                  placeholder="Brief description of the blog post..."><%= blog ? blog.excerpt || '' : '' %></textarea>
+                                        <div class="form-text">Short summary that appears in blog listings</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="content" class="form-label">Content *</label>
+                                        <textarea class="form-control" id="content" name="content" rows="15" 
+                                                  required><%= blog ? blog.content : '' %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select class="form-select" id="status" name="status">
+                                            <option value="draft" <%= blog && blog.status === 'draft' ? 'selected' : '' %>>Draft</option>
+                                            <option value="published" <%= blog && blog.status === 'published' ? 'selected' : '' %>>Published</option>
+                                            <option value="archived" <%= blog && blog.status === 'archived' ? 'selected' : '' %>>Archived</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="category" class="form-label">Category</label>
+                                        <select class="form-select" id="category" name="category">
+                                            <option value="community" <%= blog && blog.category === 'community' ? 'selected' : '' %>>Community</option>
+                                            <option value="events" <%= blog && blog.category === 'events' ? 'selected' : '' %>>Events</option>
+                                            <option value="culture" <%= blog && blog.category === 'culture' ? 'selected' : '' %>>Culture</option>
+                                            <option value="news" <%= blog && blog.category === 'news' ? 'selected' : '' %>>News</option>
+                                            <option value="announcements" <%= blog && blog.category === 'announcements' ? 'selected' : '' %>>Announcements</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="tags" class="form-label">Tags</label>
+                                        <input type="text" class="form-control" id="tags" name="tags" 
+                                               value="<%= blog && blog.tags ? blog.tags.join(', ') : '' %>" 
+                                               placeholder="tag1, tag2, tag3">
+                                        <div class="form-text">Separate tags with commas</div>
+                                    </div>
+
+                                    <% if (blog) { %>
+                                        <div class="mb-3">
+                                            <label class="form-label">Blog Info</label>
+                                            <div class="card bg-light">
+                                                <div class="card-body p-3">
+                                                    <small class="text-muted">
+                                                        <div>Created: <%= new Date(blog.createdAt).toLocaleDateString() %></div>
+                                                        <div>Updated: <%= new Date(blog.updatedAt).toLocaleDateString() %></div>
+                                                        <div>Views: <%= blog.views || 0 %></div>
+                                                        <% if (blog.publishedAt) { %>
+                                                            <div>Published: <%= new Date(blog.publishedAt).toLocaleDateString() %></div>
+                                                        <% } %>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <%= blog ? 'Update' : 'Create' %> Post
+                                        </button>
+                                        <a href="/admin/blogs" class="btn btn-outline-secondary">Cancel</a>
+                                        <% if (blog && blog.status === 'published') { %>
+                                            <a href="/blog/<%= blog.slug %>" class="btn btn-outline-info" target="_blank">View Post</a>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const titleInput = document.getElementById('title');
+    const contentTextarea = document.getElementById('content');
+    
+    titleInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+    
+    contentTextarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+});
+</script>
+
+<%- include('../partials/footer') %>

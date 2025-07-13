@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://atcccanada.org/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /events
+Allow: /blog
+Allow: /membership
+Allow: /contact
+
+# Crawl delay (optional)
+Crawl-delay: 1
