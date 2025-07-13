@@ -1,6 +1,7 @@
 const express = require('express');
 const Business = require('../models/Business');
 const { requireAuth, requireRole } = require('../middleware/auth');
+const { validateObjectId } = require('../middleware/validation');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -71,7 +72,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', validateObjectId('id'), async (req, res) => {
     try {
         const business = await Business.findOne({ _id: req.params.id, isActive: true });
 

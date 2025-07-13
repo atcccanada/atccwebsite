@@ -2,6 +2,7 @@ const express = require('express');
 const Blog = require('../models/Blog');
 const User = require('../models/User');
 const { requireAuth, requireRole } = require('../middleware/auth');
+const { validateObjectId } = require('../middleware/validation');
 const router = express.Router();
 
 router.get('/dashboard', requireAuth, async (req, res) => {
@@ -130,7 +131,7 @@ router.post('/blog/new', requireAuth, async (req, res) => {
     }
 });
 
-router.get('/blog/:id/edit', requireAuth, async (req, res) => {
+router.get('/blog/:id/edit', requireAuth, validateObjectId('id'), async (req, res) => {
     try {
         const user = await User.findById(req.session.userId);
         let query = { _id: req.params.id };
@@ -166,7 +167,7 @@ router.get('/blog/:id/edit', requireAuth, async (req, res) => {
     }
 });
 
-router.post('/blog/:id/edit', requireAuth, async (req, res) => {
+router.post('/blog/:id/edit', requireAuth, validateObjectId('id'), async (req, res) => {
     try {
         const { title, content, excerpt, tags, category, status } = req.body;
         const user = await User.findById(req.session.userId);
@@ -207,7 +208,7 @@ router.post('/blog/:id/edit', requireAuth, async (req, res) => {
     }
 });
 
-router.post('/blog/:id/delete', requireRole(['admin', 'editor']), async (req, res) => {
+router.post('/blog/:id/delete', requireRole(['admin', 'editor']), validateObjectId('id'), async (req, res) => {
     try {
         const user = await User.findById(req.session.userId);
         let query = { _id: req.params.id };

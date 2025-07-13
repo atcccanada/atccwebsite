@@ -32,20 +32,32 @@ app.get('/health', (_req, res) => {
     res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// Validate required environment variables in production
+if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
+    console.error('❌ SESSION_SECRET environment variable is required in production');
+    process.exit(1);
+}
+
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'atcc-website-secret-key-change-in-production',
+    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/atcc-website'
     }),
     cookie: {
-        secure: false,
+        secure: process.env.NODE_ENV === 'production', // Only secure in production
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        sameSite: 'strict' // CSRF protection
     }
 }));
 
+// Import validation middleware
+const { sanitizeRequest } = require('./middleware/validation');
+
+// Apply input sanitization to all requests
+app.use(sanitizeRequest);
 app.use(checkAuth);
 
 const authRoutes = require('./routes/auth');
@@ -166,7 +178,16 @@ app.get('/404', (req, res) => {
 });
 
 // Setup routes for initial deployment (remove after setup)
+// Only available in development or when ENABLE_SETUP=true
 app.get('/setup', async (_req, res) => {
+    // Security check - only allow in development or when explicitly enabled
+    if (process.env.NODE_ENV === 'production' && process.env.ENABLE_SETUP !== 'true') {
+        return res.status(404).render('404', { 
+            title: 'ATCC - Page Not Found',
+            page: '404',
+            user: null
+        });
+    }
     try {
         const User = require('./models/User');
         const Business = require('./models/Business');
@@ -341,6 +362,14 @@ app.get('/setup', async (_req, res) => {
 
 // Promote user to admin route
 app.get('/setup/promote/:email', async (req, res) => {
+    // Security check - only allow in development or when explicitly enabled
+    if (process.env.NODE_ENV === 'production' && process.env.ENABLE_SETUP !== 'true') {
+        return res.status(404).render('404', { 
+            title: 'ATCC - Page Not Found',
+            page: '404',
+            user: null
+        });
+    }
     try {
         const User = require('./models/User');
         const email = req.params.email;

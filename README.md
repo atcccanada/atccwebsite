@@ -99,6 +99,17 @@ The official website for the **Association of Tamilnadu Canadian Community (ATCC
 
 7. **Open browser:** `http://localhost:3000`
 
+### Railway.app Quick Deploy
+
+For one-click deployment to Railway:
+
+1. **Fork this repository**
+2. **Connect to Railway**: Visit [railway.app](https://railway.app) and connect your GitHub
+3. **Deploy**: Select the forked repository
+4. **Environment Variables**: Add required variables in Railway dashboard
+5. **Initial Setup**: Visit `/setup` with `ENABLE_SETUP=true` to configure admin and sample data
+6. **Secure**: Remove `ENABLE_SETUP` after setup is complete
+
 ## 📁 Project Structure
 
 ```
@@ -201,26 +212,44 @@ SMTP_FROM="ATCC Website" <noreply@atcccanada.ca>
 
 ## 🚀 Deployment
 
-### Production Setup
+### Railway.app Deployment (Recommended)
+1. **Connect Repository**: Link your GitHub repo to Railway
+2. **Environment Variables**: Set required environment variables in Railway dashboard
+3. **Initial Setup**: Visit `/setup` route with `ENABLE_SETUP=true` for first-time configuration
+4. **Security**: Remove `ENABLE_SETUP` variable after initial setup
+5. **Custom Domain**: Optional - configure custom domain in Railway settings
+
+### Manual Deployment
 1. Set environment to production
-2. Configure MongoDB Atlas
-3. Set up email service
-4. Deploy to hosting platform (Heroku, DigitalOcean, etc.)
+2. Configure MongoDB Atlas with proper IP whitelisting
+3. Set up email service (Gmail with app passwords recommended)
+4. Deploy to hosting platform (Railway, Heroku, DigitalOcean, etc.)
 
 ### CI/CD Pipeline
-- Automated testing on multiple Node.js versions
-- Security scanning with CodeQL
-- Automated dependency updates
-- Production deployment ready
+- **Security Scanning**: CodeQL v3 with security-extended queries
+- **Automated Testing**: Multiple Node.js versions
+- **Dependency Updates**: Automated security updates
+- **Static Analysis**: Comprehensive security vulnerability detection
 
 ## 🔒 Security Features
 
-- **Authentication**: bcryptjs password hashing
-- **Authorization**: Role-based access control
-- **Input Validation**: express-validator sanitization
-- **Session Management**: Secure session handling
-- **CSRF Protection**: Built-in protection
-- **SQL Injection Prevention**: MongoDB ODM protection
+### **Authentication & Authorization**
+- **Password Security**: bcryptjs hashing with salt rounds
+- **Role-Based Access**: Admin, Editor, Author, User roles
+- **Session Management**: Secure sessions with MongoDB storage
+- **Session Security**: HTTPOnly, Secure, SameSite cookie settings
+
+### **Input Validation & Sanitization**
+- **XSS Protection**: Escaped template rendering for user content
+- **NoSQL Injection Prevention**: ObjectId validation and operator filtering
+- **Input Sanitization**: Comprehensive request sanitization middleware
+- **MongoDB Protection**: Mongoose ODM with query validation
+
+### **Infrastructure Security**
+- **Environment Validation**: Required secrets in production
+- **CSRF Protection**: SameSite cookie policy
+- **Access Control**: Protected administrative routes
+- **Health Monitoring**: Dedicated health check endpoints
 
 ## 📈 Performance Optimizations
 
@@ -276,7 +305,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## 🔖 Version
 
-**Current Version**: v2.0.0 - Complete CMS Implementation
+**Current Version**: v2.1.0 - Security Enhancements & Railway Deployment
 
 ---
 

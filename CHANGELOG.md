@@ -5,6 +5,51 @@ All notable changes to the ATCC website project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-07-13 - Security Enhancements & Railway Deployment
+
+### 🔒 Security Improvements
+
+#### **Critical Security Fixes**
+- **XSS Protection**: Fixed cross-site scripting vulnerabilities in blog and event content rendering
+- **NoSQL Injection Prevention**: Added ObjectId validation and input sanitization middleware
+- **Session Security**: Enhanced session configuration with secure cookies and CSRF protection
+- **Input Validation**: Comprehensive input sanitization to prevent MongoDB operator injection
+- **Access Control**: Secured setup routes with environment-based access controls
+
+#### **Security Infrastructure**
+- **Validation Middleware**: New `/middleware/validation.js` with ObjectId validation and input sanitization
+- **CodeQL Integration**: Updated GitHub Actions workflow with CodeQL v3 and security-extended queries
+- **Environment Security**: Required environment variables in production with proper fallbacks
+- **Route Protection**: Added security checks to administrative and setup endpoints
+
+### 🚀 Deployment & Infrastructure
+
+#### **Railway.app Support**
+- **Production Ready**: Configured for Railway cloud deployment
+- **Environment Setup**: Comprehensive `.env.example` with all required variables
+- **Server Configuration**: Proper host binding (0.0.0.0) for cloud deployment
+- **Health Monitoring**: Added `/health` endpoint for platform monitoring
+- **Setup Automation**: Web-based setup routes for initial deployment configuration
+
+#### **Performance & Reliability**
+- **Error Handling**: Improved uncaught exception and rejection handling
+- **MongoDB Optimization**: Removed deprecated connection options for better performance
+- **Process Management**: Enhanced server startup and shutdown procedures
+
+### 🎨 User Interface Improvements
+
+#### **Business Directory**
+- **Simplified Table**: Removed category column for cleaner display
+- **Enhanced Filtering**: Maintained category filtering while streamlining table view
+- **Responsive Design**: Improved mobile experience for directory browsing
+
+### 🛠 Development Experience
+
+#### **Security Development**
+- **Static Analysis**: Enhanced CodeQL configuration for comprehensive security scanning
+- **Input Validation**: Reusable validation utilities for consistent security practices
+- **Environment Management**: Clear separation of development and production configurations
+
 ## [2.0.0] - 2025-01-13 - Complete CMS Implementation
 
 ### 🚀 Major Features Added
