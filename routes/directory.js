@@ -268,33 +268,54 @@ router.get('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res)
 router.post('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res) => {
     try {
         // Explicitly extract and validate fields to prevent injection
-        const { businessName, description, category, ownerFirstName, ownerLastName, phone, email, website, address, city, province, postalCode, services, facebook, instagram, twitter, linkedin } = req.body;
+        const businessName = req.body.businessName;
+        const description = req.body.description;
+        const category = req.body.category;
+        const ownerFirstName = req.body.ownerFirstName;
+        const ownerLastName = req.body.ownerLastName;
+        const phone = req.body.phone;
+        const email = req.body.email;
+        const website = req.body.website;
+        const address = req.body.address;
+        const city = req.body.city;
+        const province = req.body.province;
+        const postalCode = req.body.postalCode;
+        const services = req.body.services;
+        const facebook = req.body.facebook;
+        const instagram = req.body.instagram;
+        const twitter = req.body.twitter;
+        const linkedin = req.body.linkedin;
+        
+        // Type validation
+        if (typeof businessName !== 'string' || typeof description !== 'string') {
+            return res.status(400).redirect('/directory/admin/manage');
+        }
         
         const businessData = {
-            businessName,
-            description,
-            category,
+            businessName: businessName,
+            description: description,
+            category: category,
             ownerName: {
                 firstName: ownerFirstName,
                 lastName: ownerLastName
             },
             contactInfo: {
-                phone,
-                email,
-                website
+                phone: phone,
+                email: email,
+                website: website
             },
             location: {
-                address,
-                city,
-                province,
-                postalCode
+                address: address,
+                city: city,
+                province: province,
+                postalCode: postalCode
             },
             services: services ? services.split(',').map(s => s.trim()) : [],
             socialMedia: {
-                facebook,
-                instagram,
-                twitter,
-                linkedin
+                facebook: facebook,
+                instagram: instagram,
+                twitter: twitter,
+                linkedin: linkedin
             }
         };
 

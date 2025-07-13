@@ -8,6 +8,7 @@ try {
     console.log('📦 Testing module imports...');
     require('./middleware/rateLimiting');
     require('./middleware/validation');
+    require('./middleware/csrf');
     
     // Test config modules (but don't connect)
     require('./config/database');

@@ -43,9 +43,25 @@ router.post('/login', authLimiter, loginValidation, async (req, res) => {
             });
         }
 
-        const { email, password } = req.body;
+        // Use validated and sanitized data from express-validator
+        const email = req.body.email; // This has been validated and sanitized by loginValidation middleware
+        const password = req.body.password;
         
-        const user = await User.findOne({ email });
+        // Additional validation to ensure email is a string and not an object
+        if (typeof email !== 'string' || typeof password !== 'string') {
+            return res.render('auth/login', { 
+                title: 'ATCC Login - Admin Access | Association of Tamilnadu Canadian Community',
+                description: 'Login to access the ATCC admin dashboard for managing events, blogs, and community content.',
+                keywords: 'ATCC login, admin access, Tamil community admin',
+                url: 'https://atcccanada.org/auth/login',
+                ogImage: 'https://atcccanada.org/img/login-banner.jpg',
+                page: 'login',
+                error: 'Invalid credentials format.',
+                user: null
+            });
+        }
+        
+        const user = await User.findOne({ email: email });
         if (!user || !await user.comparePassword(password)) {
             return res.render('auth/login', { 
                 title: 'ATCC Login - Admin Access | Association of Tamilnadu Canadian Community',

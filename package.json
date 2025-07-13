@@ -1,6 +1,6 @@
 {
   "name": "atcc-website",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Association of Tamil Canadian Community Website - Secure CMS with comprehensive rate limiting and input validation",
   "main": "server.js",
   "scripts": {

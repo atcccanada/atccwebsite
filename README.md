@@ -41,6 +41,7 @@ The official website for the **Association of Tamilnadu Canadian Community (ATCC
 - **bcryptjs** - Password hashing
 - **express-session** - Session management
 - **express-rate-limit** - Rate limiting and DoS protection
+- **csrf** - CSRF token protection
 - **nodemailer** - Email integration
 - **express-validator** - Input validation and sanitization
 
@@ -121,7 +122,8 @@ atccwebsite/
 ├── middleware/
 │   ├── auth.js              # Authentication middleware
 │   ├── validation.js        # Input validation & sanitization
-│   └── rateLimiting.js      # Rate limiting configurations
+│   ├── rateLimiting.js      # Rate limiting configurations
+│   └── csrf.js              # CSRF token protection
 ├── models/
 │   ├── User.js              # User model with roles
 │   ├── Blog.js              # Blog posts
@@ -269,6 +271,15 @@ SMTP_FROM="ATCC Website" <noreply@atcccanada.ca>
 - **Express Validator Integration**: Comprehensive server-side validation
 - **Error Handling**: Graceful validation error responses
 
+### **CodeQL Compliance & Security**
+- **CSRF Token Protection**: Comprehensive Cross-Site Request Forgery prevention
+- **Session Regeneration**: Secure session handling preventing fixation attacks
+- **Individual Field Validation**: Eliminated dangerous spread operators and destructuring
+- **Type Checking**: Runtime validation ensuring data type integrity
+- **HTML Entity Escaping**: Proper output encoding preventing script injection
+- **Database Query Hardening**: No user-controlled data flows directly to database
+- **Secure Coding Patterns**: Eliminated all vulnerable patterns identified by static analysis
+
 ## 📈 Performance Optimizations
 
 - **Image Optimization**: Lazy loading, WebP format
@@ -323,7 +334,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## 🔖 Version
 
-**Current Version**: v2.1.0 - Security Enhancements & Railway Deployment
+**Current Version**: v2.1.1 - CodeQL Security Compliance & CSRF Protection
 
 ---
 

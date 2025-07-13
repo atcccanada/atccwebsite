@@ -5,6 +5,44 @@ All notable changes to the ATCC website project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2025-07-13 - CodeQL Security Compliance & CSRF Protection
+
+### 🔒 Critical Security Fixes
+
+#### **CodeQL Compliance Achieved**
+- **Database Query Security**: Eliminated all user-controlled data flows into database queries
+- **CSRF Protection**: Implemented comprehensive Cross-Site Request Forgery protection with token validation
+- **Session Security**: Added session regeneration to prevent session fixation attacks
+- **Input Sanitization**: Enhanced validation with individual field extraction instead of dangerous spread operators
+- **XSS Prevention**: Fixed reflected XSS vulnerabilities with proper HTML entity escaping
+
+#### **Advanced Security Measures**
+- **Individual Field Validation**: Replaced destructuring with explicit field assignment and type checking
+- **CSRF Token System**: Token-based protection for all state-changing operations
+- **Session Regeneration**: Secure session handling for authentication flows
+- **Type Validation**: Runtime type checking for all user inputs to prevent injection
+- **HTML Escaping**: Proper output encoding to prevent script injection
+
+#### **Security Infrastructure**
+- **CSRF Middleware**: New `/middleware/csrf.js` with token generation and validation
+- **Enhanced Validation**: Strengthened express-validator integration with strict type checking
+- **Secure Patterns**: Eliminated vulnerable coding patterns (spread operators, direct destructuring)
+- **Error Boundaries**: Comprehensive error handling for validation failures
+
+### 🛡️ Enhanced Input Protection
+
+#### **Database Query Hardening**
+- **Auth Routes**: Individual field assignment with email validation and sanitization
+- **Admin Routes**: Explicit field extraction for blog creation/editing with type validation
+- **Events Routes**: Comprehensive validation middleware with field constraints
+- **Directory Routes**: Secure business data handling with individual field mapping
+
+#### **Validation Enhancements**
+- **Login Validation**: Email normalization, sanitization, and format validation
+- **Blog Validation**: Content length limits, category whitelisting, HTML escaping
+- **Event Validation**: Date validation, capacity limits, price validation
+- **Business Validation**: Contact information validation, service categorization
+
 ## [2.1.0] - 2025-07-13 - Security Enhancements & Railway Deployment
 
 ### 🔒 Security Improvements

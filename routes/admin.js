@@ -129,15 +129,34 @@ router.post('/blog/new', createContentLimiter, requireAuth, blogValidation, asyn
             });
         }
 
-        const { title, content, excerpt, tags, category, status } = req.body;
+        // Use validated data from blogValidation middleware
+        const title = req.body.title;
+        const content = req.body.content;
+        const excerpt = req.body.excerpt;
+        const tags = req.body.tags;
+        const category = req.body.category;
+        const status = req.body.status;
+        
+        // Additional type validation
+        if (typeof title !== 'string' || typeof content !== 'string') {
+            return res.status(400).render('admin/blog-form', {
+                title: 'Create New Blog Post - ATCC Admin',
+                page: 'admin',
+                user: req.user,
+                blog: null,
+                errors: [{ msg: 'Invalid data format' }],
+                formData: req.body
+            });
+        }
+        
         const user = await User.findById(req.session.userId);
         
         const blog = new Blog({
-            title,
-            content,
-            excerpt,
+            title: title,
+            content: content,
+            excerpt: excerpt,
             tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-            category,
+            category: category,
             status,
             author: user._id
         });
@@ -208,7 +227,26 @@ router.post('/blog/:id/edit', adminLimiter, requireAuth, validateObjectId('id'),
             });
         }
 
-        const { title, content, excerpt, tags, category, status } = req.body;
+        // Use validated data from blogValidation middleware
+        const title = req.body.title;
+        const content = req.body.content;
+        const excerpt = req.body.excerpt;
+        const tags = req.body.tags;
+        const category = req.body.category;
+        const status = req.body.status;
+        
+        // Additional type validation
+        if (typeof title !== 'string' || typeof content !== 'string') {
+            return res.status(400).render('admin/blog-form', {
+                title: 'Edit Blog Post - ATCC Admin',
+                page: 'admin',
+                user: req.user,
+                blog: await Blog.findById(req.params.id),
+                errors: [{ msg: 'Invalid data format' }],
+                formData: req.body
+            });
+        }
+        
         const user = await User.findById(req.session.userId);
         
         let query = { _id: req.params.id };
@@ -217,11 +255,11 @@ router.post('/blog/:id/edit', adminLimiter, requireAuth, validateObjectId('id'),
         }
 
         const blog = await Blog.findOneAndUpdate(query, {
-            title,
-            content,
-            excerpt,
+            title: title,
+            content: content,
+            excerpt: excerpt,
             tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-            category,
+            category: category,
             status
         }, { new: true });
 
