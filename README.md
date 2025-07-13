@@ -1,6 +1,4 @@
 # Association of Tamilnadu Canadian Community (ATCC) Website
-
-[![Node.js CI](https://github.com/atcccanada/atccwebsite/workflows/CI/badge.svg)](https://github.com/atcccanada/atccwebsite/actions)
 [![Security](https://github.com/atcccanada/atccwebsite/workflows/CodeQL/badge.svg)](https://github.com/atcccanada/atccwebsite/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
