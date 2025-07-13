@@ -302,26 +302,25 @@ router.post('/admin/:id/edit', requireRole(['admin', 'editor']), eventValidation
             return res.status(400).redirect('/events/admin/manage');
         }
         
-        const eventData = {
-            title: title,
-            description: description,
-            startDate: startDate,
-            endDate: endDate,
-            eventType: eventType,
-            capacity: capacity ? parseInt(capacity) : undefined,
-            price: price ? parseFloat(price) : undefined,
-            location: {
-                address: address,
-                city: city,
-                province: province,
-                postalCode: postalCode
-            },
-            tags: tags ? tags.split(',').map(tag => tag.trim()) : []
-        };
-
+        // Use $set operator with explicit field updates for security
         const event = await Event.findByIdAndUpdate(
             req.params.id,
-            eventData,
+            {
+                $set: {
+                    title: title,
+                    description: description,
+                    startDate: startDate,
+                    endDate: endDate,
+                    eventType: eventType,
+                    capacity: capacity ? parseInt(capacity) : undefined,
+                    price: price ? parseFloat(price) : undefined,
+                    'location.address': address,
+                    'location.city': city,
+                    'location.province': province,
+                    'location.postalCode': postalCode,
+                    tags: tags ? tags.split(',').map(tag => tag.trim()) : []
+                }
+            },
             { new: true }
         );
 

@@ -291,37 +291,30 @@ router.post('/admin/:id/edit', requireRole(['admin', 'editor']), async (req, res
             return res.status(400).redirect('/directory/admin/manage');
         }
         
-        const businessData = {
-            businessName: businessName,
-            description: description,
-            category: category,
-            ownerName: {
-                firstName: ownerFirstName,
-                lastName: ownerLastName
-            },
-            contactInfo: {
-                phone: phone,
-                email: email,
-                website: website
-            },
-            location: {
-                address: address,
-                city: city,
-                province: province,
-                postalCode: postalCode
-            },
-            services: services ? services.split(',').map(s => s.trim()) : [],
-            socialMedia: {
-                facebook: facebook,
-                instagram: instagram,
-                twitter: twitter,
-                linkedin: linkedin
-            }
-        };
-
+        // Use $set operator with explicit field updates for security
         const business = await Business.findByIdAndUpdate(
             req.params.id,
-            businessData,
+            {
+                $set: {
+                    businessName: businessName,
+                    description: description,
+                    category: category,
+                    'ownerName.firstName': ownerFirstName,
+                    'ownerName.lastName': ownerLastName,
+                    'contactInfo.phone': phone,
+                    'contactInfo.email': email,
+                    'contactInfo.website': website,
+                    'location.address': address,
+                    'location.city': city,
+                    'location.province': province,
+                    'location.postalCode': postalCode,
+                    services: services ? services.split(',').map(s => s.trim()) : [],
+                    'socialMedia.facebook': facebook,
+                    'socialMedia.instagram': instagram,
+                    'socialMedia.twitter': twitter,
+                    'socialMedia.linkedin': linkedin
+                }
+            },
             { new: true }
         );
 
