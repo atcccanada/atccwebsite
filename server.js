@@ -150,6 +150,208 @@ app.get('/404', (req, res) => {
     });
 });
 
+// Setup routes for initial deployment (remove after setup)
+app.get('/setup', async (req, res) => {
+    try {
+        const User = require('./models/User');
+        const Business = require('./models/Business');
+        
+        let results = [];
+        
+        // 1. Create Admin User
+        try {
+            const existingAdmin = await User.findOne({ role: 'admin' });
+            if (!existingAdmin) {
+                const adminData = {
+                    username: 'admin',
+                    email: 'admin@atcccanada.ca',
+                    password: 'admin123', // CHANGE THIS!
+                    firstName: 'Admin',
+                    lastName: 'User',
+                    role: 'admin',
+                    isActive: true
+                };
+                
+                const admin = new User(adminData);
+                await admin.save();
+                results.push('✅ Admin user created successfully!');
+                results.push('📧 Email: admin@atcccanada.ca');
+                results.push('🔑 Password: admin123 (CHANGE THIS!)');
+            } else {
+                results.push('ℹ️ Admin user already exists: ' + existingAdmin.email);
+            }
+        } catch (error) {
+            results.push('❌ Error creating admin: ' + error.message);
+        }
+        
+        // 2. Add Sample Businesses
+        try {
+            const sampleBusinesses = [
+                {
+                    businessName: "Tamil Spice Restaurant",
+                    ownerName: { firstName: "Raj", lastName: "Kumar" },
+                    contactInfo: {
+                        phone: "(416) 555-0123",
+                        email: "info@tamilspice.ca",
+                        website: "https://tamilspice.ca"
+                    },
+                    location: {
+                        address: "123 Main Street",
+                        city: "Toronto",
+                        province: "Ontario",
+                        postalCode: "M5V 3A8"
+                    },
+                    category: "restaurant",
+                    description: "Authentic Tamil cuisine serving traditional dishes from Tamil Nadu",
+                    services: ["Dine-in", "Takeout", "Catering", "Special Events"]
+                },
+                {
+                    businessName: "TechTamil Solutions",
+                    ownerName: { firstName: "Priya", lastName: "Sharma" },
+                    contactInfo: {
+                        phone: "(604) 555-0456",
+                        email: "contact@techtamil.ca",
+                        website: "https://techtamil.ca"
+                    },
+                    location: {
+                        address: "456 Technology Drive",
+                        city: "Vancouver",
+                        province: "British Columbia",
+                        postalCode: "V6B 1A1"
+                    },
+                    category: "technology",
+                    description: "IT consulting and software development services",
+                    services: ["Web Development", "Mobile Apps", "IT Consulting", "Cloud Solutions"]
+                },
+                {
+                    businessName: "Tamil Medical Clinic",
+                    ownerName: { firstName: "Dr. Arun", lastName: "Patel" },
+                    contactInfo: {
+                        phone: "(403) 555-0789",
+                        email: "clinic@tamilmedical.ca"
+                    },
+                    location: {
+                        address: "789 Health Avenue",
+                        city: "Calgary",
+                        province: "Alberta",
+                        postalCode: "T2P 1J9"
+                    },
+                    category: "healthcare",
+                    description: "Comprehensive healthcare services with Tamil-speaking staff",
+                    services: ["Family Medicine", "Pediatrics", "Preventive Care", "Health Screenings"]
+                }
+            ];
+            
+            let businessCount = 0;
+            for (const businessData of sampleBusinesses) {
+                const existingBusiness = await Business.findOne({ 
+                    businessName: businessData.businessName 
+                });
+                
+                if (!existingBusiness) {
+                    const business = new Business(businessData);
+                    await business.save();
+                    businessCount++;
+                }
+            }
+            
+            if (businessCount > 0) {
+                results.push(`✅ Added ${businessCount} sample businesses`);
+            } else {
+                results.push('ℹ️ Sample businesses already exist');
+            }
+        } catch (error) {
+            results.push('❌ Error adding businesses: ' + error.message);
+        }
+        
+        // Generate HTML response
+        const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>ATCC Setup Complete</title>
+            <style>
+                body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+                .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+                .success { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+                .info { background-color: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+                .error { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+                .warning { background-color: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+            </style>
+        </head>
+        <body>
+            <h1>🚀 ATCC Setup Complete!</h1>
+            <div>
+                ${results.map(result => {
+                    let className = 'info';
+                    if (result.includes('✅')) className = 'success';
+                    if (result.includes('❌')) className = 'error';
+                    if (result.includes('🔑')) className = 'warning';
+                    return `<div class="result ${className}">${result}</div>`;
+                }).join('')}
+            </div>
+            
+            <h2>🔐 Next Steps:</h2>
+            <ol>
+                <li>Login at <a href="/auth/login">/auth/login</a> with admin credentials</li>
+                <li><strong>Change the admin password immediately!</strong></li>
+                <li>Visit <a href="/admin/dashboard">Admin Dashboard</a> to manage content</li>
+                <li>Check <a href="/directory">Business Directory</a> for sample data</li>
+                <li><strong>Remove this setup route from server.js after setup!</strong></li>
+            </ol>
+            
+            <h2>🌐 Available Pages:</h2>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/directory">Business Directory</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/membership">Membership</a></li>
+            </ul>
+        </body>
+        </html>`;
+        
+        res.send(html);
+        
+    } catch (error) {
+        res.status(500).send(`
+            <h1>Setup Error</h1>
+            <p style="color: red;">Error: ${error.message}</p>
+            <p>Please check your MongoDB connection and try again.</p>
+        `);
+    }
+});
+
+// Promote user to admin route
+app.get('/setup/promote/:email', async (req, res) => {
+    try {
+        const User = require('./models/User');
+        const email = req.params.email;
+        
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.send(`<h1>User Not Found</h1><p>No user found with email: ${email}</p>`);
+        }
+        
+        user.role = 'admin';
+        user.isActive = true;
+        await user.save();
+        
+        res.send(`
+            <h1>✅ User Promoted!</h1>
+            <p><strong>Name:</strong> ${user.firstName} ${user.lastName}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Role:</strong> ${user.role}</p>
+            <p><a href="/setup">← Back to Setup</a></p>
+        `);
+        
+    } catch (error) {
+        res.status(500).send(`<h1>Error</h1><p>${error.message}</p>`);
+    }
+});
+
 app.use((req, res) => {
     res.status(404).render('404', { 
         title: 'ATCC - Page Not Found',
