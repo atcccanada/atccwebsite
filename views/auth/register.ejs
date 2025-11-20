@@ -1,18 +1,21 @@
 <%- include('../partials/header') %>
 
-<div class="container-fluid bg-primary py-5 hero-header mb-5">
-    <div class="row py-3">
-        <div class="col-12 text-center">
-            <h1 class="display-3 text-white animated slideInDown">Register</h1>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Register</li>
-                </ol>
-            </nav>
-        </div>
+<%- include('../partials/navbar') %>
+
+<main id="main-content">
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center">
+        <h1 class="display-4 text-white animated slideInDown mb-4">Register</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Register</li>
+            </ol>
+        </nav>
     </div>
 </div>
+<!-- Page Header End -->
 
 <div class="container-xxl py-5">
     <div class="container">
@@ -70,6 +73,9 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
+
+</main>
 
 <%- include('../partials/footer') %>
