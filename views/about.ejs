@@ -14,6 +14,29 @@
                 </nav>
             </div>
         </div>
+        <style>
+        .lead-avatar{ width:64px; height:64px; border-radius:50%; overflow:hidden; position:relative; flex:0 0 64px; }
+        .lead-avatar .lead-img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .lead-avatar .lead-initials{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:#f1f5f9; color:#0d6efd; font-weight:700; font-size:1.1rem; }
+        .lead-avatar .lead-img.loaded{ display:block; }
+        </style>
+
+        <script>
+        // For all lead images: on error hide img and show initials; on load hide initials.
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelectorAll('.lead-avatar').forEach(function(av){
+                var img = av.querySelector('.lead-img');
+                var initials = av.querySelector('.lead-initials');
+                if(!img) return;
+                img.addEventListener('error', function(){ img.style.display='none'; initials.style.display='flex'; });
+                img.addEventListener('load', function(){ initials.style.display='none'; img.style.display='block'; });
+                // If image already broken (cached), trigger check
+                if(!img.complete || img.naturalWidth === 0){
+                    // Let handlers above run when they trigger
+                }
+            });
+        });
+        </script>
         <!-- Page Header End -->
 
         <!-- Who We Are Section Start -->
@@ -229,7 +252,7 @@
                     <!-- Include President in BODs as requested -->
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item bg-white text-center rounded p-4 shadow-sm h-100">
-                            <img class="img-fluid rounded-circle w-75 mx-auto mb-4" src="/img/team-1.jpg" alt="Rizwana Paveen">
+                            <img class="img-fluid rounded-circle mx-auto mb-4" src="/img/team-1.jpg" alt="Rizwana Paveen" style="width:160px; height:160px; object-fit:cover;">
                             <h5 class="mb-2">Rizwana</h5>
                             <p class="text-primary mb-2">President / Board Member</p>
                             <p class="mb-4">Visionary leader dedicated to uniting and empowering the Tamil community
@@ -241,7 +264,7 @@
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item bg-white text-center rounded p-4 shadow-sm h-100">
-                            <img class="img-fluid rounded-circle w-75 mx-auto mb-4" src="/img/team-1.jpg" alt="Rizwana Paveen">
+                            <img class="img-fluid rounded-circle mx-auto mb-4" src="/img/Paveen.png" alt="Paveen Raj" style="width:160px; height:160px; object-fit:cover;">
                             <h5 class="mb-2">Paveen Raj</h5>
                             <p class="text-primary mb-2"> Vice-President / Board Member</p>
                             <p class="mb-4">Strategic leader focused on building sustainable community programs and
@@ -253,8 +276,7 @@
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item bg-white text-center rounded p-4 shadow-sm h-100">
-                            <img class="img-fluid rounded-circle w-75 mx-auto mb-4" src="/img/team-3.jpg"
-                                alt="Vignesh Raghuraman">
+                            <img class="img-fluid rounded-circle mx-auto mb-4" src="/img/Vignesh.jpg" alt="Vignesh Raghuraman" style="width:160px; height:160px; object-fit:cover; object-position:50% 15%;">
                             <h5 class="mb-2">Vignesh Raghuraman</h5>
                             <p class="text-primary mb-2">Board of Directors</p>
                             <p class="mb-4">Founding member committed to organizational governance and strategic
@@ -267,8 +289,7 @@
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="team-item bg-white text-center rounded p-4 shadow-sm h-100">
-                            <img class="img-fluid rounded-circle w-75 mx-auto mb-4" src="/img/team-4.jpg"
-                                alt="Monica Hariraj Swamy">
+                            <img class="img-fluid rounded-circle mx-auto mb-4" src="/img/Monica.png" alt="Monica Hariraj Swamy" style="width:160px; height:160px; object-fit:cover; object-position:50% 15%;">
                             <h5 class="mb-2">Monica Hariraj Swamy</h5>
                             <p class="text-primary mb-2">Board of Directors</p>
                             <p class="mb-4">Experienced leader focused on community outreach and program development
@@ -281,8 +302,7 @@
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="team-item bg-white text-center rounded p-4 shadow-sm h-100">
-                            <img class="img-fluid rounded-circle w-75 mx-auto mb-4" src="/img/testimonial-1.jpg"
-                                alt="Ajay Kumar Vijayakumar">
+                            <img class="img-fluid rounded-circle mx-auto mb-4" src="/img/testimonial-1.jpg" alt="Ajay Kumar Vijayakumar" style="width:160px; height:160px; object-fit:cover;">
                             <h5 class="mb-2">Ajay Kumar Vijayakumar</h5>
                             <p class="text-primary mb-2">Board of Directors</p>
                             <p class="mb-4">Strategic advisor with expertise in community engagement and organizational
@@ -308,79 +328,247 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Cultural & Event Management</h6>
-                            <p class="mb-1"><strong>Lead:</strong> Vimhal</p>
+                            <div class="text-center">
+                                <div class="lead-avatar mx-auto mb-2">
+                                    <img class="lead-img" src="/img/leads/vimhal.jpg" alt="Vimhal">
+                                    <span class="lead-initials">V</span>
+                                </div>
+                                <div class="lead-name fw-bold">Vimhal</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Membership & Community Outreach</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Satheesh, Kowshika</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/satheesh.jpg" alt="Satheesh">
+                                        <span class="lead-initials">S</span>
+                                    </div>
+                                    <div class="lead-name">Satheesh</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Kowshika.jpeg" alt="Kowshika">
+                                        <span class="lead-initials">K</span>
+                                    </div>
+                                    <div class="lead-name">Kowshika</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Legal and Advocacy</h6>
-                            <p class="mb-1"><strong>Lead:</strong> Agnes</p>
+                            <div class="text-center">
+                                <div class="lead-avatar mx-auto mb-2">
+                                    <img class="lead-img" src="/img/leads/agnes.jpg" alt="Agnes">
+                                    <span class="lead-initials">A</span>
+                                </div>
+                                <div class="lead-name fw-bold">Agnes</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Fundraising and Sponsorship</h6>
-                            <p class="mb-1"><strong>Lead:</strong> Nishanth</p>
+                            <div class="text-center">
+                                <div class="lead-avatar mx-auto mb-2">
+                                    <img class="lead-img" src="/img/leads/nishanth.jpg" alt="Nishanth">
+                                    <span class="lead-initials">N</span>
+                                </div>
+                                <div class="lead-name fw-bold">Nishanth</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Social Media & Marketing</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Yagna Priya, Vyas</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Yagna.jpg" alt="Yagna Priya">
+                                        <span class="lead-initials">Y</span>
+                                    </div>
+                                    <div class="lead-name">Yagna Priya</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Srivyassram Venkatsundar.jpg" alt="Vyas">
+                                        <span class="lead-initials">V</span>
+                                    </div>
+                                    <div class="lead-name">Vyas</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">IT & Technology</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Shiva Shankari, Vinni</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/shiva_shankari.jpg" alt="Shiva Shankari">
+                                        <span class="lead-initials">S</span>
+                                    </div>
+                                    <div class="lead-name">Shiva Shankari</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/vinni.jpg" alt="Vinni">
+                                        <span class="lead-initials">V</span>
+                                    </div>
+                                    <div class="lead-name">Vinni</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Women, Education, & Career Development</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Shwetha, Sushmitha</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Shwetha Janakiraman.jpeg" alt="Shwetha">
+                                        <span class="lead-initials">S</span>
+                                    </div>
+                                    <div class="lead-name">Shwetha</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/sushmitha.jpg" alt="Sushmitha">
+                                        <span class="lead-initials">S</span>
+                                    </div>
+                                    <div class="lead-name">Sushmitha</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Sports & Recreation</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Vijaykrishnan, Jegan</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/vijaykrishnan.jpg" alt="Vijaykrishnan">
+                                        <span class="lead-initials">V</span>
+                                    </div>
+                                    <div class="lead-name">Vijaykrishnan</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/jegan.jpg" alt="Jegan">
+                                        <span class="lead-initials">J</span>
+                                    </div>
+                                    <div class="lead-name">Jegan</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Crisis and Emergency Response</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Nithya, Saktheeshwaran</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/nithya.jpg" alt="Nithya">
+                                        <span class="lead-initials">N</span>
+                                    </div>
+                                    <div class="lead-name">Nithya</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/saktheeshwaran.jpg" alt="Saktheeshwaran">
+                                        <span class="lead-initials">S</span>
+                                    </div>
+                                    <div class="lead-name">Saktheeshwaran</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Entrepreneurship & Business Support</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Surya, Reshma</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Surya R C.jpg" alt="Surya">
+                                        <span class="lead-initials">S</span>
+                                    </div>
+                                    <div class="lead-name">Surya</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Reshma CP.jpg" alt="Reshma">
+                                        <span class="lead-initials">R</span>
+                                    </div>
+                                    <div class="lead-name">Reshma</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Volunteer Coordination & Training</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Dhiksha, Niranjan</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Dhiksha Ramesh.jpg" alt="Dhiksha">
+                                        <span class="lead-initials">D</span>
+                                    </div>
+                                    <div class="lead-name">Dhiksha</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/niranjan.jpg" alt="Niranjan">
+                                        <span class="lead-initials">N</span>
+                                    </div>
+                                    <div class="lead-name">Niranjan</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Administration</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Jhanani, Yuva</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Jhanani.jpg" alt="Jhanani">
+                                        <span class="lead-initials">J</span>
+                                    </div>
+                                    <div class="lead-name">Jhanani</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/Yuvashree_Nandakumar.jpg" alt="Yuva">
+                                        <span class="lead-initials">Y</span>
+                                    </div>
+                                    <div class="lead-name">Yuva</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="bg-white p-4 rounded shadow-sm">
                             <h6 class="text-primary mb-2">Accounting</h6>
-                            <p class="mb-1"><strong>Leads:</strong> Nadiya Afshan, Nevatha</p>
+                            <div class="d-flex gap-3">
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/nadiya_afshan.jpg" alt="Nadiya Afshan">
+                                        <span class="lead-initials">N</span>
+                                    </div>
+                                    <div class="lead-name">Nadiya Afshan</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="lead-avatar mx-auto mb-2">
+                                        <img class="lead-img" src="/img/leads/nevatha.jpg" alt="Nevatha">
+                                        <span class="lead-initials">N</span>
+                                    </div>
+                                    <div class="lead-name">Nevatha</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
